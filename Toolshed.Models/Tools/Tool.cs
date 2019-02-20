@@ -21,7 +21,7 @@ namespace Toolshed.Models.Tools
         /// <summary>
         /// unique identifier of tool type
         /// </summary>
-        public ToolType ToolType { get; set; }
+        public PartNumber ToolType { get; set; }
 
         /// <summary>
         /// The parent dispenser

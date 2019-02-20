@@ -13,7 +13,7 @@ namespace Toolshed.Models.Enums
     /// 3200-3400 = screws (flat tops)
     /// 3400-3500 = washers
     /// </summary>
-    public enum ToolType
+    public enum PartNumber
     {
         PhillipsScrewdriver = 1000,
         FlatHeadScrewdriver = 1001,

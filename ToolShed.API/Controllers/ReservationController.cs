@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Toolshed.Models.Scheduler;
 
 namespace ToolShed.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class ReservationController : ControllerBase
     {
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterUserAsync([FromBody] UserInformation userInformation)
+        [HttpPost("new")]
+        public async Task<IActionResult> CreateReservationAsync(Reservation reservation)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -26,10 +27,26 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetUserDetailsAsync(string userId)
+        [HttpGet("{reservationId})")]
+        public async Task<IActionResult> GetReservationsAsync(string reservationId)
         {
-            if (string.IsNullOrEmpty("userId"))
+            if (!ModelState.IsValid)
+                return BadRequest("The user information is incomplete");
+
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet("{userId})")]
+        public async Task<IActionResult> GetReservationAsync(string userId)
+        {
+            if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
             try
@@ -43,7 +60,7 @@ namespace ToolShed.API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateUserAccountAsync([FromBody] UserInformation userInformation)
+        public async Task<IActionResult> UpdateReservationAsync([FromBody] Reservation reservation)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -58,10 +75,10 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpDelete("unregister/{userId}")]
-        public async Task<IActionResult> DeleteUserAsync(string userId)
+        [HttpDelete("{reservationId}")]
+        public async Task<IActionResult> CancelReservationAsync(string reservationId)
         {
-            if (string.IsNullOrEmpty(userId))
+            if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
             try

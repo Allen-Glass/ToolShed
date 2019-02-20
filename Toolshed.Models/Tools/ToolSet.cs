@@ -16,7 +16,7 @@ namespace Toolshed.Models.Tools
         /// <summary>
         /// Unique identifier of toolset
         /// </summary>
-        public ToolType ToolType { get; set; }
+        public PartNumber ToolType { get; set; }
 
         /// <summary>
         /// parts that are missing in the set

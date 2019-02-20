@@ -15,7 +15,7 @@ namespace Toolshed.Models.Tools
         /// <summary>
         /// Identifier of dispensible item
         /// </summary>
-        public ToolType ToolType { get; set; }
+        public PartNumber ToolType { get; set; }
 
         /// <summary>
         /// The number of items being dispensed
