@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.API", "ToolShed\ToolShed.API.csproj", "{874BBE4F-DF65-49C1-994C-A026D1B429A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.API", "ToolShed.API\ToolShed.API.csproj", "{874BBE4F-DF65-49C1-994C-A026D1B429A6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolsShed.Scheduler", "ToolsShed.Scheduler\ToolsShed.Scheduler.csproj", "{72A5AE0E-F2CC-4A1F-BB72-715DF2AE1174}"
 EndProject
