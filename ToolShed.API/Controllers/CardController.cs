@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Toolshed.Models.User;
 
 namespace ToolShed.API.Controllers
 {
@@ -18,7 +19,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -34,7 +35,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -43,14 +44,14 @@ namespace ToolShed.API.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<IActionResult> GetCurrentCardInformationAsync(string userId)
+        public async Task<IActionResult> GetAllUsersCardInformationAsync(string userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -66,7 +67,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -74,15 +75,15 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpDelete("remove")]
-        public async Task<IActionResult> RemoveNewCardAsync(Card card)
+        [HttpDelete("remove/{cardId}")]
+        public async Task<IActionResult> RemoveNewCardAsync(string cardId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {

@@ -22,6 +22,6 @@ namespace Toolshed.Models.Enums
         AllenWrenchSet = 2001,
         WrenchSet = 2002,
         RoundedScrew = 3000,
-        FlatheadScrew = 3001
+        FlatheadScrew = 3200
     }
 }

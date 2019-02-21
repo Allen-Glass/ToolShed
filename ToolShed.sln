@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolsShed.Scheduler", "Tool
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolshed.Models", "Toolshed.Models\Toolshed.Models.csproj", "{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.DispenserActions", "ToolShed.DispenserActions\ToolShed.DispenserActions.csproj", "{380353BD-A95B-4122-A6A9-AFC4CD7BE20A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.DispenserActions", "ToolShed.DispenserActions\ToolShed.DispenserActions.csproj", "{380353BD-A95B-4122-A6A9-AFC4CD7BE20A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Web", "ToolShed.Web\ToolShed.Web.csproj", "{B1B3A044-4305-4069-9C72-A7798E81E7B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Web", "ToolShed.Web\ToolShed.Web.csproj", "{B1B3A044-4305-4069-9C72-A7798E81E7B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Dispensers", "ToolShed.Dispensers\ToolShed.Dispensers.csproj", "{539C4F49-242A-4014-ABE3-4F7840F51656}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Dispensers", "ToolShed.Dispensers\ToolShed.Dispensers.csproj", "{539C4F49-242A-4014-ABE3-4F7840F51656}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolshed.SignalR", "Toolshed.SignalR\Toolshed.SignalR.csproj", "{2F61B96D-E39B-43F2-AEC2-72540296B164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolshed.SignalR", "Toolshed.SignalR\Toolshed.SignalR.csproj", "{2F61B96D-E39B-43F2-AEC2-72540296B164}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Repository", "ToolShed.Repository\ToolShed.Repository.csproj", "{368298E8-39CF-4C7D-9ACB-37C1346A2575}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{2F61B96D-E39B-43F2-AEC2-72540296B164}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F61B96D-E39B-43F2-AEC2-72540296B164}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F61B96D-E39B-43F2-AEC2-72540296B164}.Release|Any CPU.Build.0 = Release|Any CPU
+		{368298E8-39CF-4C7D-9ACB-37C1346A2575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368298E8-39CF-4C7D-9ACB-37C1346A2575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368298E8-39CF-4C7D-9ACB-37C1346A2575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368298E8-39CF-4C7D-9ACB-37C1346A2575}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

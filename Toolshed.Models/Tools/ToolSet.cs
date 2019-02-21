@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Toolshed.Models.Enums;
 
 namespace Toolshed.Models.Tools
@@ -8,6 +11,13 @@ namespace Toolshed.Models.Tools
     /// </summary>
     public class ToolSet
     {
+        /// <summary>
+        /// pk of tool set
+        /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid ToolSetId { get; set; }
+
         /// <summary>
         /// Toolset display name
         /// </summary>

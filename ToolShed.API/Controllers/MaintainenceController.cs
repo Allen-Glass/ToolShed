@@ -3,16 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Toolshed.Models.User;
+using Toolshed.Models.Maintenance;
 
 namespace ToolShed.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class MaintenanceController : ControllerBase
     {
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterUserAsync([FromBody] UserInformation userInformation)
+        [HttpPost("request")]
+        public async Task<IActionResult> RequestMaintenanceAsync(MaintenanceRequest MaintenanceRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -27,24 +27,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetUserDetailsAsync(string userId)
-        {
-            if (string.IsNullOrEmpty("userId"))
-                return BadRequest("The user information is incomplete");
-
-            try
-            {
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateUserAccountAsync([FromBody] UserInformation userInformation)
+        [HttpGet]
+        public async Task<IActionResult> GetAllMaintenanceRequestsAsync()
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -59,10 +43,42 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpDelete("unregister/{userId}")]
-        public async Task<IActionResult> DeleteUserAsync(string userId)
+        [HttpGet("{dispenserId}")]
+        public async Task<IActionResult> GetAllMaintenanceOfDispenserRequestsAsync(string dispenserId)
         {
-            if (string.IsNullOrEmpty(userId))
+            if (!ModelState.IsValid)
+                return BadRequest("The user information is incomplete");
+
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet("{MaintenanceId}")]
+        public async Task<IActionResult> GetSpecificMaintenanceRequestsAsync(string MaintenanceId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("The user information is incomplete");
+
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpDelete("complete/{MaintenanceId}")]
+        public async Task<IActionResult> CompleteMaintenanceRequestAsync(string MaintenanceId)
+        {
+            if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
             try

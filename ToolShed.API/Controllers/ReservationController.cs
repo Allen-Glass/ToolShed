@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Toolshed.Models.Scheduler;
 
@@ -19,7 +17,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -35,7 +33,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -51,7 +49,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -67,7 +65,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -83,7 +81,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch (Exception ex)
             {
