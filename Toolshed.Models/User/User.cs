@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Toolshed.Models.User
 {
     /// <summary>
     /// User uploaded information
     /// </summary>
-    public class UserInformation
+    public class User
     {
         /// <summary>
-        /// User's first name
+        /// pk of user
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// User's first name
+        /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
@@ -32,5 +36,10 @@ namespace Toolshed.Models.User
         /// user address
         /// </summary>
         public Address Address { get; set; }
+
+        /// <summary>
+        /// user credit cards
+        /// </summary>
+        public IEnumerable<Card> CreditCards { get; set; }
     }
 }

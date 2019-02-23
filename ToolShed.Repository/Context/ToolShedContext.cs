@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Toolshed.Models.Dispensers;
 using Toolshed.Models.Maintenance;
 using Toolshed.Models.User;
@@ -20,6 +17,7 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<MaintenanceRequest> MaintenanceRequestSet { get; set; }
         public virtual DbSet<Address> AddressSet { get; set; }
         public virtual DbSet<Card> CardSet { get; set; }
+        public virtual DbSet<User> UserSet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +33,8 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.AddressId);
             modelBuilder.Entity<Card>().ToTable("Card")
                 .HasKey(c => c.CardId);
+            modelBuilder.Entity<User>().ToTable("User")
+                .HasKey(c => c.UserId);
         }
     }
 }

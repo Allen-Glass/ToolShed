@@ -44,6 +44,11 @@ namespace Toolshed.Models.User
         public string State { get; set; }
 
         /// <summary>
+        /// User's city
+        /// </summary>
+        public string City { get; set; }
+
+        /// <summary>
         /// zip code
         /// </summary>
         public string ZipCode { get; set; }

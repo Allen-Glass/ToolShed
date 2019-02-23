@@ -12,7 +12,7 @@ namespace ToolShed.API.Controllers
     public class UsersController : ControllerBase
     {
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterUserAsync([FromBody] UserInformation userInformation)
+        public async Task<IActionResult> RegisterUserAsync([FromBody] User userInformation)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -44,7 +44,7 @@ namespace ToolShed.API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateUserAccountAsync([FromBody] UserInformation userInformation)
+        public async Task<IActionResult> UpdateUserAccountAsync([FromBody] User userInformation)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");

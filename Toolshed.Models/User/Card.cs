@@ -19,6 +19,11 @@ namespace Toolshed.Models.User
         public Guid CardId { get;set; }
 
         /// <summary>
+        /// userId associated with card
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
         /// Credit Card number
         /// </summary>
         public string CardNumber { get; set; }

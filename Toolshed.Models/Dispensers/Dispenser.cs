@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Toolshed.Models.Tools;
+using Toolshed.Models.User;
 
 namespace Toolshed.Models.Dispensers
 {
@@ -25,8 +26,23 @@ namespace Toolshed.Models.Dispensers
         public DateTime LastMaintenanceCheck { get; set; }
 
         /// <summary>
+        /// the date the dispenser is created
+        /// </summary>
+        public DateTime CreationDate { get; set; }
+
+        /// <summary>
+        /// the date the dispenser is scheduled to be decommisioned
+        /// </summary>
+        public DateTime DecommishDate { get; set; }
+
+        /// <summary>
         /// list of dispensable items
         /// </summary>
         public IEnumerable<Dispensibles> Dispensibles { get; set; }
+
+        /// <summary>
+        /// the location of the dispenser
+        /// </summary>
+        public Address DispenserLocation { get; set; }
     }
 }
