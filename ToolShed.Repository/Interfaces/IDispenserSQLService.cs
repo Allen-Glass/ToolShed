@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ToolShed.Repository.Interfaces
 {
-    public interface IUserRepository
+    public interface IDispenserSQLService
     {
     }
 }

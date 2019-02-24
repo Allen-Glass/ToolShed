@@ -16,6 +16,11 @@ namespace Toolshed.Models.Dispensers
         public Guid DispenserId { get; set; }
 
         /// <summary>
+        /// the unique name of the dispenser
+        /// </summary>
+        public string DispenserName { get; set; }
+
+        /// <summary>
         /// List of all available tools
         /// </summary>
         public IEnumerable<Tool> AvailableTools { get; set; }

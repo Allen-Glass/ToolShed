@@ -15,6 +15,9 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<MaintenanceRequest> MaintenanceRequestSet { get; set; }
         public virtual DbSet<Address> AddressSet { get; set; }
         public virtual DbSet<Card> CardSet { get; set; }
+        public virtual DbSet<UserCard> UserCardSet { get; set; }
+        public virtual DbSet<UserAddresses> UserAddressesSet { get; set; }
+        public virtual DbSet<CardAddress> CardAddressesSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<Tool> ToolSet { get; set; }
 
@@ -30,6 +33,12 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.AddressId);
             modelBuilder.Entity<Card>().ToTable("Card")
                 .HasKey(c => c.CardId);
+            modelBuilder.Entity<UserCard>().ToTable("UserCard")
+                .HasKey(c => c.UserCardId);
+            modelBuilder.Entity<UserAddresses>().ToTable("UserAddresses")
+                .HasKey(c => c.UserAddressesId);
+            modelBuilder.Entity<CardAddress>().ToTable("CardAddresses")
+                .HasKey(c => c.CardAddressesId);
             modelBuilder.Entity<User>().ToTable("User")
                 .HasKey(c => c.UserId);
             modelBuilder.Entity<Tool>().ToTable("Tool")

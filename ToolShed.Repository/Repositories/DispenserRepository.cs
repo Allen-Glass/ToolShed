@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Toolshed.Models.Dispensers;
+using Toolshed.Models.SQL;
 using ToolShed.Repository.Context;
 
-namespace ToolShed.Repository
+namespace ToolShed.Repository.Repositories
 {
     public class DispenserRepository
     {
@@ -19,13 +19,15 @@ namespace ToolShed.Repository
 
         public async Task AddDispenserAsync(Dispenser dispenser)
         {
-            await toolShedContext.DispenserSet.AddAsync(dispenser);
+            await toolShedContext.DispenserSet
+                .AddAsync(dispenser);
             await toolShedContext.SaveChangesAsync();
         }
 
         public async Task RemoveDispenserAsync(Dispenser dispenser)
         {
-            toolShedContext.DispenserSet.Remove(dispenser);
+            toolShedContext.DispenserSet
+                .Remove(dispenser);
             await toolShedContext.SaveChangesAsync();
         }
     }

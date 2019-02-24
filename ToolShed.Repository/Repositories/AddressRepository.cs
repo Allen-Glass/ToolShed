@@ -7,7 +7,7 @@ using Toolshed.Models.Enums;
 using Toolshed.Models.SQL;
 using ToolShed.Repository.Context;
 
-namespace ToolShed.Repository
+namespace ToolShed.Repository.Repositories
 {
     public class AddressRepository
     {
@@ -18,11 +18,13 @@ namespace ToolShed.Repository
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddAddressAsync(Address address)
+        public async Task<Guid> AddAddressAsync(Address address)
         {
             await toolShedContext.AddressSet
                 .AddAsync(address);
             await toolShedContext.SaveChangesAsync();
+
+            return address.AddressId;
         }
 
         public async Task<Address> GetAddressByAddressIdAsync(Guid addressId)

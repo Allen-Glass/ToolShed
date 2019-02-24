@@ -2,12 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Toolshed.Models.User;
+using Toolshed.Models.SQL;
 using ToolShed.Repository.Context;
 
-namespace ToolShed.Repository
+namespace ToolShed.Repository.Repositories
 {
     public class UserRepository
     {
@@ -18,10 +17,13 @@ namespace ToolShed.Repository
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddUserAsync(User userInformation)
+        public async Task<Guid> AddUserAsync(User user)
         {
-            await toolShedContext.AddAsync(userInformation);
+            await toolShedContext
+                .AddAsync(user);
             await toolShedContext.SaveChangesAsync();
+
+            return user.UserId;
         }
 
         public async Task<User> GetUserByEmailAsync(string email)
@@ -56,19 +58,10 @@ namespace ToolShed.Repository
                 .ToListAsync();
         }
 
-        public async Task UpdateUserAddressAsync(User user)
-        {
-            toolShedContext.UserSet
-                .Where(c => c.UserId.Equals(user.UserId))
-                .ToList()
-                .ForEach(c => c.Address = user.Address);
-
-            await toolShedContext.SaveChangesAsync();
-        }
-
         public async Task DeleteUserAsync(User user)
         {
-            toolShedContext.Remove(user);
+            toolShedContext.UserSet
+                .Remove(user);
             await toolShedContext.SaveChangesAsync();
         }
     }

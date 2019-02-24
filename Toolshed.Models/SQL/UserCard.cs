@@ -5,7 +5,7 @@ namespace Toolshed.Models.SQL
     /// <summary>
     /// table to associate users to credit cards
     /// </summary>
-    public class UserCardList
+    public class UserCard
     {
         /// <summary>
         /// pk of usercard table

@@ -2,12 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Toolshed.Models.User;
+using Toolshed.Models.SQL;
 using ToolShed.Repository.Context;
 
-namespace ToolShed.Repository
+namespace ToolShed.Repository.Repositories
 {
     public class CardRepository
     {
@@ -18,10 +17,13 @@ namespace ToolShed.Repository
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddCardAsync(Card card)
+        public async Task<Guid> AddCardAsync(Card card)
         {
-            await toolShedContext.CardSet.AddAsync(card);
+            await toolShedContext.CardSet
+                .AddAsync(card);
             await toolShedContext.SaveChangesAsync();
+
+            return card.CardId;
         }
 
         public async Task<IEnumerable<Card>> GetCardByUserIdAsync(string userId)
@@ -29,18 +31,6 @@ namespace ToolShed.Repository
             return await toolShedContext.CardSet
                 .Where(c => c.UserId.Equals(userId))
                 .ToListAsync();              
-        }
-
-        public async Task UpdateCardBillingAddress(Card card)
-        {
-            await toolShedContext.CardSet
-                .Where(c => c.CardId.Equals(card.CardId))
-                .FirstOrDefaultAsync(c => c.BillingAddress.Equals(card.BillingAddress));
-        }
-
-        public async Task DeleteCardAsync(string cardId)
-        {
-
         }
 
         public async Task DeleteCardAsync(Card card)
