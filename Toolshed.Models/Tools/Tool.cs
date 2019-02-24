@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Toolshed.Models.Enums;
 
 namespace Toolshed.Models.Tools
@@ -11,6 +13,8 @@ namespace Toolshed.Models.Tools
         /// <summary>
         /// pk of tool
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ToolId { get; set; }
 
         /// <summary>
@@ -21,7 +25,7 @@ namespace Toolshed.Models.Tools
         /// <summary>
         /// unique identifier of tool type
         /// </summary>
-        public ToolType ToolType { get; set; }
+        public PartNumber ToolType { get; set; }
 
         /// <summary>
         /// The parent dispenser

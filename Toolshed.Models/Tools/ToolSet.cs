@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Toolshed.Models.Enums;
 
 namespace Toolshed.Models.Tools
@@ -9,6 +12,13 @@ namespace Toolshed.Models.Tools
     public class ToolSet
     {
         /// <summary>
+        /// pk of tool set
+        /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid ToolSetId { get; set; }
+
+        /// <summary>
         /// Toolset display name
         /// </summary>
         public string ToolSetName { get; set; }
@@ -16,7 +26,7 @@ namespace Toolshed.Models.Tools
         /// <summary>
         /// Unique identifier of toolset
         /// </summary>
-        public ToolType ToolType { get; set; }
+        public PartNumber ToolType { get; set; }
 
         /// <summary>
         /// parts that are missing in the set

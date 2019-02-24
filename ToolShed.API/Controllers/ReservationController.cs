@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Toolshed.Models.User;
+using Toolshed.Models.Scheduler;
 
 namespace ToolShed.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CardController : ControllerBase
+    public class ReservationController : ControllerBase
     {
         [HttpPost("new")]
-        public async Task<IActionResult> AddNewCreditCardAsync(Card card)
+        public async Task<IActionResult> CreateReservationAsync(Reservation reservation)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -27,8 +25,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpGet("card/{cardId}")]
-        public async Task<IActionResult> GetCurrentCardInformationAsync(string cardId)
+        [HttpGet("{reservationId})")]
+        public async Task<IActionResult> GetReservationsAsync(string reservationId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -43,8 +41,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetAllUsersCardInformationAsync(string userId)
+        [HttpGet("{userId})")]
+        public async Task<IActionResult> GetReservationAsync(string userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -59,8 +57,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateCardInformationAsync(Card card)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateReservationAsync([FromBody] Reservation reservation)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -75,8 +73,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpDelete("remove/{cardId}")]
-        public async Task<IActionResult> RemoveNewCardAsync(string cardId)
+        [HttpDelete("{reservationId}")]
+        public async Task<IActionResult> CancelReservationAsync(string reservationId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");

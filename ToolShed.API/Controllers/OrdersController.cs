@@ -20,7 +20,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-
+                return null;
             }
             catch(Exception ex)
             {

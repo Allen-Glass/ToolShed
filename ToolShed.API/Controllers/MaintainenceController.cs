@@ -3,16 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Toolshed.Models.User;
+using Toolshed.Models.Maintenance;
 
 namespace ToolShed.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CardController : ControllerBase
+    public class MaintenanceController : ControllerBase
     {
-        [HttpPost("new")]
-        public async Task<IActionResult> AddNewCreditCardAsync(Card card)
+        [HttpPost("request")]
+        public async Task<IActionResult> RequestMaintenanceAsync(MaintenanceRequest MaintenanceRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -27,8 +27,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpGet("card/{cardId}")]
-        public async Task<IActionResult> GetCurrentCardInformationAsync(string cardId)
+        [HttpGet]
+        public async Task<IActionResult> GetAllMaintenanceRequestsAsync()
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -43,8 +43,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetAllUsersCardInformationAsync(string userId)
+        [HttpGet("{dispenserId}")]
+        public async Task<IActionResult> GetAllMaintenanceOfDispenserRequestsAsync(string dispenserId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -59,8 +59,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateCardInformationAsync(Card card)
+        [HttpGet("{MaintenanceId}")]
+        public async Task<IActionResult> GetSpecificMaintenanceRequestsAsync(string MaintenanceId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -75,8 +75,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpDelete("remove/{cardId}")]
-        public async Task<IActionResult> RemoveNewCardAsync(string cardId)
+        [HttpDelete("complete/{MaintenanceId}")]
+        public async Task<IActionResult> CompleteMaintenanceRequestAsync(string MaintenanceId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
