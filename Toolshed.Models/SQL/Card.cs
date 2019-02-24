@@ -1,16 +1,20 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Toolshed.Models.User
+namespace Toolshed.Models.SQL
 {
     /// <summary>
-    /// Credit card object
+    /// credit card sql object
     /// </summary>
     public class Card
     {
         /// <summary>
         /// pk of credit card
         /// </summary>
-        public Guid CardId { get;set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid CardId { get; set; }
 
         /// <summary>
         /// userId associated with card
@@ -23,11 +27,6 @@ namespace Toolshed.Models.User
         public string CardNumber { get; set; }
 
         /// <summary>
-        /// CCV of a credit card
-        /// </summary>
-        public string CCV { get; set; }
-
-        /// <summary>
         /// Card holder name
         /// </summary>
         public string CardHolderName { get; set; }
@@ -35,6 +34,6 @@ namespace Toolshed.Models.User
         /// <summary>
         /// Billing Address of credit card
         /// </summary>
-        public Address BillingAddress { get; set; }
+        public Guid BillingAddressId { get; set; }
     }
 }

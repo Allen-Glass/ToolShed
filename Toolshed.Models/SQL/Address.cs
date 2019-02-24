@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 using Toolshed.Models.Enums;
 
-namespace Toolshed.Models.User
+namespace Toolshed.Models.SQL
 {
-    /// <summary>
-    /// Address object
-    /// </summary>
     public class Address
     {
         /// <summary>
         /// pk of address stored
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid AddressId { get; set; }
 
         /// <summary>
