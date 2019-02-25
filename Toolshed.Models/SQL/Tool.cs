@@ -11,14 +11,24 @@ namespace Toolshed.Models.SQL
         public Guid ToolId { get; set; }
 
         /// <summary>
-        /// Dispenser that the tool is being associated with
+        /// display name of the tool
         /// </summary>
-        public Guid DispenserId { get; set; }
+        public string ToolName { get; set; }
 
         /// <summary>
         /// part number
         /// </summary>
         public PartNumber ToolType { get; set; }
+
+        /// <summary>
+        /// Dispenser that the tool is being associated with
+        /// </summary>
+        public Guid DispenserId { get; set; }
+
+        /// <summary>
+        /// Tool is available to be used
+        /// </summary>
+        public bool IsAvailable { get; set; }
 
         /// <summary>
         /// tool needs repair
@@ -31,14 +41,24 @@ namespace Toolshed.Models.SQL
         public bool NeedsReplacement { get; set; }
 
         /// <summary>
-        /// Tool is available to be used
+        /// Tool not reported on
         /// </summary>
-        public bool IsAvailable { get; set; }
+        public bool IsMissing { get; set; }
+
+        /// <summary>
+        /// cost of the actual tool
+        /// </summary>
+        public double ToolCost { get; set; }
 
         /// <summary>
         /// date when tool is first accounted for in logistics cycle
         /// </summary>
-        public DateTime AccountedForDate { get; set; }
+        public DateTime PurchaseDate { get; set; }
+
+        /// <summary>
+        /// the date when the tool is assigned to a dispenser
+        /// </summary>
+        public DateTime AssignmentDate { get; set; }
 
         /// <summary>
         /// Date of last inspection

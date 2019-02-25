@@ -48,8 +48,38 @@ namespace Toolshed.Models.Tools
         public bool NeedsInspection { get; set; }
 
         /// <summary>
+        /// tool needs replacement
+        /// </summary>
+        public bool NeedsReplacement { get; set; }
+
+        /// <summary>
         /// Tool not reported on
         /// </summary>
         public bool IsMissing { get; set; }
+
+        /// <summary>
+        /// cost of the actual tool
+        /// </summary>
+        public double ToolCost { get; set; }
+
+        /// <summary>
+        /// date when tool is first accounted for in logistics cycle
+        /// </summary>
+        public DateTime PurchaseDate { get; set; }
+
+        /// <summary>
+        /// the date when the tool is assigned to a dispenser
+        /// </summary>
+        public DateTime AssignmentDate { get; set; }
+
+        /// <summary>
+        /// Date of last inspection
+        /// </summary>
+        public DateTime LastInspection { get; set; }
+
+        /// <summary>
+        /// date when tool is to be decommissioned
+        /// </summary>
+        public DateTime DecommissionDate { get; set; }
     }
 }

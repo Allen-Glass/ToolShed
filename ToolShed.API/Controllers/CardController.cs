@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
@@ -35,11 +36,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
@@ -51,11 +52,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
@@ -67,11 +68,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
@@ -83,11 +84,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
     }

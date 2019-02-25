@@ -24,6 +24,18 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Dispenser>> GetAllDispensers()
+        {
+            return await toolShedContext.DispenserSet
+                .ToListAsync();
+        }
+
+        public async Task<Dispenser> GetDispenserByDispenserId(Guid dispenserId)
+        {
+            return await toolShedContext.DispenserSet
+                .FirstOrDefaultAsync(c => c.DispenserId.Equals(dispenserId));
+        }
+
         public async Task RemoveDispenserAsync(Dispenser dispenser)
         {
             toolShedContext.DispenserSet

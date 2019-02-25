@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Toolshed.Models\Toolshed.Models.csproj" />
+    <ProjectReference Include="..\ToolShed.Repository\ToolShed.Repository.csproj" />
+    <ProjectReference Include="..\Toolshed.SignalR\Toolshed.SignalR.csproj" />
   </ItemGroup>
 
 </Project>

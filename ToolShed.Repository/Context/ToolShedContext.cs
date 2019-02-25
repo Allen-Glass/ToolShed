@@ -11,6 +11,7 @@ namespace ToolShed.Repository.Context
         }
 
         public virtual DbSet<Dispenser> DispenserSet { get; set; }
+        public virtual DbSet<DispenserTool> DispenserToolSet { get; set; }
         public virtual DbSet<MaintenanceProvider> MaintenanceProviderSet { get; set; }
         public virtual DbSet<MaintenanceRequest> MaintenanceRequestSet { get; set; }
         public virtual DbSet<Address> AddressSet { get; set; }
@@ -25,6 +26,8 @@ namespace ToolShed.Repository.Context
         {
             modelBuilder.Entity<Dispenser>().ToTable("Dispenser")
                 .HasKey(c => c.DispenserId);
+            modelBuilder.Entity<DispenserTool>().ToTable("DispenserTool")
+                .HasKey(c => c.DispenserToolId);
             modelBuilder.Entity<MaintenanceProvider>().ToTable("MaintenanceProvider")
                 .HasKey(c => c.MaintenanceProviderId);
             modelBuilder.Entity<MaintenanceRequest>().ToTable("MaintenanceRequest")

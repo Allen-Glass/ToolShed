@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Toolshed.Models.User;
+using ToolShed.Repository.Interfaces;
 
 namespace ToolShed.API.Controllers
 {
@@ -11,19 +13,27 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IUserSQLService userSQLService;
+
+        public UsersController(IUserSQLService userSQLService)
+        {
+            this.userSQLService = userSQLService;
+        }
+
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterUserAsync([FromBody] User userInformation)
+        public async Task<IActionResult> RegisterUserAsync([FromBody] User user)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
             try
             {
-                return null;
+                await userSQLService.StoreUserInformationAsync(user);
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
@@ -35,11 +45,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
@@ -51,11 +61,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
@@ -67,11 +77,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
             catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
     }

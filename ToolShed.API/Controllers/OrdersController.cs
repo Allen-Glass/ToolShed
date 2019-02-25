@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,11 +21,11 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return null;
+                return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw ex;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
     }
