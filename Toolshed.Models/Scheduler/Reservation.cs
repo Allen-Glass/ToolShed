@@ -1,5 +1,4 @@
 ﻿using System;
-using Toolshed.Models.Accounts;
 using Toolshed.Models.Orders;
 
 namespace Toolshed.Models.Scheduler
@@ -12,7 +11,7 @@ namespace Toolshed.Models.Scheduler
         /// <summary>
         /// The user account renting the tool
         /// </summary>
-        public Account Account { get; set; }
+        //public User User { get; set; }
 
         /// <summary>
         /// The time when the reservation starts

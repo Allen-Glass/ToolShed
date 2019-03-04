@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Toolshed.Models.SQL
+namespace Toolshed.Repository.Models
 {
     /// <summary>
     /// table to associate users to credit cards

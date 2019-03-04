@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Toolshed.Models.SQL;
+using Toolshed.Repository.Models;
 using ToolShed.Repository.Context;
 
 namespace ToolShed.Repository.Repositories

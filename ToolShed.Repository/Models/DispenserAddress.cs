@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Toolshed.Models.SQL
+namespace Toolshed.Repository.Models
 {
     /// <summary>
     /// table that relates dispensers to address

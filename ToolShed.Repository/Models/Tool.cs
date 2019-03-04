@@ -1,7 +1,7 @@
 ﻿using System;
 using Toolshed.Models.Enums;
 
-namespace Toolshed.Models.SQL
+namespace Toolshed.Repository.Models
 {
     public class Tool
     {

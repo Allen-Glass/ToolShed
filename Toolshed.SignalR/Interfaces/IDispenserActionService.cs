@@ -16,5 +16,7 @@ namespace Toolshed.SignalR.Interfaces
         /// <param name="message">the json object containing the action to commit</param>
         /// <param name="dispenserId">pk of dispenser</param>
         Task SendActionToDispenser(string message, Guid dispenserId);
+
+        Task BroadCastMessage(string message);
     }
 }

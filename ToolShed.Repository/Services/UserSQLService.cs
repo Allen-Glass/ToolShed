@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
 using Toolshed.Models.User;
+using Toolshed.Models.Users;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
 {
-    public class UserSQLService : IUserSQLService
+    public class UserSQLService
     {
         private readonly UserRepository userRepository;
         private readonly AddressRepository addressRepository;
@@ -54,9 +55,9 @@ namespace ToolShed.Repository.Services
             await userRepository.DeleteUserAsync(ConvertUserToDtoUser(user));
         }
 
-        private Toolshed.Models.SQL.User ConvertUserToDtoUser(User user)
+        private Toolshed.Repository.Models.User ConvertUserToDtoUser(User user)
         {
-            return new Toolshed.Models.SQL.User
+            return new Toolshed.Repository.Models.User
             {
                 Email = user.Email,
                 Password = user.Password,
@@ -65,36 +66,36 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Toolshed.Models.SQL.UserAddresses CreateUserAddressDTO(Guid userId, Guid addressId)
+        private Toolshed.Repository.Models.UserAddresses CreateUserAddressDTO(Guid userId, Guid addressId)
         {
-            return new Toolshed.Models.SQL.UserAddresses
+            return new Toolshed.Repository.Models.UserAddresses
             {
                 UserId = userId,
                 AddressId = addressId
             };
         }
 
-        private Toolshed.Models.SQL.UserCard CreateUserCardDTO(Guid userId, Guid cardId)
+        private Toolshed.Repository.Models.UserCard CreateUserCardDTO(Guid userId, Guid cardId)
         {
-            return new Toolshed.Models.SQL.UserCard
+            return new Toolshed.Repository.Models.UserCard
             {
                 UserId = userId,
                 CardId = cardId
             };
         }
 
-        private Toolshed.Models.SQL.CardAddress CreateCardAddressDTO(Guid addressId, Guid cardId)
+        private Toolshed.Repository.Models.CardAddress CreateCardAddressDTO(Guid addressId, Guid cardId)
         {
-            return new Toolshed.Models.SQL.CardAddress
+            return new Toolshed.Repository.Models.CardAddress
             {
                 AddressId = addressId,
                 CardId = cardId
             };
         }
 
-        private Toolshed.Models.SQL.User ConvertUserToDtoUser(User user, Guid addressId)
+        private Toolshed.Repository.Models.User ConvertUserToDtoUser(User user, Guid addressId)
         {
-            return new Toolshed.Models.SQL.User
+            return new Toolshed.Repository.Models.User
             {
                 Email = user.Email,
                 Password = user.Password,
@@ -104,9 +105,9 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Toolshed.Models.SQL.Address ConvertAddressToDtoAddress(Address address)
+        private Toolshed.Repository.Models.Address ConvertAddressToDtoAddress(Address address)
         {
-            return new Toolshed.Models.SQL.Address
+            return new Toolshed.Repository.Models.Address
             {
                 AddressType = AddressType.user,
                 AptNumber = address.AptNumber,
@@ -119,9 +120,9 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Toolshed.Models.SQL.Card ConvertCardToDtoCard(Card card)
+        private Toolshed.Repository.Models.Card ConvertCardToDtoCard(Card card)
         {
-            return new Toolshed.Models.SQL.Card
+            return new Toolshed.Repository.Models.Card
             {
                 CardHolderName = card.CardHolderName,
                 CardNumber = card.CardNumber,

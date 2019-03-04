@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Toolshed.Models\Toolshed.Models.csproj" />
+    <ProjectReference Include="..\Toolshed.Models\ToolShed.Models.csproj" />
   </ItemGroup>
 
 </Project>

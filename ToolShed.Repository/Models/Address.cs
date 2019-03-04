@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using Toolshed.Models.Enums;
 
-namespace Toolshed.Models.SQL
+namespace Toolshed.Repository.Models
 {
     public class Address
     {

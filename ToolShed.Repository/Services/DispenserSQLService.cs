@@ -67,18 +67,18 @@ namespace ToolShed.Repository.Services
             }
         }
 
-        private Toolshed.Models.SQL.DispenserTool CreateDispenserToolObject(Guid dispenserId, Guid toolId)
+        private Toolshed.Repository.Models.DispenserTool CreateDispenserToolObject(Guid dispenserId, Guid toolId)
         {
-            return new Toolshed.Models.SQL.DispenserTool
+            return new Toolshed.Repository.Models.DispenserTool
             {
                 ToolId = toolId,
                 DispenserId = dispenserId
             };
         }
 
-        private Toolshed.Models.SQL.Dispenser ConvertDispenserToDTODispenser(Dispenser dispenser)
+        private Toolshed.Repository.Models.Dispenser ConvertDispenserToDTODispenser(Dispenser dispenser)
         {
-            return new Toolshed.Models.SQL.Dispenser
+            return new Toolshed.Repository.Models.Dispenser
             {
                 CreationDate = dispenser.CreationDate,
                 DecommissionDate = dispenser.DecommishDate,
@@ -87,7 +87,7 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Dispenser ConvertDTODispenserToDispenser(Toolshed.Models.SQL.Dispenser dispenser)
+        private Dispenser ConvertDTODispenserToDispenser(Toolshed.Repository.Models.Dispenser dispenser)
         {
             return new Dispenser
             {
@@ -98,7 +98,7 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Dispenser ConvertDTODispenserToDispenser(Toolshed.Models.SQL.Dispenser dispenser, IEnumerable<Tool> tools)
+        private Dispenser ConvertDTODispenserToDispenser(Toolshed.Repository.Models.Dispenser dispenser, IEnumerable<Tool> tools)
         {
             return new Dispenser
             {
@@ -110,7 +110,7 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private IEnumerable<Dispenser> ConvertDTODispensersToDispensers(IEnumerable<Toolshed.Models.SQL.Dispenser> dispensers)
+        private IEnumerable<Dispenser> ConvertDTODispensersToDispensers(IEnumerable<Toolshed.Repository.Models.Dispenser> dispensers)
         {
             var dispenserList = new List<Dispenser>();
             foreach(var dispenser in dispensers)
@@ -121,9 +121,9 @@ namespace ToolShed.Repository.Services
             return dispenserList;
         }
 
-        private Toolshed.Models.SQL.Tool ConvertTooltoDTOTool(Tool tool)
+        private Toolshed.Repository.Models.Tool ConvertTooltoDTOTool(Tool tool)
         {
-            return new Toolshed.Models.SQL.Tool
+            return new Toolshed.Repository.Models.Tool
             {
                 AssignmentDate = tool.AssignmentDate,
                 DecommissionDate = tool.DecommissionDate,
@@ -140,9 +140,9 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private IEnumerable<Toolshed.Models.SQL.Tool> ConvertToolstoDTOTools(IEnumerable<Tool> tools)
+        private IEnumerable<Toolshed.Repository.Models.Tool> ConvertToolstoDTOTools(IEnumerable<Tool> tools)
         {
-            var toolList = new List<Toolshed.Models.SQL.Tool>();
+            var toolList = new List<Toolshed.Repository.Models.Tool>();
             foreach (var tool in tools)
             {
                 toolList.Add(ConvertTooltoDTOTool(tool));
@@ -150,7 +150,7 @@ namespace ToolShed.Repository.Services
             return toolList;
         }
 
-        private Tool ConvertDTOTooltoTool(Toolshed.Models.SQL.Tool tool)
+        private Tool ConvertDTOTooltoTool(Toolshed.Repository.Models.Tool tool)
         {
             return new Tool
             {
@@ -170,7 +170,7 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private IEnumerable<Tool> ConvertDTOToolstoTools(IEnumerable<Toolshed.Models.SQL.Tool> tools)
+        private IEnumerable<Tool> ConvertDTOToolstoTools(IEnumerable<Toolshed.Repository.Models.Tool> tools)
         {
             var toolList = new List<Tool>();
             foreach (var tool in tools)

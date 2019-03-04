@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Toolshed.Models.User;
-using ToolShed.Repository.Interfaces;
+using Toolshed.Models.Users;
 
 namespace ToolShed.API.Controllers
 {
@@ -13,11 +10,10 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserSQLService userSQLService;
-
-        public UsersController(IUserSQLService userSQLService)
+        //private readonly IUserSQLService userSQLService
+        public UsersController()
         {
-            this.userSQLService = userSQLService;
+            //this.userSQLService = userSQLService;
         }
 
         [HttpPost("register")]
@@ -28,7 +24,23 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                await userSQLService.StoreUserInformationAsync(user);
+                //await userSQLService.StoreUserInformationAsync(user);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+        [HttpGet("test")]
+        public async Task<IActionResult> GetUserDetailsAsync()
+        {
+            if (string.IsNullOrEmpty("userId"))
+                return BadRequest("The user information is incomplete");
+
+            try
+            {
                 return Ok();
             }
             catch (Exception ex)

@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Toolshed.Models.User;
 
-namespace Toolshed.Models.SQL
+namespace Toolshed.Models.Users
 {
+    /// <summary>
+    /// User uploaded information
+    /// </summary>
     public class User
     {
         /// <summary>
@@ -34,8 +39,13 @@ namespace Toolshed.Models.SQL
         public string Password { get; set; }
 
         /// <summary>
-        /// user address pk
+        /// user address
         /// </summary>
-        public Guid AddressId { get; set; }
+        public Address Address { get; set; }
+
+        /// <summary>
+        /// user credit cards
+        /// </summary>
+        public IEnumerable<Card> CreditCards { get; set; }
     }
 }

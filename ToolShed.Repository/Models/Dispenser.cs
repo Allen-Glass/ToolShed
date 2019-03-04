@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Toolshed.Models.Tools;
+using Toolshed.Models.User;
 
-namespace Toolshed.Models.SQL
+namespace Toolshed.Repository.Models
 {
     /// <summary>
     /// Tool dispenser object

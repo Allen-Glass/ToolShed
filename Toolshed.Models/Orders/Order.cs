@@ -1,5 +1,4 @@
 ﻿using System;
-using Toolshed.Models.Accounts;
 
 namespace Toolshed.Models.Orders
 {
@@ -16,7 +15,7 @@ namespace Toolshed.Models.Orders
         /// <summary>
         /// User account
         /// </summary>
-        public Account Account { get; set; }
+        //public User User { get; set; }
 
         /// <summary>
         /// price of order
