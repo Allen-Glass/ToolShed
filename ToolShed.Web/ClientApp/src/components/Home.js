@@ -2,26 +2,72 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Home extends Component {
+    constructor() {
+        super();
+        this.state = {
+            input: '',
+            filterText: '',
+            FirstName: '',
+            LastName: '',
+            countryList: null
+        };
+    }
 
     oshit = () => {
-        alert("OH SHIT!!!");
+        this.SendFullName();
+        alert("Well Hello There " + this.state.FirstName + " " + this.state.LastName +"!");
     }
+
     toggleup = () => {
         var text = document.getElementById('test')
         text.style.fontSize = '100px';
         text.innerHTML = ('OR IS IT?!?')
 
     }
+
     toggledown = () => {
         var text = document.getElementById('test')
         text.style.fontSize = '12px';
         text.innerHTML = ('This is a TEST')
     }
 
+    onFilterChange = (event) => {
+        console.log(event.target.value);
+        console.log(event.target.name);
+        if (event.target.name === "FirstName") {
+            this.setState({
+                FirstName: event.target.value
+            });
+        } else if (event.target.name === "LastName") {
+            this.setState({
+                LastName: event.target.value
+            });}
+    }
+
+    SendFullName =  () => {
+        fetch("https://toolshed-api.azurewebsites.net/api/dispenser/sendaction",
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    FirstName: this.state.FirstName,
+                    LastName: this.state.LastName,
+                })
+            })
+            .catch(error => console.error('Error:', error));
+
+    }
+
+
     render() {
         return (<div>
             <h1>Hello, world!</h1>
-            <h2 id = "test"> This is a TEST</h2>
+            <h2 id="test"> This is a TEST</h2>
+            First name: <input type="text" name="FirstName" onChange={this.onFilterChange} value={this.state.FirstName} /><br />
+            Last name: <input type="text" name="LastName" onChange={this.onFilterChange} value={this.state.LastName} /><br />
+            <input type="submit" value="Submit" onClick={this.oshit}/><br />
             <button onClick={this.oshit}>Test</button>
             <button onClick={this.toggleup}>Toggle Up</button>
             <button onClick={this.toggledown}>Toggle Down</button>
