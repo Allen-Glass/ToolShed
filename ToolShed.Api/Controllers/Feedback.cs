@@ -10,20 +10,20 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class Feedback : ControllerBase
     {
-        [HttpPost("add")]
-        public async Task<IActionResult> AddFeebackAsync([FromBody] UserFeedback userFeedback)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("The user Feedback is incomplete");
+        //[HttpPost("add")]
+        //public async Task<IActionResult> AddFeebackAsync([FromBody] UserFeedback userFeedback)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest("The user Feedback is incomplete");
 
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-    }+
+        //    try
+        //    {
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+    }
 }

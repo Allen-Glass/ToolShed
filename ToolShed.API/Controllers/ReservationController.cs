@@ -26,8 +26,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpGet("{reservationId})")]
-        public async Task<IActionResult> GetReservationsAsync(string reservationId)
+        [HttpGet("reservation/{reservationId}")]
+        public async Task<IActionResult> GetReservationAsync(string reservationId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
@@ -43,7 +43,7 @@ namespace ToolShed.API.Controllers
         }
 
         [HttpGet("{userId})")]
-        public async Task<IActionResult> GetReservationAsync(string userId)
+        public async Task<IActionResult> GetReservationsAsync(string userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");

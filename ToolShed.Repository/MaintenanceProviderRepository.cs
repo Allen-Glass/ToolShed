@@ -11,26 +11,26 @@ namespace ToolShed.Repository
 {
     public class MaintenanceProviderRepository
     {
-        private readonly ToolShedContext toolShedContext;
+        //private readonly ToolShedContext toolShedContext;
 
-        public MaintenanceProviderRepository(ToolShedContext toolShedContext)
-        {
-            this.toolShedContext = toolShedContext;
-        }
+        //public MaintenanceProviderRepository(ToolShedContext toolShedContext)
+        //{
+        //    this.toolShedContext = toolShedContext;
+        //}
 
-        public async Task AddMaintenanceProviderAsync(MaintenanceProvider MaintenanceProvider)
-        {
-            await toolShedContext.AddressSet
-                .AddAsync(MaintenanceProvider);
-            await toolShedContext.SaveChangesAsync();
-        }
+        //public async Task AddMaintenanceProviderAsync(MaintenanceProvider MaintenanceProvider)
+        //{
+        //    await toolShedContext.AddressSet
+        //        .AddAsync(MaintenanceProvider);
+        //    await toolShedContext.SaveChangesAsync();
+        //}
 
-        public async Task DeleteMaintenanceProviderAsync(MaintenanceProvider MaintenanceProvider)
-        {
-            toolShedContext.AddressSet
-                .Remove(MaintenanceProvider);
-            await toolShedContext.SaveChangesAsync();
-        }
+        //public async Task DeleteMaintenanceProviderAsync(MaintenanceProvider MaintenanceProvider)
+        //{
+        //    toolShedContext.AddressSet
+        //        .Remove(MaintenanceProvider);
+        //    await toolShedContext.SaveChangesAsync();
+        //}
     }
 }
  

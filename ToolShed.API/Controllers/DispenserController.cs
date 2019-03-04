@@ -24,6 +24,25 @@ namespace ToolShed.API.Controllers
             this.iotActionServices = iotActionServices;
         }
 
+        [HttpGet]
+        [EnableCors("Dispenser")]
+        public async Task<IActionResult> stuff([FromBody] Dispenser dispenser)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("The user information is incomplete");
+
+            try
+            {
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+        [HttpPost("register")]
+        [EnableCors("Dispenser")]
         public async Task<IActionResult> RegisterNewDispenser([FromBody] Dispenser dispenser)
         {
             if (!ModelState.IsValid)
@@ -41,7 +60,7 @@ namespace ToolShed.API.Controllers
         }
 
         [HttpPost("sendaction")]
-        [EnableCors("dispenser")]
+        [EnableCors("Dispenser")]
         public async Task<IActionResult> SendDispenserMessage([FromBody] UserMessage message)
         {
             if (!ModelState.IsValid)
@@ -59,6 +78,8 @@ namespace ToolShed.API.Controllers
             }
         }
 
+        [HttpDelete("delete")]
+        [EnableCors("Dispenser")]
         public async Task<IActionResult> GetAllDispensers()
         {
             if (!ModelState.IsValid)

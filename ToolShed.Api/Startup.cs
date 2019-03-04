@@ -7,6 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.IotHub.Services;
+using ToolShed.Repository.Context;
+using ToolShed.Repository.Interfaces;
+using ToolShed.Repository.Repositories;
+using ToolShed.Repository.Services;
 
 namespace ToolShed
 {
@@ -40,6 +44,13 @@ namespace ToolShed
                 c.CustomSchemaIds(x => x.FullName);
             });
 
+            services.AddTransient<IDispenserSQLService, DispenserSQLService>();
+            services.AddTransient<DispenserRepository>();
+            services.AddTransient<CardRepository>();
+            services.AddTransient<AddressRepository>();
+            services.AddTransient<DispenserRepository>();
+            services.AddTransient<DispenserRepository>();
+            services.AddTransient<DispenserRepository>();
             services.AddTransient<IIotActionServices, IotActionServices>(sp =>
             {
                 var serviceClient = ServiceClient.CreateFromConnectionString("");
@@ -47,6 +58,7 @@ namespace ToolShed
             });
 
             services.AddSignalR();
+            services.AddDbContext<ToolShedContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -68,7 +80,7 @@ namespace ToolShed
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = string.Empty;
             });
-            app.UseCors("SignalR");
+            app.UseCors("Dispenser");
             app.UseHttpsRedirection();
             app.UseMvc();
         }

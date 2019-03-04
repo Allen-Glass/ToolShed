@@ -11,7 +11,7 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        [HttpGet]
+        [HttpPost("create/order")]
         public async Task<IActionResult> PlaceOrderAsync(Reservation reservation, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
