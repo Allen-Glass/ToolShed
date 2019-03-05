@@ -44,16 +44,18 @@ namespace ToolShed
                 c.CustomSchemaIds(x => x.FullName);
             });
 
-            services.AddTransient<IDispenserSQLService, DispenserSQLService>();
             services.AddTransient<DispenserRepository>();
             services.AddTransient<CardRepository>();
             services.AddTransient<AddressRepository>();
-            services.AddTransient<DispenserRepository>();
-            services.AddTransient<DispenserRepository>();
-            services.AddTransient<DispenserRepository>();
+            services.AddTransient<DispenserToolsRepository>();
+            services.AddTransient<ToolRepository>();
+            services.AddTransient<UserAddressesRepository>();
+            services.AddTransient<UserCardRepository>();
+            services.AddTransient<UserRepository>();
+            services.AddTransient<IDispenserSQLService, DispenserSQLService>();
             services.AddTransient<IIotActionServices, IotActionServices>(sp =>
             {
-                var serviceClient = ServiceClient.CreateFromConnectionString("");
+                var serviceClient = ServiceClient.CreateFromConnectionString("HostName=toolshed-hub.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=0rV4SLwfduFh0N3xB5fNzZ0/gLa88Qjohr3r9D+yVkw=");
                 return new IotActionServices(serviceClient);
             });
 

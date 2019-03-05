@@ -45,12 +45,16 @@ class Home extends Component {
     }
 
     SendFullName =  () => {
-        fetch("https://localhost:44325/api/dispenser/",
+        fetch("https://toolshed-api.azurewebsites.net/api/dispenser/sendaction",
             {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
+                body: JSON.stringify({
+                    FirstName: this.state.FirstName,
+                    LastName: this.state.LastName,
+                })
             })
             .catch(error => console.error('Error:', error));
 

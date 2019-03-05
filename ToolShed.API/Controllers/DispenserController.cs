@@ -26,7 +26,7 @@ namespace ToolShed.API.Controllers
 
         [HttpGet]
         [EnableCors("Dispenser")]
-        public async Task<IActionResult> stuff([FromBody] Dispenser dispenser)
+        public async Task<IActionResult> stuff()
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");

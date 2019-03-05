@@ -9,17 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolsShed.Scheduler", "Tool
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Models", "Toolshed.Models\ToolShed.Models.csproj", "{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.DispenserActions", "ToolShed.DispenserActions\ToolShed.DispenserActions.csproj", "{380353BD-A95B-4122-A6A9-AFC4CD7BE20A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Web", "ToolShed.Web\ToolShed.Web.csproj", "{B1B3A044-4305-4069-9C72-A7798E81E7B7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Dispensers", "ToolShed.Dispensers\ToolShed.Dispensers.csproj", "{539C4F49-242A-4014-ABE3-4F7840F51656}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Repository", "ToolShed.Repository\ToolShed.Repository.csproj", "{368298E8-39CF-4C7D-9ACB-37C1346A2575}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Repository.Tests", "ToolShed.Repository.Tests\ToolShed.Repository.Tests.csproj", "{1CEECF66-F58B-454B-BCCB-290D999D54B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.IotHub", "ToolShed.IotHub\ToolShed.IotHub.csproj", "{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.IotHub", "ToolShed.IotHub\ToolShed.IotHub.csproj", "{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,18 +35,10 @@ Global
 		{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{380353BD-A95B-4122-A6A9-AFC4CD7BE20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{380353BD-A95B-4122-A6A9-AFC4CD7BE20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{380353BD-A95B-4122-A6A9-AFC4CD7BE20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{380353BD-A95B-4122-A6A9-AFC4CD7BE20A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1B3A044-4305-4069-9C72-A7798E81E7B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1B3A044-4305-4069-9C72-A7798E81E7B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1B3A044-4305-4069-9C72-A7798E81E7B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1B3A044-4305-4069-9C72-A7798E81E7B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{539C4F49-242A-4014-ABE3-4F7840F51656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{539C4F49-242A-4014-ABE3-4F7840F51656}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{539C4F49-242A-4014-ABE3-4F7840F51656}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{539C4F49-242A-4014-ABE3-4F7840F51656}.Release|Any CPU.Build.0 = Release|Any CPU
 		{368298E8-39CF-4C7D-9ACB-37C1346A2575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{368298E8-39CF-4C7D-9ACB-37C1346A2575}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{368298E8-39CF-4C7D-9ACB-37C1346A2575}.Release|Any CPU.ActiveCfg = Release|Any CPU
