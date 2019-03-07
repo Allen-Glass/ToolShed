@@ -1,7 +1,8 @@
 ﻿using System;
 using Toolshed.Models.Orders;
+using ToolShed.Models.API;
 
-namespace Toolshed.Models.Scheduler
+namespace Toolshed.Models.API
 {
     /// <summary>
     /// Object for reserving tools
@@ -11,7 +12,7 @@ namespace Toolshed.Models.Scheduler
         /// <summary>
         /// The user account renting the tool
         /// </summary>
-        //public User User { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// The time when the reservation starts

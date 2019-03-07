@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Toolshed.Models.User;
-using Toolshed.Models.Users;
+using ToolShed.Models.API;
 
 namespace ToolShed.Repository.Interfaces
 {

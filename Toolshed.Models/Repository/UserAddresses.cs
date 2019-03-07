@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Toolshed.Repository.Models
+namespace Toolshed.Models.Repository
 {
     /// <summary>
     /// Table that aligns address with user

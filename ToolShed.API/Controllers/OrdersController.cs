@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Toolshed.Models.Scheduler;
+using Toolshed.Models.API;
 
 namespace ToolShed.API.Controllers
 {

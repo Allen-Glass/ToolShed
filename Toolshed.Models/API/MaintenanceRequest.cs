@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Toolshed.Models.Maintenance
+namespace Toolshed.Models.API
 {
     /// <summary>
     /// Maintenance request object 

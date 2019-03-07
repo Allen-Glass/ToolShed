@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Toolshed.Models.User
+namespace ToolShed.Models.API
 {
-    /// <summary>
-    /// Credit card object
-    /// </summary>
     public class Card
     {
         /// <summary>
-        /// pk of credit card
+        /// pk of card
         /// </summary>
-        public Guid CardId { get;set; }
+        public Guid CardId { get; set; }
 
         /// <summary>
         /// userId associated with card
@@ -21,11 +21,6 @@ namespace Toolshed.Models.User
         /// Credit Card number
         /// </summary>
         public string CardNumber { get; set; }
-
-        /// <summary>
-        /// CCV of a credit card
-        /// </summary>
-        public string CCV { get; set; }
 
         /// <summary>
         /// Card holder name

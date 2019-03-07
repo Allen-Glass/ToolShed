@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Toolshed.Repository.Models
+namespace Toolshed.Models.Repository
 {
     public class DispenserTool
     {

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Toolshed.Models.User;
 
-namespace Toolshed.Models.Users
+namespace ToolShed.Models.API
 {
     /// <summary>
     /// User uploaded information

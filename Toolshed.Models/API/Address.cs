@@ -1,7 +1,7 @@
 ﻿using System;
 using Toolshed.Models.Enums;
 
-namespace Toolshed.Models.User
+namespace ToolShed.Models.API
 {
     /// <summary>
     /// Address object

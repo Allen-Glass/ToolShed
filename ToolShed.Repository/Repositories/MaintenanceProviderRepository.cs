@@ -7,7 +7,7 @@ using Toolshed.Models.Dispensers;
 using ToolShed.Repository.Context;
 using Toolshed.Models.Maintenance;
 
-namespace ToolShed.Repository
+namespace ToolShed.Repository.Repositories
 {
     public class MaintenanceProviderRepository
     {

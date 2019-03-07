@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
-using Toolshed.Models.User;
-using Toolshed.Models.Users;
-using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services

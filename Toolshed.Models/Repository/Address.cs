@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Toolshed.Models.Enums;
 
-namespace Toolshed.Repository.Models
+namespace Toolshed.Models.Repository
 {
     public class Address
     {

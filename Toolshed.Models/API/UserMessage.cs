@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ToolShed.API.Models
+namespace ToolShed.Models.API
 {
     public class UserMessage
     {

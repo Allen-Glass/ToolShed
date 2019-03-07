@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Toolshed.Models.Maintenance;
+using Toolshed.Models.API;
 
 namespace ToolShed.API.Controllers
 {

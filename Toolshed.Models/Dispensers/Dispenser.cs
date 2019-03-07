@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Toolshed.Models.Tools;
-using Toolshed.Models.User;
+using ToolShed.Models.Web;
 
 namespace Toolshed.Models.Dispensers
 {
