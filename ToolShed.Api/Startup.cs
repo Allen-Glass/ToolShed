@@ -64,6 +64,7 @@ namespace ToolShed
 
             services.AddSignalR();
             services.AddDbContext<ToolShedContext>(options => options.UseSqlServer(sqlConnection), ServiceLifetime.Transient);
+            services.AddDbContext<TenantContext>(options => options.UseSqlServer(sqlConnection), ServiceLifetime.Transient);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Toolshed.Models.Tools;
 
-namespace Toolshed.Models.Repository
+namespace ToolShed.Models.Repository
 {
     /// <summary>
     /// Tool dispenser object

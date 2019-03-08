@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Toolshed.Models.Maintenance;
-using Toolshed.Repository.Models;
+using ToolShed.Models.Repository;
 
 namespace ToolShed.Repository.Context
 {

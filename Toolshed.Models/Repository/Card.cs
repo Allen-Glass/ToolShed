@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Toolshed.Models.Repository
+namespace ToolShed.Models.Repository
 {
     /// <summary>
     /// credit card sql object
