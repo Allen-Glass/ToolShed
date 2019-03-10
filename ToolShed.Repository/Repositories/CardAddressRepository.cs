@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Toolshed.Repository.Models;
+using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
 
 namespace ToolShed.Repository.Repositories

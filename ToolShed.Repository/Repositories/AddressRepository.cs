@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
-using Toolshed.Repository.Models;
+using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
 
 namespace ToolShed.Repository.Repositories
@@ -44,6 +44,17 @@ namespace ToolShed.Repository.Repositories
             return address;
         }
 
+        public async Task<IEnumerable<Address>> GetAddressesByAddressIdsAsync(IEnumerable<Guid> addressIds)
+        {
+            var addressList = new List<Address>();
+            foreach (var addressId in addressIds)
+            {
+                addressList.Add(await GetAddressByAddressIdAsync(addressId));
+            }
+
+            return addressList;
+        }
+
         public async Task<IEnumerable<Address>> GetAddressesByStateAsync(string state)
         {
             if (string.IsNullOrEmpty(state))
@@ -81,7 +92,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.State.Equals(state))
-                .Where(c => c.AddressType == AddressType.dispenser)
+                .Where(c => c.AddressType == AddressType.Dispenser)
                 .ToListAsync();
         }
 
@@ -92,7 +103,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.City.Equals(city))
-                .Where(c => c.AddressType == AddressType.dispenser)
+                .Where(c => c.AddressType == AddressType.Dispenser)
                 .ToListAsync();
         }
 
@@ -103,7 +114,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.ZipCode.Equals(zipCode))
-                .Where(c => c.AddressType == AddressType.dispenser)
+                .Where(c => c.AddressType == AddressType.Dispenser)
                 .ToListAsync();
         }
 
@@ -114,7 +125,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.City.Equals(city))
-                .Where(c => c.AddressType == AddressType.user)
+                .Where(c => c.AddressType == AddressType.User)
                 .ToListAsync();
         }
 
@@ -125,7 +136,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.State.Equals(state))
-                .Where(c => c.AddressType == AddressType.user)
+                .Where(c => c.AddressType == AddressType.User)
                 .ToListAsync();
         }
 
@@ -136,7 +147,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.ZipCode.Equals(zipCode))
-                .Where(c => c.AddressType == AddressType.user)
+                .Where(c => c.AddressType == AddressType.User)
                 .ToListAsync();
         }
 
@@ -147,7 +158,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.City.Equals(city))
-                .Where(c => c.AddressType == AddressType.card)
+                .Where(c => c.AddressType == AddressType.User)
                 .ToListAsync();
         }
 
@@ -158,7 +169,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.State.Equals(state))
-                .Where(c => c.AddressType == AddressType.card)
+                .Where(c => c.AddressType == AddressType.Card)
                 .ToListAsync();
         }
 
@@ -169,7 +180,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.AddressSet
                 .Where(c => c.ZipCode.Equals(zipCode))
-                .Where(c => c.AddressType == AddressType.card)
+                .Where(c => c.AddressType == AddressType.Card)
                 .ToListAsync();
         }
 

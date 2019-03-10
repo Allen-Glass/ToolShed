@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
+using ToolShed.Models.API;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
@@ -31,6 +32,9 @@ namespace ToolShed.Repository.Services
 
         public async Task StoreUserInformationAsync(User user)
         {
+            if (user == null)
+                throw new ArgumentNullException();
+
             var userId = await userRepository.AddUserAsync(ConvertUserToDtoUser(user));
             if (user.Address != null)
             {
@@ -41,6 +45,9 @@ namespace ToolShed.Repository.Services
 
         public async Task StoreCreditCardAsync(Card card, Guid userId)
         {
+            if (card == null || userId == Guid.Empty)
+                throw new ArgumentNullException();
+
             var cardId = await cardRepository.AddCardAsync(ConvertCardToDtoCard(card));
             var addressId = await addressRepository.AddAddressAsync(ConvertAddressToDtoAddress(card.BillingAddress));
             await userCardRepository.AddUserCardAsync(CreateUserCardDTO(userId, cardId));
@@ -49,12 +56,15 @@ namespace ToolShed.Repository.Services
 
         public async Task DeleteUserAccount(User user)
         {
+            if (user == null)
+                throw new ArgumentNullException();
+
             await userRepository.DeleteUserAsync(ConvertUserToDtoUser(user));
         }
 
-        private Toolshed.Repository.Models.User ConvertUserToDtoUser(User user)
+        private Models.Repository.User ConvertUserToDtoUser(User user)
         {
-            return new Toolshed.Repository.Models.User
+            return new Models.Repository.User
             {
                 Email = user.Email,
                 Password = user.Password,
@@ -63,36 +73,36 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Toolshed.Repository.Models.UserAddresses CreateUserAddressDTO(Guid userId, Guid addressId)
+        private Models.Repository.UserAddresses CreateUserAddressDTO(Guid userId, Guid addressId)
         {
-            return new Toolshed.Repository.Models.UserAddresses
+            return new Models.Repository.UserAddresses
             {
                 UserId = userId,
                 AddressId = addressId
             };
         }
 
-        private Toolshed.Repository.Models.UserCard CreateUserCardDTO(Guid userId, Guid cardId)
+        private Models.Repository.UserCard CreateUserCardDTO(Guid userId, Guid cardId)
         {
-            return new Toolshed.Repository.Models.UserCard
+            return new Models.Repository.UserCard
             {
                 UserId = userId,
                 CardId = cardId
             };
         }
 
-        private Toolshed.Repository.Models.CardAddress CreateCardAddressDTO(Guid addressId, Guid cardId)
+        private Models.Repository.CardAddress CreateCardAddressDTO(Guid addressId, Guid cardId)
         {
-            return new Toolshed.Repository.Models.CardAddress
+            return new Models.Repository.CardAddress
             {
                 AddressId = addressId,
                 CardId = cardId
             };
         }
 
-        private Toolshed.Repository.Models.User ConvertUserToDtoUser(User user, Guid addressId)
+        private Models.Repository.User ConvertUserToDtoUser(User user, Guid addressId)
         {
-            return new Toolshed.Repository.Models.User
+            return new Models.Repository.User
             {
                 Email = user.Email,
                 Password = user.Password,
@@ -102,9 +112,9 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Toolshed.Repository.Models.Address ConvertAddressToDtoAddress(Address address)
+        private Models.Repository.Address ConvertAddressToDtoAddress(Address address)
         {
-            return new Toolshed.Repository.Models.Address
+            return new Models.Repository.Address
             {
                 AddressType = AddressType.user,
                 AptNumber = address.AptNumber,
@@ -117,9 +127,9 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Toolshed.Repository.Models.Card ConvertCardToDtoCard(Card card)
+        private Models.Repository.Card ConvertCardToDtoCard(Card card)
         {
-            return new Toolshed.Repository.Models.Card
+            return new Models.Repository.Card
             {
                 CardHolderName = card.CardHolderName,
                 CardNumber = card.CardNumber,
