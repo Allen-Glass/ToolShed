@@ -121,9 +121,9 @@ class Home extends Component {
 
             Re-enter Email: <br /><input type="text" name="VerifyEmail" onChange={this.onFilterChange} value={this.state.VerifyEmail} /><br />
 
-            Password: <br /><input id="PW" placeholder="password" type="password" onChange={this.onFilterChange} value={this.state.PW} required/><br />
+            Password: <br /><input name="PW" id="PW" placeholder="password" type="password" onChange={this.onFilterChange} value={this.state.PW} required/><br />
 
-            Re-enter Password: <br /><input id="VerifyPW" placeholder="password" type="password" onChange={this.onFilterChange} value={this.state.VerifyPW} required/><br />
+            Re-enter Password: <br /><input name="VerifyPW" id="VerifyPW" placeholder="password" type="password" onChange={this.onFilterChange} value={this.state.VerifyPW} required/><br />
 
             <input type="checkbox" onChange={this.TogglePW} />Show Password<br />
             <input type="submit" value="Submit" onClick={this.VerifyInput} /><br />
