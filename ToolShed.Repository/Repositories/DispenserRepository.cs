@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Toolshed.Repository.Models;
+using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
 
 namespace ToolShed.Repository.Repositories

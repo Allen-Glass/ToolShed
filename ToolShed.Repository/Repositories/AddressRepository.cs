@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
-using Toolshed.Repository.Models;
+using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
 
 namespace ToolShed.Repository.Repositories
@@ -44,143 +44,143 @@ namespace ToolShed.Repository.Repositories
             return address;
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesByStateAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesByAddressIdsAsync(IEnumerable<Guid> addressIds)
         {
-            if (address == null)
+            var addressList = new List<Address>();
+            foreach (var addressId in addressIds)
+            {
+                addressList.Add(await GetAddressByAddressIdAsync(addressId));
+            }
+
+            return addressList;
+        }
+
+        public async Task<IEnumerable<Address>> GetAddressesByStateAsync(string state)
+        {
+            if (string.IsNullOrEmpty(state))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.State.Equals(address.State))
+                .Where(c => c.State.Equals(state))
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressByCityAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressByCityAsync(string city)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(city))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.City.Equals(address.City))
+                .Where(c => c.City.Equals(city))
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressByZipCodeAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressByZipCodeAsync(string zipCode)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(zipCode))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.ZipCode.Equals(address.ZipCode))
+                .Where(c => c.ZipCode.Equals(zipCode))
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressOfDispensersByStateAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByStateAsync(string state)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(state))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.State.Equals(address.State))
-                .Where(c => c.AddressType == AddressType.dispenser)
+                .Where(c => c.State.Equals(state))
+                .Where(c => c.AddressType == AddressType.Dispenser)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByCityAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByCityAsync(string city)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(city))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.City.Equals(address.City))
-                .Where(c => c.AddressType == AddressType.dispenser)
+                .Where(c => c.City.Equals(city))
+                .Where(c => c.AddressType == AddressType.Dispenser)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByStateAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByZipCodeAsync(string zipCode)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(zipCode))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.State.Equals(address.State))
-                .Where(c => c.AddressType == AddressType.dispenser)
+                .Where(c => c.ZipCode.Equals(zipCode))
+                .Where(c => c.AddressType == AddressType.Dispenser)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByZipCodeAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfUsersByCityAsync(string city)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(city))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.ZipCode.Equals(address.ZipCode))
-                .Where(c => c.AddressType == AddressType.dispenser)
+                .Where(c => c.City.Equals(city))
+                .Where(c => c.AddressType == AddressType.User)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfUsersByCityAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfUsersByStateAsync(string state)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(state))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.City.Equals(address.City))
-                .Where(c => c.AddressType == AddressType.user)
+                .Where(c => c.State.Equals(state))
+                .Where(c => c.AddressType == AddressType.User)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfUsersByStateAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfUsersByZipCodeAsync(string zipCode)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(zipCode))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.State.Equals(address.State))
-                .Where(c => c.AddressType == AddressType.user)
+                .Where(c => c.ZipCode.Equals(zipCode))
+                .Where(c => c.AddressType == AddressType.User)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfUsersByZipCodeAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfCardsByCityAsync(string city)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(city))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.ZipCode.Equals(address.ZipCode))
-                .Where(c => c.AddressType == AddressType.user)
+                .Where(c => c.City.Equals(city))
+                .Where(c => c.AddressType == AddressType.User)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfCardsByCityAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfCardsByStateAsync(string state)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(state))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.City.Equals(address.City))
-                .Where(c => c.AddressType == AddressType.card)
+                .Where(c => c.State.Equals(state))
+                .Where(c => c.AddressType == AddressType.Card)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfCardsByStateAsync(Address address)
+        public async Task<IEnumerable<Address>> GetAddressesOfCardsByZipCodeAsync(string zipCode)
         {
-            if (address == null)
+            if (string.IsNullOrEmpty(zipCode))
                 throw new ArgumentNullException();
 
             return await toolShedContext.AddressSet
-                .Where(c => c.State.Equals(address.State))
-                .Where(c => c.AddressType == AddressType.card)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Address>> GetAddressesOfCardsByZipCodeAsync(Address address)
-        {
-            if (address == null)
-                throw new ArgumentNullException();
-
-            return await toolShedContext.AddressSet
-                .Where(c => c.ZipCode.Equals(address.ZipCode))
-                .Where(c => c.AddressType == AddressType.card)
+                .Where(c => c.ZipCode.Equals(zipCode))
+                .Where(c => c.AddressType == AddressType.Card)
                 .ToListAsync();
         }
 

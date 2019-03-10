@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Devices;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -26,6 +27,8 @@ namespace ToolShed
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var sqlConnection = Configuration["SQLConnectionString"];
+
             services.AddCors(
                     options => options.AddPolicy("Dispenser",
                     builder =>
@@ -60,7 +63,8 @@ namespace ToolShed
             });
 
             services.AddSignalR();
-            services.AddDbContext<ToolShedContext>();
+            services.AddDbContext<ToolShedContext>(options => options.UseSqlServer(sqlConnection), ServiceLifetime.Transient);
+            services.AddDbContext<TenantContext>(options => options.UseSqlServer(sqlConnection), ServiceLifetime.Transient);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

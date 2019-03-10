@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Repository.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.IotHub", "ToolShed.IotHub\ToolShed.IotHub.csproj", "{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.RentingServices", "ToolShed.RentingServices\ToolShed.RentingServices.csproj", "{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

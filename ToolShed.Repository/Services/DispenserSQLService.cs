@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Toolshed.Models.Dispensers;
 using Toolshed.Models.Tools;
@@ -26,11 +25,17 @@ namespace ToolShed.Repository.Services
 
         public async Task RegisterNewDispenserAsync(Dispenser dispenser)
         {
+            if (dispenser == null)
+                throw new ArgumentNullException();
+
             await dispenserRepository.AddDispenserAsync(ConvertDispenserToDTODispenser(dispenser));
         }
 
         public async Task<Dispenser> GetDispenser(Guid dispenserId)
         {
+            if (dispenserId == Guid.Empty)
+                throw new ArgumentNullException();
+
             var dtoDispenser = await dispenserRepository.GetDispenserByDispenserId(dispenserId);
             var dispenserToolIds = await dispenserToolsRepository.GetAllToolsFromDispensery(dtoDispenser.DispenserId);
             var dtoTools = await toolRepository.GetToolsByToolIdsAsync(dispenserToolIds);
@@ -47,6 +52,9 @@ namespace ToolShed.Repository.Services
 
         public async Task<IEnumerable<Tool>> GetAllToolsFromDispenser(Guid dispenserId)
         {
+            if (dispenserId == Guid.Empty)
+                throw new ArgumentNullException();
+
             var toolIds = await dispenserToolsRepository.GetAllToolsFromDispensery(dispenserId);
             var dtoTools = await toolRepository.GetToolsByToolIdsAsync(toolIds);
 
@@ -55,30 +63,36 @@ namespace ToolShed.Repository.Services
 
         public async Task AddToolToDispenser(Tool tool, Guid dispenserId)
         {
+            if (dispenserId == Guid.Empty)
+                throw new ArgumentNullException();
+
             var toolId = await toolRepository.AddToolAsync(ConvertTooltoDTOTool(tool));
             await dispenserToolsRepository.AddToolToDispensery(CreateDispenserToolObject(dispenserId, toolId));
         }
 
         public async Task AddToolsToDispenser(IEnumerable<Tool> tools, Guid dispenserId)
         {
+            if (tools == null || dispenserId == Guid.Empty)
+                throw new ArgumentNullException();
+
             foreach (var tool in tools)
             {
                 await AddToolToDispenser(tool, dispenserId);
             }
         }
 
-        private Toolshed.Repository.Models.DispenserTool CreateDispenserToolObject(Guid dispenserId, Guid toolId)
+        private Models.Repository.DispenserTool CreateDispenserToolObject(Guid dispenserId, Guid toolId)
         {
-            return new Toolshed.Repository.Models.DispenserTool
+            return new Models.Repository.DispenserTool
             {
                 ToolId = toolId,
                 DispenserId = dispenserId
             };
         }
 
-        private Toolshed.Repository.Models.Dispenser ConvertDispenserToDTODispenser(Dispenser dispenser)
+        private Models.Repository.Dispenser ConvertDispenserToDTODispenser(Dispenser dispenser)
         {
-            return new Toolshed.Repository.Models.Dispenser
+            return new Models.Repository.Dispenser
             {
                 CreationDate = dispenser.CreationDate,
                 DecommissionDate = dispenser.DecommishDate,
@@ -87,7 +101,7 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Dispenser ConvertDTODispenserToDispenser(Toolshed.Repository.Models.Dispenser dispenser)
+        private Dispenser ConvertDTODispenserToDispenser(Models.Repository.Dispenser dispenser)
         {
             return new Dispenser
             {
@@ -98,7 +112,7 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private Dispenser ConvertDTODispenserToDispenser(Toolshed.Repository.Models.Dispenser dispenser, IEnumerable<Tool> tools)
+        private Dispenser ConvertDTODispenserToDispenser(Models.Repository.Dispenser dispenser, IEnumerable<Tool> tools)
         {
             return new Dispenser
             {
@@ -110,7 +124,7 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private IEnumerable<Dispenser> ConvertDTODispensersToDispensers(IEnumerable<Toolshed.Repository.Models.Dispenser> dispensers)
+        private IEnumerable<Dispenser> ConvertDTODispensersToDispensers(IEnumerable<Models.Repository.Dispenser> dispensers)
         {
             var dispenserList = new List<Dispenser>();
             foreach(var dispenser in dispensers)
@@ -121,9 +135,9 @@ namespace ToolShed.Repository.Services
             return dispenserList;
         }
 
-        private Toolshed.Repository.Models.Tool ConvertTooltoDTOTool(Tool tool)
+        private Models.Repository.Tool ConvertTooltoDTOTool(Tool tool)
         {
-            return new Toolshed.Repository.Models.Tool
+            return new Models.Repository.Tool
             {
                 AssignmentDate = tool.AssignmentDate,
                 DecommissionDate = tool.DecommissionDate,
@@ -140,9 +154,9 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private IEnumerable<Toolshed.Repository.Models.Tool> ConvertToolstoDTOTools(IEnumerable<Tool> tools)
+        private IEnumerable<Models.Repository.Tool> ConvertToolstoDTOTools(IEnumerable<Tool> tools)
         {
-            var toolList = new List<Toolshed.Repository.Models.Tool>();
+            var toolList = new List<Models.Repository.Tool>();
             foreach (var tool in tools)
             {
                 toolList.Add(ConvertTooltoDTOTool(tool));
@@ -150,7 +164,7 @@ namespace ToolShed.Repository.Services
             return toolList;
         }
 
-        private Tool ConvertDTOTooltoTool(Toolshed.Repository.Models.Tool tool)
+        private Tool ConvertDTOTooltoTool(Models.Repository.Tool tool)
         {
             return new Tool
             {
@@ -170,7 +184,7 @@ namespace ToolShed.Repository.Services
             };
         }
 
-        private IEnumerable<Tool> ConvertDTOToolstoTools(IEnumerable<Toolshed.Repository.Models.Tool> tools)
+        private IEnumerable<Tool> ConvertDTOToolstoTools(IEnumerable<Models.Repository.Tool> tools)
         {
             var toolList = new List<Tool>();
             foreach (var tool in tools)

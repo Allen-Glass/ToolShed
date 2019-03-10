@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Toolshed.Models.Users;
+using ToolShed.Models.API;
+using ToolShed.Repository.Interfaces;
 
 namespace ToolShed.API.Controllers
 {
@@ -10,10 +11,11 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        //private readonly IUserSQLService userSQLService
-        public UsersController()
+        private readonly IUserSQLService userSQLService;
+
+        public UsersController(IUserSQLService userSQLService)
         {
-            //this.userSQLService = userSQLService;
+            this.userSQLService = userSQLService;
         }
 
         [HttpPost("register")]
@@ -24,7 +26,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                //await userSQLService.StoreUserInformationAsync(user);
+                await userSQLService.StoreUserInformationAsync(user);
                 return Ok();
             }
             catch (Exception ex)
