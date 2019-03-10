@@ -4,47 +4,99 @@ import { connect } from 'react-redux';
 class Home extends Component {
     constructor() {
         super();
+        this.domains = ['gmail.com', 'hotmail.com']
         this.state = {
             input: '',
             filterText: '',
             FirstName: '',
             LastName: '',
-            countryList: null
+            Email: '',
+            VerifyEmail: '',
+            PW: '',
+            VerifyPW: '',
+            PWMatch: '',
+            EmailMatch: ''
         };
     }
 
-    oshit = () => {
-        this.SendFullName();
-        alert("Well Hello There " + this.state.FirstName + " " + this.state.LastName +"!");
+
+
+    //oshit = () => {
+    //    this.SendFullName();
+    //    alert("Well Hello There " + this.state.FirstName + " " + this.state.LastName +"!");
+    //}
+
+    //toggleup = () => {
+    //    var text = document.getElementById('test')
+    //    text.style.fontSize = '100px';
+    //    text.innerHTML = ('OR IS IT?!?')
+
+    //}
+
+    //toggledown = () => {
+    //    var textsize
+    //    var text = document.getElementById('test')
+    //    textsize = text.style.fontSize;
+    //    textsize = textsize.split("px");
+    //    console.log(textsize);
+    //    textsize = Number(textsize) - 10;
+    //    //text.style.fontSize = textsize.concat("px");
+    //    text.innerHTML = ('This is a TEST');
+    //}
+
+    TogglePW = () => {
+        var PW = document.getElementById('PW');
+        var VPW = document.getElementById('VerifyPW');
+        if (PW.type === "password") {
+            PW.type = "text";
+            VPW.type = "text";
+        } else {
+            PW.type = "password";
+            VPW.type = "password";
+        }
+        
+
     }
 
-    toggleup = () => {
-        var text = document.getElementById('test')
-        text.style.fontSize = '100px';
-        text.innerHTML = ('OR IS IT?!?')
-
-    }
-
-    toggledown = () => {
-        var text = document.getElementById('test')
-        text.style.fontSize = '12px';
-        text.innerHTML = ('This is a TEST')
-    }
 
     onFilterChange = (event) => {
-        console.log(event.target.value);
-        console.log(event.target.name);
-        if (event.target.name === "FirstName") {
+        if (event.target.name === "Email") {
             this.setState({
-                FirstName: event.target.value
+                Email: event.target.value
             });
-        } else if (event.target.name === "LastName") {
+        } else if (event.target.name === "VerifyEmail") {
             this.setState({
-                LastName: event.target.value
-            });}
+                VerifyEmail: event.target.value
+            });
+        } else if (event.target.name === "PW") {
+            this.setState({
+                PW: event.target.value
+            });
+        } else if (event.target.name === "VerifyPW") {
+            this.setState({
+                VerifyPW: event.target.value
+            });
+        }
     }
 
-    SendFullName =  () => {
+    VerifyInput = () => {
+        if (this.state.Email === this.state.VerifyEmail) {
+            var domain = this.state.Email.split("@");
+            if (this.domains.includes(domain[1])) {
+                if (this.state.PW === this.state.VerifyPW) {
+                    this.SendNewUser();
+                } else {
+                    alert("Please Verify Password")
+                }
+            } else {
+                alert("Please Enter a Valid Email")
+            }
+        } else {
+            alert("Please Verify Email")
+        }
+    }
+
+    SendNewUser =  () => {
         fetch("https://toolshed-api.azurewebsites.net/api/dispenser/sendaction",
             {
                 method: 'POST',
@@ -52,8 +104,8 @@ class Home extends Component {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    FirstName: this.state.FirstName,
-                    LastName: this.state.LastName,
+                    FirstName: this.state.Email,
+                    LastName: this.state.PW,
                 })
             })
             .catch(error => console.error('Error:', error));
@@ -63,14 +115,23 @@ class Home extends Component {
 
     render() {
         return (<div>
-            <h1>Hello, world!</h1>
-            <h2 id="test"> This is a TEST</h2>
-            First name: <input type="text" name="FirstName" onChange={this.onFilterChange} value={this.state.FirstName} /><br />
-            Last name: <input type="text" name="LastName" onChange={this.onFilterChange} value={this.state.LastName} /><br />
-            <input type="submit" value="Submit" onClick={this.oshit}/><br />
-            <button onClick={this.oshit}>Test</button>
-            <button onClick={this.toggleup}>Toggle Up</button>
-            <button onClick={this.toggledown}>Toggle Down</button>
+            <h1>Create a Profile</h1>
+
+            Email: <br /><input type="text" name="Email" onChange={this.onFilterChange} value={this.state.Email} /><br />
+
+            Re-enter Email: <br /><input type="text" name="VerifyEmail" onChange={this.onFilterChange} value={this.state.VerifyEmail} /><br />
+
+            Password: <br /><input id="PW" placeholder="password" type="password" onChange={this.onFilterChange} value={this.state.PW} required/><br />
+
+            Re-enter Password: <br /><input id="VerifyPW" placeholder="password" type="password" onChange={this.onFilterChange} value={this.state.VerifyPW} required/><br />
+
+            <input type="checkbox" onChange={this.TogglePW} />Show Password<br />
+            <input type="submit" value="Submit" onClick={this.VerifyInput} /><br />
+
+            <br />
+            <br />
+            <br />
+            <br />
             <p>Welcome to your new single-page application, built with:</p>
             <ul>
                 <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
@@ -90,3 +151,10 @@ class Home extends Component {
     }
 }
 export default connect()(Home);
+
+
+//removed from sight!
+//<h2 id="test" fontSize='24px'> This is a TEST</h2>
+//<button onClick={this.oshit}>Test</button>
+//<button onClick={this.toggleup}>Toggle Up</button>
+//<button onClick={this.toggledown}>Toggle Down</button>
