@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Toolshed.Models.Enums;
 
 namespace ToolShed.Models.Repository
@@ -8,6 +10,8 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// pk of tool
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ToolId { get; set; }
 
         /// <summary>

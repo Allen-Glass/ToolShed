@@ -1,31 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace ToolShed.Models.API
+namespace ToolShed.Models.Repository
 {
     public class Rental
     {
         /// <summary>
         /// pk of rental
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Rental RentalId { get; set; }
 
         /// <summary>
         /// the user renting
         /// </summary>
-        public User User { get; set; }
+        public Guid UserId { get; set; }
 
         /// <summary>
         /// the time the rental started
         /// </summary>
         public DateTime RentalStart { get; set; }
-        
+
         /// <summary>
         /// The time the rental is due
         /// </summary>
         public DateTime RentalDue { get; set; }
-        
+
         /// <summary>
         /// Time the rental is returned
         /// </summary>

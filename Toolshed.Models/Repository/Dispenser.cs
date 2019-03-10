@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Toolshed.Models.Tools;
 
 namespace ToolShed.Models.Repository
@@ -12,6 +14,8 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// pk of dispenser id
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid DispenserId { get; set; }
 
         /// <summary>

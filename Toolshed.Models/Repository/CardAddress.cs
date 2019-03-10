@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace ToolShed.Models.Repository
@@ -12,6 +14,8 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// card address id pk
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid CardAddressesId { get; set; }
 
         /// <summary>

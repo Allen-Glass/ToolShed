@@ -20,6 +20,7 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<CardAddress> CardAddressesSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<Tool> ToolSet { get; set; }
+        public virtual DbSet<Rental> RentalSet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +46,8 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.UserId);
             modelBuilder.Entity<Tool>().ToTable("Tool")
                 .HasKey(c => c.ToolId);
+            modelBuilder.Entity<Rental>().ToTable("Rental")
+                .HasKey(c => c.RentalId);
         }
     }
 }

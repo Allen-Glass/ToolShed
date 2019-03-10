@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToolShed.Models.Repository
 {
@@ -10,6 +12,8 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// pk of user address id
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserAddressesId { get; set; }
 
         /// <summary>
