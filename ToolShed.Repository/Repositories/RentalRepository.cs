@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddRentalAsync(Rental rental)
+        public async Task<Guid> AddRentalAsync(Rental rental)
         {
             if (rental == null)
                 throw new ArgumentNullException();
@@ -26,6 +26,8 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.RentalSet
                 .AddAsync(rental);
             await toolShedContext.SaveChangesAsync();
+
+            return rental.RentalId;
         }
 
         public async Task<Rental> GetRentalByRentalIdAsync(Guid rentalId)

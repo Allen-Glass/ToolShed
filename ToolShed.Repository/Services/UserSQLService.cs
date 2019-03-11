@@ -116,7 +116,7 @@ namespace ToolShed.Repository.Services
         {
             return new Models.Repository.Address
             {
-                AddressType = AddressType.user,
+                AddressType = AddressType.User,
                 AptNumber = address.AptNumber,
                 City = address.City,
                 Country = address.Country,

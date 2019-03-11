@@ -9,12 +9,12 @@ namespace ToolShed.RentingServices
         private readonly ITenantSQLService tenantSQLService;
         private readonly ICardSQLService cardSQLService;
         private readonly IDispenserSQLService dispenserSQLService;
-        private readonly IToolSQLService toolSQLService;
+        private readonly IItemSQLService toolSQLService;
 
         public RentalService(ICardSQLService cardSQLService
             , ITenantSQLService tenantSQLService
             , IDispenserSQLService dispenserSQLService
-            , IToolSQLService toolSQLService)
+            , IItemSQLService toolSQLService)
         {
             this.cardSQLService = cardSQLService;
             this.tenantSQLService = tenantSQLService;

@@ -13,7 +13,7 @@ namespace ToolShed.Models.Repository
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Rental RentalId { get; set; }
+        public Guid RentalId { get; set; }
 
         /// <summary>
         /// the user renting

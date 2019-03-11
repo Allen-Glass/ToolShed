@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Toolshed.Models.Tools;
-using ToolShed.Models.Web;
+using ToolShed.Models.API;
 
 namespace Toolshed.Models.Dispensers
 {
@@ -23,7 +23,7 @@ namespace Toolshed.Models.Dispensers
         /// <summary>
         /// List of all available tools
         /// </summary>
-        public IEnumerable<Tool> AvailableTools { get; set; }
+        public IEnumerable<Item> AvailableTools { get; set; }
 
         /// <summary>
         /// last time the dispenser was checked

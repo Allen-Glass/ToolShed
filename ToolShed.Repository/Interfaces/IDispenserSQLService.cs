@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Toolshed.Models.Dispensers;
 using Toolshed.Models.Tools;
+using ToolShed.Models.API;
 
 namespace ToolShed.Repository.Interfaces
 {
@@ -34,7 +35,7 @@ namespace ToolShed.Repository.Interfaces
         /// </summary>
         /// <param name="dispenserId">pk of dispenser</param>
         /// <returns></returns>
-        Task<IEnumerable<Tool>> GetAllToolsFromDispenser(Guid dispenserId);
+        Task<IEnumerable<Item>> GetAllItemsFromDispenser(Guid dispenserId);
 
         /// <summary>
         /// Add a tool to a dispenser
@@ -42,7 +43,7 @@ namespace ToolShed.Repository.Interfaces
         /// <param name="tool">tool object</param>
         /// <param name="dispenserId">pk of dispenser</param>
         /// <returns></returns>
-        Task AddToolToDispenser(Tool tool, Guid dispenserId);
+        Task AddItemToDispenser(Item item, Guid dispenserId);
 
         /// <summary>
         /// add a list of tools to a dispenser
@@ -50,6 +51,6 @@ namespace ToolShed.Repository.Interfaces
         /// <param name="tools">list of tools</param>
         /// <param name="dispenserId">pk of dispenser</param>
         /// <returns></returns>
-        Task AddToolsToDispenser(IEnumerable<Tool> tools, Guid dispenserId);
+        Task AddItemsToDispenser(IEnumerable<Item> items, Guid dispenserId);
     }
 }
