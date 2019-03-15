@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Toolshed.Models.Enums;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Repository.Mapping;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
@@ -33,8 +34,8 @@ namespace ToolShed.Repository.Services
             if (tenant == null)
                 throw new ArgumentNullException();
 
-            var addressId = await addressRepository.AddAddressAsync(CreateDtoAddress(tenant.Address));
-            await tenantRepository.AddTenantAsync(CreateDtoTenant(tenant, addressId));
+            var addressId = await addressRepository.AddAddressAsync(TenantMapping.CreateDtoAddress(tenant.Address));
+            await tenantRepository.AddTenantAsync(TenantMapping.CreateDtoTenant(tenant, addressId));
         }
 
         public async Task<Tenant> GetTenantAsync(Guid tenantId)
@@ -48,7 +49,7 @@ namespace ToolShed.Repository.Services
             if (dtoTenant == null || dtoAddress == null)
                 throw new NullReferenceException();
 
-            var tenant = ConvertDtoTenantToTenant(dtoTenant, ConvertDtoAddressToAddress(dtoAddress));
+            var tenant = TenantMapping.ConvertDtoTenantToTenant(dtoTenant, TenantMapping.ConvertDtoAddressToAddress(dtoAddress));
 
             return tenant;
         }
@@ -110,59 +111,10 @@ namespace ToolShed.Repository.Services
             foreach (var dtoTenant in dtoTenants)
             {
                 var address = await addressRepository.GetAddressByAddressIdAsync(dtoTenant.TenantAddressId);
-                tenants.Add(ConvertDtoTenantToTenant(dtoTenant, ConvertDtoAddressToAddress(address)));
+                tenants.Add(TenantMapping.ConvertDtoTenantToTenant(dtoTenant, TenantMapping.ConvertDtoAddressToAddress(address)));
             }
 
             return tenants;
-        }
-
-        private Models.Repository.Address CreateDtoAddress(Address address)
-        {
-            return new Models.Repository.Address
-            {
-                AddressType = AddressType.Tenant,
-                AptNumber = address.AptNumber,
-                City = address.City,
-                Country = address.Country,
-                State = address.State,
-                StreetName = address.StreetName,
-                StreetName2 = address.StreetName2,
-                ZipCode = address.ZipCode
-            };
-        }
-
-        private Address ConvertDtoAddressToAddress(Models.Repository.Address address)
-        {
-            return new Address
-            {
-                AddressId = address.AddressId,
-                AptNumber = address.AptNumber,
-                City = address.City,
-                Country = address.Country,
-                State = address.State,
-                StreetName = address.StreetName,
-                StreetName2 = address.StreetName2,
-                ZipCode = address.ZipCode
-            };
-        }
-
-        private Models.Repository.Tenant CreateDtoTenant(Tenant tenant, Guid addressId)
-        {
-            return new Models.Repository.Tenant
-            {
-                TenantAddressId = addressId,
-                TenantName = tenant.TenantName
-            };
-        }
-
-        private Tenant ConvertDtoTenantToTenant(Models.Repository.Tenant tenant, Address address)
-        {
-            return new Tenant
-            {
-                TenantId = tenant.TenantId,
-                TenantName = tenant.TenantName,
-                Address = address
-            };
         }
     }
 }

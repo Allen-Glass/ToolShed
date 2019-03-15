@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ToolShed.Models.Repository;
+using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Repository.Mapping;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
@@ -20,7 +21,7 @@ namespace ToolShed.Repository.Services
             if (card == null)
                 throw new ArgumentNullException();
 
-            var cardId = await cardRepository.AddCardAsync(card);
+            var cardId = await cardRepository.AddCardAsync(CardMapping.CreateDtoCard(card));
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿$primary-color: #000000;
+$secondary-color: #ffffff;
+$tertiary-color: #0f0f0f;
+
+body {
+    font-weight: 600;
+}
+
+.hero-image {
+    clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
+    background-color: $primary-color;
+    height: 100px;
+}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
-using Toolshed.Repository.Models;
+using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
 using ToolShed.Repository.Repositories;
 using Xunit;
@@ -136,7 +136,7 @@ namespace ToolShed.Repository.Tests
             {
                 State = "NY",
                 StreetName = "1111 Fools Road",
-                AddressType = AddressType.user,
+                AddressType = AddressType.User,
                 AptNumber = "104",
                 City = "NYC",
                 Country = "USA",

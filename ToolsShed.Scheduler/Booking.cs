@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Toolshed.Models.Scheduler;
+using Toolshed.Models.API;
 using ToolsShed.Scheduler.Interfaces;
 
 namespace ToolsShed.Scheduler

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import '../Styles/App.css';
 
 class Home extends Component {
     constructor() {
@@ -62,30 +63,19 @@ class Home extends Component {
 
 
     render() {
-        return (<div>
-            <h1>Hello, world!</h1>
-            <h2 id="test"> This is a TEST</h2>
-            First name: <input type="text" name="FirstName" onChange={this.onFilterChange} value={this.state.FirstName} /><br />
-            Last name: <input type="text" name="LastName" onChange={this.onFilterChange} value={this.state.LastName} /><br />
-            <input type="submit" value="Submit" onClick={this.oshit}/><br />
-            <button onClick={this.oshit}>Test</button>
-            <button onClick={this.toggleup}>Toggle Up</button>
-            <button onClick={this.toggledown}>Toggle Down</button>
-            <p>Welcome to your new single-page application, built with:</p>
-            <ul>
-                <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-                <li><a href='https://facebook.github.io/react/'>React</a> and <a href='https://redux.js.org/'>Redux</a> for client-side code</li>
-                <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-                <li><a href='http://reddit.com/'>Reddit</a> for a good way to waste time</li>
-            </ul>
-            <p>To help you get started, we've also set up:</p>
-            <ul>
-                <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-                <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-                <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-            </ul>
-            <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
-        </div>
+        return (
+            <div className="home-container">
+                <div className="hero-container">
+                    <div className="hero-header">
+                        <span id="hero-header-text">Build Faster, Sooner<br /></span>
+                        <span id="header-header-subtext">See what items are being sold and rented in your area.<br /></span>
+                        <button>Search your area</button>
+                    </div>
+                    <div className="hero-image">
+                        <img src={require("../images/bridge.jpeg")} alt="home image" />
+                    </div>
+                </div>
+            </div>
         );
     }
 }

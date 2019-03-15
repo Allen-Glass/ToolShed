@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Repository.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.IotHub", "ToolShed.IotHub\ToolShed.IotHub.csproj", "{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.RentingServices", "ToolShed.RentingServices\ToolShed.RentingServices.csproj", "{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.RentingServices", "ToolShed.RentingServices\ToolShed.RentingServices.csproj", "{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

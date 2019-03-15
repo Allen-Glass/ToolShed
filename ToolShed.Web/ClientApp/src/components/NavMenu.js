@@ -1,45 +1,51 @@
 import React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
 export default class NavMenu extends React.Component {
-  constructor (props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle () {
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            isOpen: false,
+            nav: true
+        };
+    }
+
+    showSomething = () => {
+        this.setState({
+            nav: !this.state.nav
+        });
+    }
+
+    toggle () {
     this.setState({
-      isOpen: !this.state.isOpen
+        isOpen: !this.state.isOpen
     });
-  }
-  render () {
+    }
+
+    render () {
     return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
-          <Container>
-            <NavbarBrand tag={Link} to="/">ToolShed.Web</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
-              <ul className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-                </NavItem>
-              </ul>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </header>
+        <header>
+        <div className="navbar-container" >
+            <div className="site-branding">
+                Tool Shed
+            </div>
+            <div className="navbar-toggle" onClick={this.toggle} />
+                <div className="navbar-links" isOpen={this.state.isOpen}>
+                <a onMouseOver={this.showSomething} href="/" className="navbar-link">Rent</a>
+                <a onMouseOver={this.showSomething} href="/" className="navbar-link">Buy</a>
+                <a onMouseOver={this.showSomething} href="/" className="navbar-link">Own</a>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+            <div className="navbar-sublinks">
+                <div hidden={this.state.nav} className="thing">asdfasdf</div>
+            </div>
+        </div>
+        </header>
     );
-  }
+    }
 }
