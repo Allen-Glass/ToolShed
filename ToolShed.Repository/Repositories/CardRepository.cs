@@ -26,11 +26,19 @@ namespace ToolShed.Repository.Repositories
             return card.CardId;
         }
 
-        public async Task<IEnumerable<Card>> GetCardByUserIdAsync(string userId)
+        public async Task<IEnumerable<Card>> GetCardsByUserIdAsync(Guid userId)
         {
-            return await toolShedContext.CardSet
+            if (userId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            var cards = await toolShedContext.CardSet
                 .Where(c => c.UserId.Equals(userId))
-                .ToListAsync();              
+                .ToListAsync();
+
+            if (cards == null)
+                throw new NullReferenceException();
+
+            return cards;
         }
 
         public async Task DeleteCardAsync(Card card)

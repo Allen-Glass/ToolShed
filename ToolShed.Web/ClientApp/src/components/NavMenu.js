@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
-export default class NavMenu extends React.Component {
+export default class NavMenu extends Component {
     constructor(props) {
         super(props);
 
@@ -37,6 +37,7 @@ export default class NavMenu extends React.Component {
                 <a onMouseOver={this.showSomething} href="/" className="navbar-link">Rent</a>
                 <a onMouseOver={this.showSomething} href="/" className="navbar-link">Buy</a>
                 <a onMouseOver={this.showSomething} href="/" className="navbar-link">Own</a>
+                <a onMouseOver={this.showSomething} href="/login" className="navbar-link">Login</a>
                 <i></i>
                 <i></i>
                 <i></i>

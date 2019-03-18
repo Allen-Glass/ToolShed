@@ -44,11 +44,6 @@ namespace ToolShed.Models.Repository
         public DateTime DecommissionDate { get; set; }
 
         /// <summary>
-        /// list of dispensable items
-        /// </summary>
-        public IEnumerable<Dispensibles> Dispensibles { get; set; }
-
-        /// <summary>
         /// the location of the dispenser
         /// </summary>
         public Address DispenserLocation { get; set; }

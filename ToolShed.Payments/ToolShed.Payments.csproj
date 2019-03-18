@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="IoTHub\" />
-    <Folder Include="Payments\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>

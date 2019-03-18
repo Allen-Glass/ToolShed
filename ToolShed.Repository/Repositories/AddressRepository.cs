@@ -33,7 +33,7 @@ namespace ToolShed.Repository.Repositories
         public async Task<Address> GetAddressByAddressIdAsync(Guid addressId)
         {
             if (addressId == Guid.Empty)
-                throw new ArgumentException("address guid cannot be empty");
+                throw new ArgumentNullException("address guid cannot be empty");
 
             var address = await toolShedContext.AddressSet
                 .FirstOrDefaultAsync(c => c.AddressId.Equals(addressId));
