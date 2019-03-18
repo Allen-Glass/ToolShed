@@ -39,7 +39,7 @@ namespace ToolShed.Repository.Services
             var userId = await userRepository.AddUserAsync(UserMapping.ConvertUserToDtoUser(user));
             if (user.Address != null)
             {
-                var addressId = await addressRepository.AddAddressAsync(AddressMapping.ConvertAddressToDtoAddress(user.Address));
+                var addressId = await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(user.Address));
                 await userAddressesRepository.AddUserAddressAsync(AddressMapping.CreateUserAddressDTO(userId, addressId));
             }
         }
@@ -50,7 +50,7 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             var cardId = await cardRepository.AddCardAsync(CardMapping.CreateDtoCard(card));
-            var addressId = await addressRepository.AddAddressAsync(AddressMapping.ConvertAddressToDtoAddress(card.BillingAddress));
+            var addressId = await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(card.BillingAddress));
             await userCardRepository.AddUserCardAsync(CardMapping.CreateUserCardDTO(userId, cardId));
             await cardAddressRepository.AddCardAddressAsync(AddressMapping.CreateCardAddressDTO(userId, cardId));
         }

@@ -32,7 +32,7 @@ namespace ToolShed.Repository.Services
             await dispenserRepository.AddDispenserAsync(DispenserMapping.ConvertDispenserToDtoDispenser(dispenser));
         }
 
-        public async Task<Dispenser> GetDispenser(Guid dispenserId)
+        public async Task<Dispenser> GetDispenserAsync(Guid dispenserId)
         {
             if (dispenserId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -44,14 +44,14 @@ namespace ToolShed.Repository.Services
             return DispenserMapping.ConvertDtoDispenserToDispenser(dtoDispenser, items);
         }
 
-        public async Task<IEnumerable<Dispenser>> GetAllDispensers()
+        public async Task<IEnumerable<Dispenser>> GetAllDispensersAsync()
         {
             var dtoDispensers = await dispenserRepository.GetAllDispensers();
             var dispensers = DispenserMapping.ConvertDtoDispensersToDispensers(dtoDispensers);            
             return dispensers;
         }
 
-        public async Task<IEnumerable<Item>> GetAllItemsFromDispenser(Guid dispenserId)
+        public async Task<IEnumerable<Item>> GetAllItemsFromDispenserAsync(Guid dispenserId)
         {
             if (dispenserId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -62,7 +62,7 @@ namespace ToolShed.Repository.Services
             return ItemMapping.ConvertDtoItemstoItems(dtoItems);
         }
 
-        public async Task AddItemToDispenser(Item item, Guid dispenserId)
+        public async Task AddItemToDispenserAsync(Item item, Guid dispenserId)
         {
             if (dispenserId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -71,14 +71,14 @@ namespace ToolShed.Repository.Services
             await dispenserToolsRepository.AddToolToDispensery(DispenserMapping.CreateDispenserToolObject(dispenserId, itemId));
         }
 
-        public async Task AddItemsToDispenser(IEnumerable<Item> items, Guid dispenserId)
+        public async Task AddItemsToDispenserAsync(IEnumerable<Item> items, Guid dispenserId)
         {
             if (items == null || dispenserId == Guid.Empty)
                 throw new ArgumentNullException();
 
             foreach (var item in items)
             {
-                await AddItemToDispenser(item, dispenserId);
+                await AddItemToDispenserAsync(item, dispenserId);
             }
         }
     }

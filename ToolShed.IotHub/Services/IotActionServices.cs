@@ -1,8 +1,10 @@
 ﻿using Microsoft.Azure.Devices;
+using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 using ToolShed.IotHub.Interfaces;
+using ToolShed.Models.IoTHub;
 
 namespace ToolShed.IotHub.Services
 {
@@ -19,6 +21,13 @@ namespace ToolShed.IotHub.Services
         {
             var commandMessage = new Message(Encoding.ASCII.GetBytes(message));
             await serviceClient.SendAsync(deviceName, commandMessage);
+        }
+
+        public async Task InformDispenserOfActionAsync(string deviceId, Actions action)
+        {
+            var serializedAction = JsonConvert.SerializeObject(action);
+            var message = new Message(Encoding.ASCII.GetBytes(serializedAction));
+            await serviceClient.SendAsync(deviceId, message);
         }
     }
 }

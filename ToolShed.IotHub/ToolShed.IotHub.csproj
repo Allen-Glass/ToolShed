@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.Azure.Devices" Version="1.17.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Toolshed.Models\ToolShed.Models.csproj" />
+  </ItemGroup>
+
 </Project>

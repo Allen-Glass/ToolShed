@@ -17,6 +17,11 @@ namespace ToolShed.Models.API
         public User User { get; set; }
 
         /// <summary>
+        /// Rental Item
+        /// </summary>
+        public Item Item { get; set; }
+
+        /// <summary>
         /// the time the rental started
         /// </summary>
         public DateTime RentalStart { get; set; }

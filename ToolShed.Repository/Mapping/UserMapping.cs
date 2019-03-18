@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Toolshed.Models.Enums;
 using ToolShed.Models.API;
 
 namespace ToolShed.Repository.Mapping

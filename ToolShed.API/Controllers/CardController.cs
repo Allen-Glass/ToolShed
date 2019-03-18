@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
+using ToolShed.Repository.Interfaces;
 
 namespace ToolShed.API.Controllers
 {
@@ -10,6 +11,13 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class CardController : ControllerBase
     {
+        private readonly ICardSQLService cardSQLService;
+
+        public CardController(ICardSQLService cardSQLService)
+        {
+            this.cardSQLService = cardSQLService;
+        }
+
         [HttpPost("new")]
         public async Task<IActionResult> AddNewCreditCardAsync(Card card)
         {
@@ -18,6 +26,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
+                await cardSQLService.StoreCardInformationAsync(card);
                 return Ok();
             }
             catch (Exception ex)

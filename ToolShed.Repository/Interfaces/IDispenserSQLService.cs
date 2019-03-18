@@ -22,20 +22,20 @@ namespace ToolShed.Repository.Interfaces
         /// </summary>
         /// <param name="dispenserId">pk of dispenser</param>
         /// <returns>dispenser</returns>
-        Task<Dispenser> GetDispenser(Guid dispenserId);
+        Task<Dispenser> GetDispenserAsync(Guid dispenserId);
 
         /// <summary>
         /// Get all dispensers
         /// </summary>
         /// <returns>list of all dispensers</returns>
-        Task<IEnumerable<Dispenser>> GetAllDispensers();
+        Task<IEnumerable<Dispenser>> GetAllDispensersAsync();
 
         /// <summary>
         /// Get all the tools associated with a dispenser
         /// </summary>
         /// <param name="dispenserId">pk of dispenser</param>
         /// <returns></returns>
-        Task<IEnumerable<Item>> GetAllItemsFromDispenser(Guid dispenserId);
+        Task<IEnumerable<Item>> GetAllItemsFromDispenserAsync(Guid dispenserId);
 
         /// <summary>
         /// Add a tool to a dispenser
@@ -43,7 +43,7 @@ namespace ToolShed.Repository.Interfaces
         /// <param name="tool">tool object</param>
         /// <param name="dispenserId">pk of dispenser</param>
         /// <returns></returns>
-        Task AddItemToDispenser(Item item, Guid dispenserId);
+        Task AddItemToDispenserAsync(Item item, Guid dispenserId);
 
         /// <summary>
         /// add a list of tools to a dispenser
@@ -51,6 +51,6 @@ namespace ToolShed.Repository.Interfaces
         /// <param name="tools">list of tools</param>
         /// <param name="dispenserId">pk of dispenser</param>
         /// <returns></returns>
-        Task AddItemsToDispenser(IEnumerable<Item> items, Guid dispenserId);
+        Task AddItemsToDispenserAsync(IEnumerable<Item> items, Guid dispenserId);
     }
 }

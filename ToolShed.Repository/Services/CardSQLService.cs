@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
@@ -10,18 +11,64 @@ namespace ToolShed.Repository.Services
     public class CardSQLService : ICardSQLService
     {
         private readonly CardRepository cardRepository;
+        private readonly UserCardRepository userCardRepository;
+        private readonly CardAddressRepository cardAddressRepository;
+        private readonly AddressRepository addressRepository;
 
-        public CardSQLService(CardRepository cardRepository)
+        public CardSQLService(CardRepository cardRepository
+            , UserCardRepository userCardRepository
+            , CardAddressRepository cardAddressRepository
+            , AddressRepository addressRepository)
         {
             this.cardRepository = cardRepository;
+            this.userCardRepository = userCardRepository;
+            this.cardAddressRepository = cardAddressRepository;
+            this.addressRepository = addressRepository;
         }
 
-         public async Task StoreCardInformation(Card card)
+         public async Task StoreCardInformationAsync(Card card)
         {
-            if (card == null)
+            if (card == null || card.UserId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var cardId = await cardRepository.AddCardAsync(CardMapping.CreateDtoCard(card));
+            await cardRepository.AddCardAsync(CardMapping.CreateDtoCard(card));
+            await userCardRepository.AddUserCardAsync(CardMapping.CreateUserCardDTO(card));
+            await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(card.BillingAddress));
+        }
+
+        public async Task<IEnumerable<Card>> GetCardsAsync(Guid userId)
+        {
+            if (userId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            var dtoCards = await cardRepository.GetCardsByUserIdAsync(userId);
+            var cards = await MapAddressesToCardsAsync(dtoCards);
+            return cards;
+        }
+
+        public async Task DeleteCardsAsync(IEnumerable<Card> cards)
+        {
+            if (cards == null)
+                throw new ArgumentNullException();
+
+            foreach (var card in cards)
+            {
+                await cardRepository.DeleteCardAsync(CardMapping.CreateDtoCard(card));
+            }
+        }
+
+        private async Task<IEnumerable<Card>> MapAddressesToCardsAsync(IEnumerable<Models.Repository.Card> cards)
+        {
+            var cardList = new List<Card>();
+            foreach (var dtoCard in cards)
+            {
+                var address = await addressRepository.GetAddressByAddressIdAsync(dtoCard.BillingAddressId);
+                var card = CardMapping.ConvertDtoCardToCard(dtoCard);
+                card.BillingAddress = AddressMapping.ConvertDtoAddressToAddress(address);
+                cardList.Add(card);
+            }
+
+            return cardList;
         }
     }
 }

@@ -87,7 +87,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                await dispenserSQLService.GetAllDispensers();
+                await dispenserSQLService.GetAllDispensersAsync();
                 return Ok();
             }
             catch (Exception ex)
