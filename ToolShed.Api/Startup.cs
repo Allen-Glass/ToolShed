@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.IotHub.Services;
+using ToolShed.Renting;
 using ToolShed.Repository.Context;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Repositories;
@@ -47,11 +48,11 @@ namespace ToolShed
                 c.CustomSchemaIds(x => x.FullName);
             });
 
+            services.AddSingleton(sp => { return new RandomCodeGenerator(6); });
             services.AddTransient<DispenserRepository>();
             services.AddTransient<CardRepository>();
             services.AddTransient<AddressRepository>();
             services.AddTransient<DispenserToolsRepository>();
-            services.AddTransient<ToolRepository>();
             services.AddTransient<UserAddressesRepository>();
             services.AddTransient<UserCardRepository>();
             services.AddTransient<UserRepository>();

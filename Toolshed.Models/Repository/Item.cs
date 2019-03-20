@@ -54,7 +54,7 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// The cost per hour
         /// </summary>
-        public double PricePerRentalPeriod { get; set; }
+        public double PricePerHour { get; set; }
 
         /// <summary>
         /// the default duration of the base rental

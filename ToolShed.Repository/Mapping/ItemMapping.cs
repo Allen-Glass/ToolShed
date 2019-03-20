@@ -19,7 +19,7 @@ namespace ToolShed.Repository.Mapping
                 IsRentable = item.IsRentable,
                 ItemName = item.ItemName,
                 PricePerHourOver = item.PricePerHourOver,
-                PricePerRentalPeriod = item.PricePerRentalPeriod,
+                PricePerHour = item.PricePerHour,
                 TenantId = item.TenantId,
                 DispenserId = item.DispenserId
             };
@@ -48,7 +48,7 @@ namespace ToolShed.Repository.Mapping
                 IsRentable = item.IsRentable,
                 ItemName = item.ItemName,
                 PricePerHourOver = item.PricePerHourOver,
-                PricePerRentalPeriod = item.PricePerRentalPeriod,
+                PricePerHour = item.PricePerHour,
                 TenantId = item.TenantId,
                 DispenserId = item.DispenserId
             };

@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ToolShed.IotHub\ToolShed.IotHub.csproj" />
     <ProjectReference Include="..\Toolshed.Models\ToolShed.Models.csproj" />
+    <ProjectReference Include="..\ToolShed.RentingServices\ToolShed.Renting.csproj" />
     <ProjectReference Include="..\ToolShed.Repository\ToolShed.Repository.csproj" />
   </ItemGroup>
 

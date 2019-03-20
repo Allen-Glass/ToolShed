@@ -8,6 +8,8 @@ namespace ToolShed.Models.Enums
     {
         dispense,
 
-        unlock
+        unlock,
+
+        sendcode
     }
 }

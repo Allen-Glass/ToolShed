@@ -37,16 +37,6 @@ namespace ToolShed.Models.API
         public DateTime RentalReturned { get; set; }
 
         /// <summary>
-        /// The price per hour for rental
-        /// </summary>
-        public double PricePerHour { get; set; }
-
-        /// <summary>
-        /// The price per hour after missing return time
-        /// </summary>
-        public double PricePerHourOver { get; set; }
-
-        /// <summary>
         /// The final cost of the return
         /// </summary>
         public double FinalCost { get; set; }

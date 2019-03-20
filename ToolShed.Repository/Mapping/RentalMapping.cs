@@ -12,7 +12,6 @@ namespace ToolShed.Repository.Mapping
             {
                 RentalStart = DateTime.UtcNow,
                 RentalDue = rental.RentalDue,
-                PricePerHour = rental.PricePerHour,
                 HasBeenReturned = false,
                 IsUserOwnedNow = false,
                 UserId = rental.User.UserId

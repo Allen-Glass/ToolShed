@@ -2,32 +2,27 @@
 using System.Threading.Tasks;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.Models.API;
+using ToolShed.Models.Enums;
+using ToolShed.Models.IoTHub;
+using ToolShed.Renting;
+using ToolShed.RentingServices.Interfaces;
 using ToolShed.Repository.Interfaces;
 
 namespace ToolShed.RentingServices
 {
-    public class RentalService
+    public class RentalService : IRentalService
     {
-        private readonly ITenantSQLService tenantSQLService;
-        private readonly ICardSQLService cardSQLService;
-        private readonly IDispenserSQLService dispenserSQLService;
-        private readonly IItemSQLService toolSQLService;
         private readonly IIotActionServices iotActionServices;
         private readonly IRentalSQLService rentalSQLService;
+        private readonly RandomCodeGenerator randomCodeGenerator;
 
-        public RentalService(ICardSQLService cardSQLService
-            , ITenantSQLService tenantSQLService
-            , IDispenserSQLService dispenserSQLService
-            , IItemSQLService toolSQLService
-            , IIotActionServices iotActionServices
-            , IRentalSQLService rentalSQLService)
+        public RentalService(IIotActionServices iotActionServices
+            , IRentalSQLService rentalSQLService
+            , RandomCodeGenerator randomCodeGenerator)
         {
-            this.cardSQLService = cardSQLService;
-            this.tenantSQLService = tenantSQLService;
-            this.dispenserSQLService = dispenserSQLService;
-            this.toolSQLService = toolSQLService;
             this.iotActionServices = iotActionServices;
             this.rentalSQLService = rentalSQLService;
+            this.randomCodeGenerator = randomCodeGenerator;
         }
 
         /// <summary>
@@ -43,7 +38,17 @@ namespace ToolShed.RentingServices
             await rentalSQLService.CreateNewRentalAsync(rental);
             
             //send dispenser action
-            await iotActionServices.InformDispenserOfActionAsync();
+            await iotActionServices.InformDispenserOfActionAsync("MAH_PIE", CreateActions(rental));
+        }
+
+        private Actions CreateActions(Rental rental)
+        {
+            return new Actions
+            {
+                ActionType = ActionType.sendcode,
+                LockerCode = randomCodeGenerator.CreateLockerCombo().ToString(),
+                LockerNumber = rental.Item.ItemLocker
+            };
         }
 
         /// <summary>
@@ -53,10 +58,7 @@ namespace ToolShed.RentingServices
         /// <returns></returns>
         public async Task StartRentalAsync(Guid rentalId)
         {
-            //charge for item
-            //start timer by adding it to timed table
-            //write record
-            await rentalSQLService.CreateNewRentalAsync();
+
         }
     }
 }
