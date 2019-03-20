@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.IotHub", "ToolShed
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Renting", "ToolShed.RentingServices\ToolShed.Renting.csproj", "{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Payment.API", "ToolShed.Payment.API\ToolShed.Payment.API.csproj", "{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Payment.API", "ToolShed.Payment.API\ToolShed.Payment.API.csproj", "{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Payments", "ToolShed.Payments\ToolShed.Payments.csproj", "{CF03BEE0-E65F-4FA6-BC81-B0438461D814}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Payments", "ToolShed.Payments\ToolShed.Payments.csproj", "{CF03BEE0-E65F-4FA6-BC81-B0438461D814}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -21,6 +21,7 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<Item> ItemSet { get; set; }
         public virtual DbSet<Rental> RentalSet { get; set; }
+        public virtual DbSet<RentalRecord> RentalRecordSet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

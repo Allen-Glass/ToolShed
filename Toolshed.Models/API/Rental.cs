@@ -9,7 +9,7 @@ namespace ToolShed.Models.API
         /// <summary>
         /// pk of rental
         /// </summary>
-        public Rental RentalId { get; set; }
+        public Guid RentalId { get; set; }
 
         /// <summary>
         /// the user renting

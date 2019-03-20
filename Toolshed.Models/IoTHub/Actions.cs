@@ -10,5 +10,7 @@ namespace ToolShed.Models.IoTHub
         public ActionType ActionType { get; set; }
 
         public string LockerNumber { get; set; }
+
+        public string LockerCode { get; set; }
     }
 }

@@ -29,5 +29,10 @@ namespace ToolShed.IotHub.Services
             var message = new Message(Encoding.ASCII.GetBytes(serializedAction));
             await serviceClient.SendAsync(deviceId, message);
         }
+
+        public async Task ConfirmUserTookItemAsync()
+        {
+
+        }
     }
 }

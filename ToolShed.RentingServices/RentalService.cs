@@ -13,18 +13,21 @@ namespace ToolShed.RentingServices
         private readonly IDispenserSQLService dispenserSQLService;
         private readonly IItemSQLService toolSQLService;
         private readonly IIotActionServices iotActionServices;
+        private readonly IRentalSQLService rentalSQLService;
 
         public RentalService(ICardSQLService cardSQLService
             , ITenantSQLService tenantSQLService
             , IDispenserSQLService dispenserSQLService
             , IItemSQLService toolSQLService
-            , IIotActionServices iotActionServices)
+            , IIotActionServices iotActionServices
+            , IRentalSQLService rentalSQLService)
         {
             this.cardSQLService = cardSQLService;
             this.tenantSQLService = tenantSQLService;
             this.dispenserSQLService = dispenserSQLService;
             this.toolSQLService = toolSQLService;
             this.iotActionServices = iotActionServices;
+            this.rentalSQLService = rentalSQLService;
         }
 
         /// <summary>
@@ -36,6 +39,10 @@ namespace ToolShed.RentingServices
             if (rental == null)
                 throw new ArgumentNullException();
 
+            //Create rental record
+            await rentalSQLService.CreateNewRentalAsync(rental);
+            
+            //send dispenser action
             await iotActionServices.InformDispenserOfActionAsync();
         }
 
@@ -46,10 +53,10 @@ namespace ToolShed.RentingServices
         /// <returns></returns>
         public async Task StartRentalAsync(Guid rentalId)
         {
-            //receive response from dispenser
             //charge for item
-            //start timer
+            //start timer by adding it to timed table
             //write record
+            await rentalSQLService.CreateNewRentalAsync();
         }
     }
 }

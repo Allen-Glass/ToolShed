@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Repository.Mapping;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
@@ -11,13 +12,16 @@ namespace ToolShed.Repository.Services
     public class RentalSQLService : IRentalSQLService
     {
         private readonly RentalRepository rentalRepository;
+        private readonly RentalRecordsRepository rentalRecordsRepository;
         private readonly UserRepository userRepository;
 
         public RentalSQLService(RentalRepository rentalRepository
-            , UserRepository userRepository)
+            , UserRepository userRepository
+            , RentalRecordsRepository rentalRecordsRepository)
         {
             this.rentalRepository = rentalRepository;
             this.userRepository = userRepository;
+            this.rentalRecordsRepository = rentalRecordsRepository;
         }
 
         public async Task CreateNewRentalAsync(Rental rental)
@@ -25,7 +29,8 @@ namespace ToolShed.Repository.Services
             if (rental == null)
                 throw new ArgumentNullException();
 
-            var rentalId = await rentalRepository.AddRentalAsync(CreateDtoRental(rental));
+            var rentalId = await rentalRepository.AddRentalAsync(RentalMapping.CreateDtoRental(rental));
+            await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateDtoRentalRecord(rental));
         }
 
         public async Task CompleteRentalAsync(Guid rentalId)
@@ -34,24 +39,16 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             await rentalRepository.MarkRentalAsCompleteAsync(rentalId);
+            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+            await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateCompleteDtoRentalRecord(dtoRental));
         }
 
-        public async Task ChargeUserFullPriceAsync()
+        public async Task ChargeUserFullPriceAsync(Guid rentalId)
         {
+            if (rentalId == Guid.Empty)
+                throw new ArgumentNullException();
 
-        }
 
-        private Models.Repository.Rental CreateDtoRental(Rental rental)
-        {
-            return new Models.Repository.Rental
-            {
-                RentalStart = DateTime.UtcNow,
-                RentalDue = rental.RentalDue,
-                PricePerHour = rental.PricePerHour,
-                HasBeenReturned = false,
-                IsUserOwnedNow = false,
-                UserId = rental.User.UserId
-            };
         }
     }
 }
