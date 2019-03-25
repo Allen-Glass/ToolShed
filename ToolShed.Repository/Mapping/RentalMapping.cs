@@ -14,7 +14,23 @@ namespace ToolShed.Repository.Mapping
                 RentalDue = rental.RentalDue,
                 HasBeenReturned = false,
                 IsUserOwnedNow = false,
-                UserId = rental.User.UserId
+                UserId = rental.User.UserId,
+                
+            };
+        }
+
+        public static Rental ConvertDtoRentalToRental(Models.Repository.Rental rental)
+        {
+            return new Rental
+            {
+                RentalStart = rental.RentalStart,
+                RentalDue = rental.RentalDue,
+                RentalId = rental.RentalId,
+                RentalReturned = rental.RentalReturned,
+                HasBeenReturned = rental.HasBeenReturned,
+                FinalCost = rental.FinalCost,
+                IsUserOwnedNow = rental.IsUserOwnedNow,
+                LockerCode = rental.LockerCode
             };
         }
 
@@ -48,6 +64,28 @@ namespace ToolShed.Repository.Mapping
                 ActionType = RentalAction.returned,
                 RentalId = rental.RentalId,
                 UserId = rental.UserId
+            };
+        }
+
+        public static Models.Repository.RentalRecord CreateSuccessfulLockerCodeRecord(Rental rental)
+        {
+            return new Models.Repository.RentalRecord
+            {
+                Action = ($"Rental {rental.RentalId}, successfully. {rental.User.FirstName} {rental.User.LastName} has unlocked {rental.Item.ItemId}."),
+                ActionType = RentalAction.correctCode,
+                RentalId = rental.RentalId,
+                UserId = rental.User.UserId
+            };
+        }
+
+        public static Models.Repository.RentalRecord CreateFailingLockerCodeRecord(Rental rental)
+        {
+            return new Models.Repository.RentalRecord
+            {
+                Action = ($"Rental {rental.RentalId}, failed with {rental.LockerCode}. {rental.User.FirstName} {rental.User.LastName} has unlocked {rental.Item.ItemId}."),
+                ActionType = RentalAction.correctCode,
+                RentalId = rental.RentalId,
+                UserId = rental.User.UserId
             };
         }
     }

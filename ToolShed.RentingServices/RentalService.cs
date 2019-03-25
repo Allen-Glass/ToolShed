@@ -29,16 +29,22 @@ namespace ToolShed.RentingServices
         /// User orders a rental
         /// </summary>
         /// <returns></returns>
-        public async Task PlaceRentalAsync(Rental rental)
+        public async Task<Guid> PlaceRentalAsync(Rental rental)
         {
             if (rental == null)
                 throw new ArgumentNullException();
 
-            //Create rental record
-            await rentalSQLService.CreateNewRentalAsync(rental);
+            //Prepare action to be sent to dispenser
+            var actions = CreateActions(rental);
+            rental.LockerCode = randomCodeGenerator.CreateLockerCombo();
+
+            //Create rental
+            var rentalGuid = await rentalSQLService.CreateNewRentalAsync(rental);
             
             //send dispenser action
-            await iotActionServices.InformDispenserOfActionAsync("MAH_PIE", CreateActions(rental));
+            await iotActionServices.InformDispenserOfActionAsync("MAH_PIE", actions);
+
+            return rentalGuid;
         }
 
         private Actions CreateActions(Rental rental)
@@ -46,7 +52,6 @@ namespace ToolShed.RentingServices
             return new Actions
             {
                 ActionType = ActionType.sendcode,
-                LockerCode = randomCodeGenerator.CreateLockerCombo().ToString(),
                 LockerNumber = rental.Item.ItemLocker
             };
         }
@@ -56,9 +61,26 @@ namespace ToolShed.RentingServices
         /// </summary>
         /// <param name="rental"></param>
         /// <returns></returns>
-        public async Task StartRentalAsync(Guid rentalId)
+        public async Task StartRentalAsync(Rental rental)
         {
+            if (rental.RentalId == Guid.Empty)
+                throw new ArgumentNullException();
 
+            var workingLockerCode = await rentalSQLService.CheckLockerCodeAsync(rental);
+
+            if (!workingLockerCode)
+                throw new UnauthorizedAccessException();
+
+            await iotActionServices.InformDispenserOfActionAsync("MAH_PIE", BeginRentalAction(rental));
+        }
+
+        private Actions BeginRentalAction(Rental rental)
+        {
+            return new Actions
+            {
+                ActionType = ActionType.unlock,
+                LockerNumber = rental.Item.ItemLocker
+            };
         }
     }
 }

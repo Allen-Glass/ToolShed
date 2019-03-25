@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ToolShed.Renting
 {
@@ -14,7 +12,7 @@ namespace ToolShed.Renting
             this.length = length;
         }
 
-        public int CreateLockerCombo()
+        public string CreateLockerCombo()
         {
             lock(getRandom)
             {
@@ -23,7 +21,7 @@ namespace ToolShed.Renting
                 {
                     lockerCombo = (lockerCombo * 10) + getRandom.Next(0, 9);
                 }
-                return lockerCombo;
+                return lockerCombo.ToString();
             }
         }
     }

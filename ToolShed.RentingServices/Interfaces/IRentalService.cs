@@ -8,8 +8,18 @@ namespace ToolShed.RentingServices.Interfaces
 {
     public interface IRentalService
     {
-        Task PlaceRentalAsync(Rental rental);
+        /// <summary>
+        /// Preorder rental
+        /// </summary>
+        /// <param name="rental"></param>
+        /// <returns></returns>
+        Task<Guid> PlaceRentalAsync(Rental rental);
 
-        Task StartRentalAsync(Guid rentalId);
+        /// <summary>
+        /// Begin rental
+        /// </summary>
+        /// <param name="rental"></param>
+        /// <returns></returns>
+        Task StartRentalAsync(Rental rental);
     }
 }

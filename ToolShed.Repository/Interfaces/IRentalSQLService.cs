@@ -8,7 +8,16 @@ namespace ToolShed.Repository.Interfaces
 {
     public interface IRentalSQLService
     {
-        Task CreateNewRentalAsync(Rental rental);
+        Task<Guid> CreateNewRentalAsync(Rental rental);
+        Task<Rental> GetRentalAsync(Guid rentalId);
+        Task<Rental> GetRentalWithUserInformationAsync(Guid rentalId);
+
+        /// <summary>
+        /// check to see if the locker code is correct
+        /// </summary>
+        /// <param name="rental"></param>
+        /// <returns></returns>
+        Task<bool> CheckLockerCodeAsync(Rental rental);
         Task CompleteRentalAsync(Guid rentalId);
         Task ChargeUserFullPriceAsync(Guid rentalId);
     }

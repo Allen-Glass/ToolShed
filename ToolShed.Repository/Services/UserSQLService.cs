@@ -36,7 +36,7 @@ namespace ToolShed.Repository.Services
             if (user == null)
                 throw new ArgumentNullException();
 
-            var userId = await userRepository.AddUserAsync(UserMapping.ConvertUserToDtoUser(user));
+            var userId = await userRepository.AddUserAsync(UserMapping.CreateDtoUser(user));
             if (user.Address != null)
             {
                 var addressId = await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(user.Address));
@@ -60,7 +60,7 @@ namespace ToolShed.Repository.Services
             if (user == null)
                 throw new ArgumentNullException();
 
-            await userRepository.DeleteUserAsync(UserMapping.ConvertUserToDtoUser(user));
+            await userRepository.DeleteUserAsync(UserMapping.CreateDtoUser(user));
         }
     }
 }

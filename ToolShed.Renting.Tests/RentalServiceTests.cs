@@ -32,6 +32,20 @@ namespace ToolShed.Renting.Tests
             await rentalService.PlaceRentalAsync(rental);
         }
 
+        [Fact]
+        public async Task UseFailingLockerCode()
+        {
+            var rentalId = await rentalService.PlaceRentalAsync(rental);
+            var fakeLockerCode = "123456";
+            var rentalPickup = new Rental
+            {
+                RentalId = rentalId,
+                LockerCode = fakeLockerCode
+            };
+
+            await rentalService.StartRentalAsync(rentalPickup);
+        }
+
         private Rental CreateRental()
         {
             return new Rental
@@ -43,7 +57,8 @@ namespace ToolShed.Renting.Tests
                 RentalDue = DateTime.MaxValue,
                 RentalReturned = DateTime.UtcNow.Add(new TimeSpan(0, 45, 0)),
                 RentalStart = DateTime.UtcNow,
-                User = CreateUser()
+                User = CreateUser(),
+                LockerCode = "654321"
             };
         }
 

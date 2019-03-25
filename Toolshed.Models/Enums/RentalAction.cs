@@ -8,6 +8,10 @@ namespace ToolShed.Models.Enums
     {
         confirm,
 
-        returned
+        returned,
+
+        correctCode,
+
+        badCode
     }
 }

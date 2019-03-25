@@ -5,7 +5,7 @@ namespace ToolShed.Repository.Mapping
 {
     public static class UserMapping
     {
-        public static Models.Repository.User ConvertUserToDtoUser(User user)
+        public static Models.Repository.User CreateDtoUser(User user)
         {
             return new Models.Repository.User
             {
@@ -16,7 +16,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.User ConvertUserToDtoUser(User user, Guid addressId)
+        public static Models.Repository.User CreateDtoUser(User user, Guid addressId)
         {
             return new Models.Repository.User
             {
@@ -25,6 +25,17 @@ namespace ToolShed.Repository.Mapping
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 AddressId = addressId
+            };
+        }
+
+        public static User ConvertDtoUser(Models.Repository.User user)
+        {
+            return new User
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserId = user.UserId
             };
         }
     }

@@ -49,6 +49,17 @@ namespace ToolShed.Repository.Repositories
                 .ToListAsync();
         }
 
+        public async Task<bool> CheckLockerCodeAsync(Guid rentalId, string lockerCode)
+        {
+            if (rentalId == Guid.Empty || lockerCode == string.Empty)
+                throw new ArgumentNullException();
+
+            return await toolShedContext.RentalSet
+                .Where(c => c.RentalId.Equals(rentalId))
+                .Where(c => c.LockerCode.Equals(lockerCode))
+                .AnyAsync();
+        }
+
         public async Task MarkRentalAsCompleteAsync(Guid rentalId)
         {
             if (rentalId == Guid.Empty)

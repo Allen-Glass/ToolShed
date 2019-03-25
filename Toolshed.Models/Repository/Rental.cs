@@ -59,5 +59,10 @@ namespace ToolShed.Models.Repository
         /// for the users that don't return things
         /// </summary>
         public bool IsUserOwnedNow { get; set; }
+
+        /// <summary>
+        /// unique locker code for dispenser
+        /// </summary>
+        public string LockerCode { get; set; }
     }
 }

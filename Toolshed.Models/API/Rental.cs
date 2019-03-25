@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ToolShed.Models.API
 {
@@ -50,5 +48,10 @@ namespace ToolShed.Models.API
         /// for the users that don't return things
         /// </summary>
         public bool IsUserOwnedNow { get; set; }
+
+        /// <summary>
+        /// unique locker code for rental
+        /// </summary>
+        public string LockerCode { get; set; }
     }
 }

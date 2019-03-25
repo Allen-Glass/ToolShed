@@ -11,7 +11,7 @@ namespace ToolShed.API.Controllers
     public class MaintenanceController : ControllerBase
     {
         [HttpPost("request")]
-        public async Task<IActionResult> RequestMaintenanceAsync(MaintenanceRequest MaintenanceRequest)
+        public async Task<IActionResult> RequestMaintenanceAsync()
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
