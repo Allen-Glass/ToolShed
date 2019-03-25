@@ -56,8 +56,7 @@ namespace ToolShed.Repository.Repositories
 
             return await toolShedContext.RentalSet
                 .Where(c => c.RentalId.Equals(rentalId))
-                .Where(c => c.LockerCode.Equals(lockerCode))
-                .AnyAsync();
+                .AnyAsync(c => c.LockerCode.Equals(lockerCode));
         }
 
         public async Task MarkRentalAsCompleteAsync(Guid rentalId)

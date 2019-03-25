@@ -63,6 +63,16 @@ namespace ToolShed.Repository.Services
             return rental;
         }
 
+        public async Task<string> GetLockerCodeAsync(Guid rentalId)
+        {
+            if (rentalId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+
+            return dtoRental.LockerCode;
+        }
+
         public async Task<bool> CheckLockerCodeAsync(Rental rental)
         {
             if (rental.LockerCode == string.Empty || rental.RentalId == Guid.Empty)
@@ -93,7 +103,7 @@ namespace ToolShed.Repository.Services
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
-
+            
         }
     }
 }

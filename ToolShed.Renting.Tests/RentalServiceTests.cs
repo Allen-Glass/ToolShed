@@ -33,6 +33,17 @@ namespace ToolShed.Renting.Tests
         }
 
         [Fact]
+        public async Task UseSuccessfulLockerCode()
+        {
+            var rentalId = await rentalService.PlaceRentalAsync(rental);
+            var userRental = await rentalService.CheckRentalStatusAsync(rentalId);
+            userRental.User = CreateUser();
+            userRental.Item = CreateItem();
+
+            await rentalService.StartRentalAsync(userRental);
+        }
+
+        [Fact]
         public async Task UseFailingLockerCode()
         {
             var rentalId = await rentalService.PlaceRentalAsync(rental);
@@ -43,7 +54,8 @@ namespace ToolShed.Renting.Tests
                 LockerCode = fakeLockerCode
             };
 
-            await rentalService.StartRentalAsync(rentalPickup);
+            await Assert.ThrowsAsync<NullReferenceException>(async () =>
+                 await rentalService.StartRentalAsync(rentalPickup));
         }
 
         private Rental CreateRental()

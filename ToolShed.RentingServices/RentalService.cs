@@ -52,6 +52,7 @@ namespace ToolShed.RentingServices
             return new Actions
             {
                 ActionType = ActionType.sendcode,
+                LockerCode = rental.LockerCode,
                 LockerNumber = rental.Item.ItemLocker
             };
         }
@@ -81,6 +82,14 @@ namespace ToolShed.RentingServices
                 ActionType = ActionType.unlock,
                 LockerNumber = rental.Item.ItemLocker
             };
+        }
+
+        public async Task<Rental> CheckRentalStatusAsync(Guid rentalId)
+        {
+            if (rentalId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            return await rentalSQLService.GetRentalAsync(rentalId);
         }
     }
 }

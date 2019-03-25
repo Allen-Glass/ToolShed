@@ -21,5 +21,12 @@ namespace ToolShed.RentingServices.Interfaces
         /// <param name="rental"></param>
         /// <returns></returns>
         Task StartRentalAsync(Rental rental);
+
+        /// <summary>
+        /// check the current status of a rental
+        /// </summary>
+        /// <param name="rentalId"></param>
+        /// <returns></returns>
+        Task<Rental> CheckRentalStatusAsync(Guid rentalId);
     }
 }

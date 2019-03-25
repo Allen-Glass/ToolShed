@@ -15,7 +15,7 @@ namespace ToolShed.Repository.Mapping
                 HasBeenReturned = false,
                 IsUserOwnedNow = false,
                 UserId = rental.User.UserId,
-                
+                LockerCode = rental.LockerCode
             };
         }
 
@@ -83,7 +83,7 @@ namespace ToolShed.Repository.Mapping
             return new Models.Repository.RentalRecord
             {
                 Action = ($"Rental {rental.RentalId}, failed with {rental.LockerCode}. {rental.User.FirstName} {rental.User.LastName} has unlocked {rental.Item.ItemId}."),
-                ActionType = RentalAction.correctCode,
+                ActionType = RentalAction.badCode,
                 RentalId = rental.RentalId,
                 UserId = rental.User.UserId
             };
