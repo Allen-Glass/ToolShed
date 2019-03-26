@@ -91,5 +91,13 @@ namespace ToolShed.RentingServices
 
             return await rentalSQLService.GetRentalAsync(rentalId);
         }
+
+        public async Task CompleteRentalAsync(Guid rentalId)
+        {
+            if (rentalId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            await rentalSQLService.CompleteRentalAsync(rentalId);
+        }
     }
 }
