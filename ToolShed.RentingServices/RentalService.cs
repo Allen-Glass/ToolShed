@@ -14,15 +14,18 @@ namespace ToolShed.RentingServices
     {
         private readonly IIotActionServices iotActionServices;
         private readonly IRentalSQLService rentalSQLService;
+        private readonly IItemSQLService itemSQLService;
         private readonly RandomCodeGenerator randomCodeGenerator;
 
         public RentalService(IIotActionServices iotActionServices
             , IRentalSQLService rentalSQLService
-            , RandomCodeGenerator randomCodeGenerator)
+            , RandomCodeGenerator randomCodeGenerator
+            , IItemSQLService itemSQLService)
         {
             this.iotActionServices = iotActionServices;
             this.rentalSQLService = rentalSQLService;
             this.randomCodeGenerator = randomCodeGenerator;
+            this.itemSQLService = itemSQLService;
         }
 
         /// <summary>
@@ -84,6 +87,11 @@ namespace ToolShed.RentingServices
             };
         }
 
+        /// <summary>
+        /// look to see rental status
+        /// </summary>
+        /// <param name="rentalId"></param>
+        /// <returns></returns>
         public async Task<Rental> CheckRentalStatusAsync(Guid rentalId)
         {
             if (rentalId == Guid.Empty)
@@ -92,12 +100,44 @@ namespace ToolShed.RentingServices
             return await rentalSQLService.GetRentalAsync(rentalId);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rentalId"></param>
+        /// <returns></returns>
         public async Task CompleteRentalAsync(Guid rentalId)
         {
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
             await rentalSQLService.CompleteRentalAsync(rentalId);
+        }
+
+        /// <summary>
+        /// figure out the users return time (do i really need this ugliness...)
+        /// </summary>
+        /// <param name="rental"></param>
+        /// <returns></returns>
+        private Rental DetermineFinalPrice(Rental rental)
+        {
+            var rentalOnTime = rental.RentalReturnTime <= rental.RentalDueTime;
+            var rentalOverdue = !rentalOnTime;
+
+            if (rentalOnTime)
+            {
+                rental.ReturnType = ReturnType.OnTime;
+            }
+
+            if (rentalOverdue)
+            {
+                var hasPaidFullPrice = rental.Item.BuyPrice < rental.FinalCost;
+                if (hasPaidFullPrice)
+                    rental.ReturnType = ReturnType.ChargeFullPrice;
+                else
+                    rental.ReturnType = ReturnType.Overdue;
+            }
+
+            return rental;
         }
     }
 }

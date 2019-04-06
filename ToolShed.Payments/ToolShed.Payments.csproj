@@ -8,4 +8,8 @@
     <Folder Include="Interfaces\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Toolshed.Models\ToolShed.Models.csproj" />
+  </ItemGroup>
+
 </Project>
