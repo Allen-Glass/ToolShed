@@ -9,29 +9,31 @@ namespace ToolShed.Payments
     {
         public double CalculateFinalPrice()
         {
-
+            return 0.0;
         }
 
-        public double CalculatePreTaxPrice()
+        public double CalculatePriceWithSale()
         {
-
+            return 0.0;
         }
 
-        public double CalculatePreSalePrice(Rental rental, int rentalDuration)
+        public Rental CalculateBasePrice(Rental rental)
         {
-            var timeOverdue = rental.
+            var payment = new Payment();
+            var rentalOverdue = rental.RentalReturnTime < rental.RentalDueTime;
 
-            if (rentalDuration < 1)
-                rentalDuration = 1;
+            if (rental.RentalDuration < 1)
+                rental.RentalDuration = 1;
 
-            var price = rental.Item.PricePerHour * rentalDuration;
+            payment.BaseCost = rental.Item.PricePerHour * rental.RentalDuration + rental.Item.BaseFee;
+            var isMaxPaymentPrice = payment.BaseCost > rental.Item.BuyPrice;
 
-            if ()
+            if (isMaxPaymentPrice)
+                payment.BaseCost = rental.Item.BuyPrice;
 
-            if (price > rental.Item.BuyPrice)
-                price = rental.Item.BuyPrice;
+            rental.Payment = payment;
 
-            return price;
+            return rental;
         }
     }
 }

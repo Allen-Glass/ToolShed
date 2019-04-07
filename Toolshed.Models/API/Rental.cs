@@ -36,9 +36,14 @@ namespace ToolShed.Models.API
         public DateTime RentalReturnTime { get; set; }
 
         /// <summary>
-        /// The final cost of the return
+        /// the length of the rental
         /// </summary>
-        public double FinalCost { get; set; }
+        public int RentalDuration { get; set; }
+
+        /// <summary>
+        /// The payment associated with the rental
+        /// </summary>
+        public Payment Payment { get; set; }
 
         /// <summary>
         /// the type of return (overdue, on time, full price, etc...)

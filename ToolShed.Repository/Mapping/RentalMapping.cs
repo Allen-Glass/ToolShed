@@ -11,7 +11,7 @@ namespace ToolShed.Repository.Mapping
             return new Models.Repository.Rental
             {
                 RentalStart = DateTime.UtcNow,
-                RentalDue = rental.RentalDue,
+                RentalDue = rental.RentalDueTime,
                 HasBeenReturned = false,
                 IsUserOwnedNow = false,
                 UserId = rental.User.UserId,
@@ -23,12 +23,11 @@ namespace ToolShed.Repository.Mapping
         {
             return new Rental
             {
-                RentalStart = rental.RentalStart,
-                RentalDue = rental.RentalDue,
+                RentalStartTime = rental.RentalStart,
+                RentalDueTime = rental.RentalDue,
                 RentalId = rental.RentalId,
-                RentalReturned = rental.RentalReturned,
+                RentalReturnTime = rental.RentalReturned,
                 HasBeenReturned = rental.HasBeenReturned,
-                FinalCost = rental.FinalCost,
                 IsUserOwnedNow = rental.IsUserOwnedNow,
                 LockerCode = rental.LockerCode
             };
@@ -38,7 +37,7 @@ namespace ToolShed.Repository.Mapping
         {
             return new Models.Repository.RentalRecord
             {
-                Action = ($"{rental.Item.ItemName} rental started at {rental.RentalStart}."),
+                Action = ($"{rental.Item.ItemName} rental started at {rental.RentalStartTime}."),
                 ActionType = RentalAction.confirm,
                 RentalId = rental.RentalId,
                 UserId = rental.User.UserId

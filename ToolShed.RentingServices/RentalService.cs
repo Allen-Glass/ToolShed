@@ -130,7 +130,7 @@ namespace ToolShed.RentingServices
 
             if (rentalOverdue)
             {
-                var hasPaidFullPrice = rental.Item.BuyPrice < rental.FinalCost;
+                var hasPaidFullPrice = rental.Item.BuyPrice < rental.Payment.TotalCost;
                 if (hasPaidFullPrice)
                     rental.ReturnType = ReturnType.ChargeFullPrice;
                 else

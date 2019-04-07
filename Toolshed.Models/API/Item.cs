@@ -55,6 +55,11 @@ namespace ToolShed.Models.API
         public double SalePrice { get; set; }
 
         /// <summary>
+        /// the base fee of an item
+        /// </summary>
+        public double BaseFee { get; set; }
+
+        /// <summary>
         /// the total price to buy
         /// </summary>
         public double BuyPrice { get; set; }
