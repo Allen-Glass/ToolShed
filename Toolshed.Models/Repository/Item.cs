@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ToolShed.Models.Repository
 {
@@ -24,7 +22,7 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// name of the item
         /// </summary>
-        public string ItemName { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// is tool available
@@ -50,20 +48,5 @@ namespace ToolShed.Models.Repository
         /// the total price to buy
         /// </summary>
         public double BuyPrice { get; set; }
-
-        /// <summary>
-        /// The cost per hour
-        /// </summary>
-        public double PricePerHour { get; set; }
-
-        /// <summary>
-        /// the default duration of the base rental
-        /// </summary>
-        public double BaseRentalPeriodDuration { get; set; }
-
-        /// <summary>
-        /// the cost per hour after missed due time
-        /// </summary>
-        public double PricePerHourOver { get; set; }
     }
 }

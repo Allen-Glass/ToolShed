@@ -7,17 +7,19 @@ namespace ToolShed.Payments
 {
     public class CalculatePayments
     {
-        public double CalculateFinalPrice()
+        public Rental CalculateFinalPrice(Rental rental)
         {
-            return 0.0;
+            rental = CalculatePriceWithSale(rental);
         }
 
-        public double CalculatePriceWithSale()
+        public Rental CalculatePriceWithSale(Rental rental)
         {
-            return 0.0;
+            rental = CalculateBasePayment(rental);
+
+            CheckforSale();
         }
 
-        public Rental CalculateBasePrice(Rental rental)
+        public Rental CalculateBasePayment(Rental rental)
         {
             var payment = new Payment();
             var rentalOverdue = rental.RentalReturnTime < rental.RentalDueTime;

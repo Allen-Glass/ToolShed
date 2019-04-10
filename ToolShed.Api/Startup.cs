@@ -56,6 +56,7 @@ namespace ToolShed
             services.AddTransient<UserAddressesRepository>();
             services.AddTransient<UserCardRepository>();
             services.AddTransient<UserRepository>();
+            services.AddTransient<ICardSQLService, CardSQLService>();
             services.AddTransient<IDispenserSQLService, DispenserSQLService>();
             services.AddTransient<IIotActionServices, IotActionServices>(sp =>
             {

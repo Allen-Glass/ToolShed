@@ -4,10 +4,8 @@ using System.Text;
 
 namespace ToolShed.Models.Repository
 {
-    public class ItemType
+    public class DispenserOptions
     {
-        public Guid ItemTypeId { get; set; }
-
-        public string DisplayName { get; set; }
+        public Guid DispenserOptionsId { get; set; }
     }
 }
