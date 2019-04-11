@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ToolShed.IotHub\ToolShed.IotHub.csproj" />
     <ProjectReference Include="..\Toolshed.Models\ToolShed.Models.csproj" />
+    <ProjectReference Include="..\ToolShed.Repository\ToolShed.Repository.csproj" />
   </ItemGroup>
 
 </Project>

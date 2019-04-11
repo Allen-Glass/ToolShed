@@ -2,9 +2,9 @@
 
 namespace ToolShed.Models.Repository
 {
-    public class OrderDetail
+    public class OrderDetails
     {
-        public Guid OrderDetailId { get; set; }
+        public Guid OrderDetailsId { get; set; }
 
         public Guid OrderId { get; set; }
         

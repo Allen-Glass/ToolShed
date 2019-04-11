@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ToolShed.Models.Repository;
+using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Context
 {
@@ -15,6 +16,7 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<Dispenser> DispenserSet { get; set; }
         public virtual DbSet<DispenserTool> DispenserToolSet { get; set; }
         public virtual DbSet<Item> ItemSet { get; set; }
+        public virtual DbSet<ItemBundle> ItemBundleSet { get; set; }
         public virtual DbSet<ItemBundleMapping> ItemBundleMappingSet { get; set; }
         public virtual DbSet<ItemDetails> ItemDetailsSet { get; set; }
         public virtual DbSet<ItemRentalDetails> ItemRentalDetailsSet { get; set; }
@@ -22,10 +24,11 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<MaintenanceProvider> MaintenanceProviderSet { get; set; }
         public virtual DbSet<MaintenanceRequest> MaintenanceRequestSet { get; set; }
         public virtual DbSet<Order> OrderSet { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetailSet { get; set; }
+        public virtual DbSet<OrderDetails> OrderDetailsSet { get; set; }
         public virtual DbSet<Rental> RentalSet { get; set; }
         public virtual DbSet<RentalRecord> RentalRecordSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
+        public virtual DbSet<Tenant> TenantSet { get; set; }
         public virtual DbSet<UserAddresses> UserAddressesSet { get; set; }
         public virtual DbSet<UserCard> UserCardSet { get; set; }
 
@@ -43,6 +46,8 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.DispenserToolId);
             modelBuilder.Entity<Item>().ToTable("Item")
                 .HasKey(c => c.ItemId);
+            modelBuilder.Entity<ItemBundle>().ToTable("ItemBundle")
+                .HasKey(c => c.ItemBundleId);
             modelBuilder.Entity<ItemBundleMapping>().ToTable("ItemBundleMapping")
                 .HasKey(c => c.ItemBundleMappingId);
             modelBuilder.Entity<ItemDetails>().ToTable("ItemDetails")
@@ -57,12 +62,14 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.MaintenanceRequestId);
             modelBuilder.Entity<Order>().ToTable("Order")
                 .HasKey(c => c.OrderId);
-            modelBuilder.Entity<OrderDetail>().ToTable("OrderDetail")
-                .HasKey(c => c.OrderDetailId);
+            modelBuilder.Entity<OrderDetails>().ToTable("OrderDetails")
+                .HasKey(c => c.OrderDetailsId);
             modelBuilder.Entity<Rental>().ToTable("Rental")
                 .HasKey(c => c.RentalId);
             modelBuilder.Entity<RentalRecord>().ToTable("RentalRecord")
                 .HasKey(c => c.RentalRecordId);
+            modelBuilder.Entity<Tenant>().ToTable("Tenant")
+                .HasKey(c => c.TenantId);
             modelBuilder.Entity<User>().ToTable("User")
                 .HasKey(c => c.UserId);
             modelBuilder.Entity<UserAddresses>().ToTable("UserAddresses")

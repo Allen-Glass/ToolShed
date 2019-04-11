@@ -11,18 +11,33 @@ namespace ToolShed.Repository.Services
     public class ItemSQLService : IItemSQLService
     {
         private readonly ItemRepository itemRepository;
+        private readonly ItemBundleRepository itemBundleRepository;
+        private readonly ItemBundleMappingRepository itemBundleMappingRepository;
 
-        public ItemSQLService(ItemRepository itemRepository)
+        public ItemSQLService(ItemRepository itemRepository,
+            ItemBundleRepository itemBundleRepository,
+            ItemBundleMappingRepository itemBundleMappingRepository)
         {
             this.itemRepository = itemRepository;
+            this.itemBundleRepository = itemBundleRepository;
+            this.itemBundleMappingRepository = itemBundleMappingRepository;
         }
 
-        public async Task StoreItemAsync(Item item)
+        public async Task AddItemAsync(Item item)
         {
             if (item == null)
                 throw new ArgumentNullException();
 
             await itemRepository.AddItemAsync(ItemMapping.CreateDtoItem(item));
+        }
+
+        public async Task<IEnumerable<Models.Repository.Item>> GetItemsInBundleAsync(Guid itemBundleId)
+        {
+            if (itemBundleId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle(itemBundleId);
+            return await itemRepository.GetItemsByItemIdsAsync(itemIds);
         }
 
         public async Task<Models.Repository.Item> GetItemAsync(Guid itemId)

@@ -17,17 +17,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Repository.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.IotHub", "ToolShed.IotHub\ToolShed.IotHub.csproj", "{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Renting", "ToolShed.RentingServices\ToolShed.Renting.csproj", "{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Payment.API", "ToolShed.Payment.API\ToolShed.Payment.API.csproj", "{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Payments", "ToolShed.Payments\ToolShed.Payments.csproj", "{CF03BEE0-E65F-4FA6-BC81-B0438461D814}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Renting.Tests", "ToolShed.Renting.Tests\ToolShed.Renting.Tests.csproj", "{36970554-AE45-4871-8BFE-CA5A2AED87F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Dispensers", "ToolShed.Dispensers\ToolShed.Dispensers.csproj", "{4D88CD41-DB25-44D9-9FFF-3F2B5D12CBBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Dispensers", "ToolShed.Dispensers\ToolShed.Dispensers.csproj", "{4D88CD41-DB25-44D9-9FFF-3F2B5D12CBBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Orders", "ToolShed.Orders\ToolShed.Orders.csproj", "{0448B9BF-4464-462B-A19B-C621668076C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Orders", "ToolShed.Orders\ToolShed.Orders.csproj", "{0448B9BF-4464-462B-A19B-C621668076C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Renting", "ToolShed.Renting\ToolShed.Renting.csproj", "{D1280E9F-16FB-4E67-9A5C-966A83738E52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Purchases", "ToolShed.Purchases\ToolShed.Purchases.csproj", "{ADE4D4BA-CA05-4EA7-90A0-377331F5414D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Inventory", "ToolShed.Inventory\ToolShed.Inventory.csproj", "{FB9E130C-124D-49B3-BC8E-07215D943FD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Purhases.Tests", "ToolShed.Purhases.Tests\ToolShed.Purhases.Tests.csproj", "{ED558238-4B1D-40C6-8640-CBECEEC42AFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +69,6 @@ Global
 		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5630EC33-8A5D-4BD6-ADC7-A7232A224B71}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,6 +89,22 @@ Global
 		{0448B9BF-4464-462B-A19B-C621668076C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0448B9BF-4464-462B-A19B-C621668076C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0448B9BF-4464-462B-A19B-C621668076C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1280E9F-16FB-4E67-9A5C-966A83738E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1280E9F-16FB-4E67-9A5C-966A83738E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1280E9F-16FB-4E67-9A5C-966A83738E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1280E9F-16FB-4E67-9A5C-966A83738E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE4D4BA-CA05-4EA7-90A0-377331F5414D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE4D4BA-CA05-4EA7-90A0-377331F5414D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE4D4BA-CA05-4EA7-90A0-377331F5414D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE4D4BA-CA05-4EA7-90A0-377331F5414D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB9E130C-124D-49B3-BC8E-07215D943FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9E130C-124D-49B3-BC8E-07215D943FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9E130C-124D-49B3-BC8E-07215D943FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9E130C-124D-49B3-BC8E-07215D943FD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED558238-4B1D-40C6-8640-CBECEEC42AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED558238-4B1D-40C6-8640-CBECEEC42AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED558238-4B1D-40C6-8640-CBECEEC42AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED558238-4B1D-40C6-8640-CBECEEC42AFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

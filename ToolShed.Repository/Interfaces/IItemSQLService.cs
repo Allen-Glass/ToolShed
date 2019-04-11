@@ -13,7 +13,7 @@ namespace ToolShed.Repository.Interfaces
         /// Saving a tool to sql
         /// </summary>
         /// <param name="item">user submitted item object</param>
-        Task StoreItemAsync(Item item);
+        Task AddItemAsync(Item item);
 
         /// <summary>
         /// 

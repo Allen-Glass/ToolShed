@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Toolshed.Models\ToolShed.Models.csproj" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>
