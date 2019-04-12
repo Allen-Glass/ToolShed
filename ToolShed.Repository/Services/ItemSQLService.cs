@@ -23,6 +23,14 @@ namespace ToolShed.Repository.Services
             this.itemBundleMappingRepository = itemBundleMappingRepository;
         }
 
+        public async Task CreateItemBundleAsync(ItemBundle itemBundle)
+        {
+            if (itemBundle == null)
+                throw new ArgumentNullException();
+
+            await itemBundleRepository.AddItemBundleAsync(ItemMapping.CreateDtoItemBundle(itemBundle));
+        }
+
         public async Task AddItemAsync(Item item)
         {
             if (item == null)
@@ -31,29 +39,68 @@ namespace ToolShed.Repository.Services
             await itemRepository.AddItemAsync(ItemMapping.CreateDtoItem(item));
         }
 
-        public async Task<IEnumerable<Models.Repository.Item>> GetItemsInBundleAsync(Guid itemBundleId)
+        public async Task AddItemsToBundleAsync(IEnumerable<Item> items, Guid itemBundleId)
+        {
+            if (items == null || itemBundleId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            foreach(var item in items)
+            {
+                await itemBundleMappingRepository.AddItemBundleMappingAsync(item.ItemId, itemBundleId);
+            }
+        }
+
+        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync()
+        {
+            var itemBundles = await itemBundleRepository.GetItemBundlesAsync();
+
+            return ItemMapping.ConvertDtoItemBundlesToItemBundles(itemBundles);
+        }
+
+        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync(Guid tenantId)
+        {
+            var itemBundles = await itemBundleRepository.GetItemBundlesAsync();
+
+            return ItemMapping.ConvertDtoItemBundlesToItemBundles(itemBundles);
+        }
+
+        public async Task<IEnumerable<Item>> GetItemsInBundleAsync()
+        {
+            var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle();
+            var dtoItems = await itemRepository.GetItemsByItemIdsAsync(itemIds);
+
+            return ItemMapping.ConvertDtoItemstoItems(dtoItems);
+        }
+
+        public async Task<IEnumerable<Item>> GetItemsInBundleAsync(Guid itemBundleId)
         {
             if (itemBundleId == Guid.Empty)
                 throw new ArgumentNullException();
 
             var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle(itemBundleId);
-            return await itemRepository.GetItemsByItemIdsAsync(itemIds);
+            var dtoItems = await itemRepository.GetItemsByItemIdsAsync(itemIds);
+
+            return ItemMapping.ConvertDtoItemstoItems(dtoItems);
         }
 
-        public async Task<Models.Repository.Item> GetItemAsync(Guid itemId)
+        public async Task<Item> GetItemAsync(Guid itemId)
         {
             if (itemId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            return await itemRepository.GetItemByItemIdAsync(itemId);
+            var dtoItem = await itemRepository.GetItemByItemIdAsync(itemId);
+
+            return ItemMapping.ConvertDtoItemToItem(dtoItem);
         }
 
-        public async Task<IEnumerable<Models.Repository.Item>> GetItemsAsync(IEnumerable<Guid> itemIds)
+        public async Task<IEnumerable<Item>> GetItemsAsync(IEnumerable<Guid> itemIds)
         {
             if (itemIds == null)
                 throw new ArgumentNullException();
 
-            return await itemRepository.GetItemsByItemIdsAsync(itemIds);
+            var dtoItems =  await itemRepository.GetItemsByItemIdsAsync(itemIds);
+
+            return ItemMapping.ConvertDtoItemstoItems(dtoItems);
         }
 
         public async Task DeleteItemAsync(Guid itemId)

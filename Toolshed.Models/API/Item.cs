@@ -27,12 +27,7 @@ namespace ToolShed.Models.API
         /// <summary>
         /// name of the item
         /// </summary>
-        public string ItemName { get; set; }
-
-        /// <summary>
-        /// item location
-        /// </summary>
-        public string ItemLocker { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// is tool available
@@ -55,28 +50,8 @@ namespace ToolShed.Models.API
         public double SalePrice { get; set; }
 
         /// <summary>
-        /// the base fee of an item
-        /// </summary>
-        public double BaseFee { get; set; }
-
-        /// <summary>
         /// the total price to buy
         /// </summary>
         public double BuyPrice { get; set; }
-
-        /// <summary>
-        /// The cost per hour
-        /// </summary>
-        public double PricePerHour { get; set; }
-
-        /// <summary>
-        /// the default duration of the base rental
-        /// </summary>
-        public double BaseRentalPeriodDuration { get; set; }
-
-        /// <summary>
-        /// the cost per hour after missed due time
-        /// </summary>
-        public double PricePerHourOver { get; set; }
     }
 }

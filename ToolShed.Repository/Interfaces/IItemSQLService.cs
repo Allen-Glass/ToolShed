@@ -16,23 +16,57 @@ namespace ToolShed.Repository.Interfaces
         Task AddItemAsync(Item item);
 
         /// <summary>
-        /// 
+        /// add list of items to a bundle
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <param name="items"></param>
+        /// <param name="itemBundleId"></param>
         /// <returns></returns>
-        Task<Models.Repository.Item> GetItemAsync(Guid itemId);
+        Task AddItemsToBundleAsync(IEnumerable<Item> items, Guid itemBundleId);
+
+        /// <summary>
+        /// get itembundles
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ItemBundle>> GetItemBundlesAsync();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <param name="tenantId"></param>
         /// <returns></returns>
-        Task<IEnumerable<Models.Repository.Item>> GetItemsAsync(IEnumerable<Guid> itemIds);
+        Task<IEnumerable<ItemBundle>> GetItemBundlesAsync(Guid tenantId);
 
         /// <summary>
-        /// 
+        /// get items in a bundle
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <returns>list of items</returns>
+        Task<IEnumerable<Item>> GetItemsInBundleAsync();
+
+        /// <summary>
+        /// grab all items associated in a bundle
+        /// </summary>
+        /// <param name="itemBundleId">item bundle id</param>
+        /// <returns></returns>
+        Task<IEnumerable<Item>> GetItemsInBundleAsync(Guid itemBundleId);
+
+        /// <summary>
+        /// get an item from item id
+        /// </summary>
+        /// <param name="itemId">item id</param>
+        /// <returns></returns>
+        Task<Item> GetItemAsync(Guid itemId);
+
+        /// <summary>
+        /// get a list of items from their ids
+        /// </summary>
+        /// <param name="itemId">item id</param>
+        /// <returns></returns>
+        Task<IEnumerable<Item>> GetItemsAsync(IEnumerable<Guid> itemIds);
+
+        /// <summary>
+        /// delete an item with its id
+        /// </summary>
+        /// <param name="itemId">item id</param>
         /// <returns></returns>
         Task DeleteItemAsync(Guid itemId);
     }

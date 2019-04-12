@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Toolshed.Models.Dispensers;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Mapping;
 using ToolShed.Repository.Repositories;
+using Dispenser = ToolShed.Models.API.Dispenser;
 
 namespace ToolShed.Repository.Services
 {

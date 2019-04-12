@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Toolshed.Models\ToolShed.Models.csproj" />
+    <ProjectReference Include="..\ToolShed.Repository\ToolShed.Repository.csproj" />
   </ItemGroup>
 
 </Project>

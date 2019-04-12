@@ -10,14 +10,11 @@ namespace ToolShed.Repository.Mapping
             return new Models.Repository.Item
             {
                 SalePrice = item.SalePrice,
-                BaseRentalPeriodDuration = item.BaseRentalPeriodDuration,
                 BuyPrice = item.BuyPrice,
                 IsAvailable = item.IsAvailable,
                 IsDamaged = item.IsDamaged,
                 IsRentable = item.IsRentable,
-                ItemName = item.ItemName,
-                PricePerHourOver = item.PricePerHourOver,
-                PricePerHour = item.PricePerHour,
+                DisplayName = item.DisplayName,
                 TenantId = item.TenantId,
                 DispenserId = item.DispenserId
             };
@@ -33,20 +30,26 @@ namespace ToolShed.Repository.Mapping
             return itemList;
         }
 
+        public static Models.Repository.ItemBundle CreateDtoItemBundle(ItemBundle itemBundle)
+        {
+            return new Models.Repository.ItemBundle
+            {
+                DisplayName = itemBundle.DisplayName,
+                TenantId = itemBundle.TenantId
+            };
+        }
+
         public static Item ConvertDtoItemToItem(Models.Repository.Item item)
         {
             return new Item
             {
                 ItemId = item.ItemId,
                 SalePrice = item.SalePrice,
-                BaseRentalPeriodDuration = item.BaseRentalPeriodDuration,
                 BuyPrice = item.BuyPrice,
                 IsAvailable = item.IsAvailable,
                 IsDamaged = item.IsDamaged,
                 IsRentable = item.IsRentable,
-                ItemName = item.ItemName,
-                PricePerHourOver = item.PricePerHourOver,
-                PricePerHour = item.PricePerHour,
+                DisplayName = item.DisplayName,
                 TenantId = item.TenantId,
                 DispenserId = item.DispenserId
             };
@@ -60,6 +63,27 @@ namespace ToolShed.Repository.Mapping
                 itemList.Add(ConvertDtoItemToItem(item));
             }
             return itemList;
+        }
+
+        public static ItemBundle ConvertDtoItemBundleToItemBundle(Models.Repository.ItemBundle itemBundle)
+        {
+            return new ItemBundle
+            {
+                DisplayName = itemBundle.DisplayName,
+                ItemBundleId = itemBundle.ItemBundleId,
+                TenantId = itemBundle.TenantId
+            };
+        }
+
+        public static IEnumerable<ItemBundle> ConvertDtoItemBundlesToItemBundles(IEnumerable<Models.Repository.ItemBundle> itemBundles)
+        {
+            var itemBundlesList = new List<ItemBundle>();
+            foreach (var itemBundle in itemBundles)
+            {
+                itemBundlesList.Add(ConvertDtoItemBundleToItemBundle(itemBundle));
+            }
+
+            return itemBundlesList;
         }
     }
 }

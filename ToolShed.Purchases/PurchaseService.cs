@@ -17,5 +17,13 @@ namespace ToolShed.Purchases
 
 
         }
+
+        public void PurchaseDispenser(Dispenser dispenser)
+        {
+            if (dispenser == null)
+                throw new ArgumentNullException();
+
+
+        }
     }
 }

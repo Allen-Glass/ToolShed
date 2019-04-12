@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ToolShed.Models.Repository
+namespace ToolShed.Models.API
 {
     public class ItemBundle
     {
