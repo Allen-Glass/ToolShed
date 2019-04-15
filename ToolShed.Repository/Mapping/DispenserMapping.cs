@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Toolshed.Models.Dispensers;
 using ToolShed.Models.API;
 
 namespace ToolShed.Repository.Mapping
@@ -43,7 +41,6 @@ namespace ToolShed.Repository.Mapping
         {
             return new Dispenser
             {
-                AvailableTools = items,
                 CreationDate = dispenser.CreationDate,
                 DecommishDate = dispenser.DecommissionDate,
                 DispenserName = dispenser.DispenserName,

@@ -12,14 +12,23 @@ namespace ToolShed.Repository.Services
         private readonly RentalRepository rentalRepository;
         private readonly RentalRecordsRepository rentalRecordsRepository;
         private readonly UserRepository userRepository;
+        private readonly DispenserRepository dispenserRepository;
+        private readonly ItemRepository itemRepository;
+        private readonly ItemRentalDetailsRepository itemRentalDetailsRepository;
 
-        public RentalSQLService(RentalRepository rentalRepository
-            , UserRepository userRepository
-            , RentalRecordsRepository rentalRecordsRepository)
+        public RentalSQLService(RentalRepository rentalRepository,
+            UserRepository userRepository,
+            RentalRecordsRepository rentalRecordsRepository,
+            DispenserRepository dispenserRepository,
+            ItemRepository itemRepository,
+            ItemRentalDetailsRepository itemRentalDetailsRepository)
         {
             this.rentalRepository = rentalRepository;
             this.userRepository = userRepository;
             this.rentalRecordsRepository = rentalRecordsRepository;
+            this.dispenserRepository = dispenserRepository;
+            this.itemRepository = itemRepository;
+            this.itemRentalDetailsRepository = itemRentalDetailsRepository;
         }
 
         public async Task<Guid> CreateNewRentalAsync(Rental rental)
@@ -39,11 +48,20 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+            var dtoItemRentalDetails = await itemRentalDetailsRepository.GetItemRentalDetailsAsync(dtoRental.ItemRentalDetailsId);
+            var dtoItem = itemRepository.GetItemByItemIdAsync(dtoItemRentalDetails.ItemId);
+            var dtoUser = userRepository.GetUserByUserIdAsync(dtoRental.UserId);
 
             if (dtoRental == null)
                 throw new NullReferenceException();
 
-            return RentalMapping.ConvertDtoRentalToRental(dtoRental);
+            var rental = RentalMapping.ConvertDtoRentalToRental(dtoRental);
+            var user = UserMapping.ConvertDtoUser(await dtoUser);
+            var itemRentalDetails = ItemMapping.ConvertItemRentalDetails(dtoItemRentalDetails, await dtoItem);
+            rental.User = user;
+            rental.ItemRentalDetails = itemRentalDetails;
+
+            return rental;
         }
 
         public async Task<Rental> GetRentalWithUserInformationAsync(Guid rentalId)

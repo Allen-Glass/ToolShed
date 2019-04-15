@@ -4,27 +4,34 @@ using ToolShed.IotHub.Interfaces;
 using ToolShed.Models.API;
 using ToolShed.Models.Enums;
 using ToolShed.Models.IoTHub;
+using ToolShed.Payments.Interfaces;
 using ToolShed.Renting.Interfaces;
 using ToolShed.Repository.Interfaces;
 
 namespace ToolShed.Renting
 {
-    public class RentingService : IRentingservice
+    public class RentingService : IRentingService
     {
         private readonly IIotActionServices iotActionServices;
         private readonly IRentalSQLService rentalSQLService;
         private readonly IItemSQLService itemSQLService;
+        private readonly IDispenserSQLService dispenserSQLService;
+        private readonly IPaymentService paymentService;
         private readonly RandomCodeGenerator randomCodeGenerator;
 
-        public RentingService(IIotActionServices iotActionServices
-            , IRentalSQLService rentalSQLService
-            , RandomCodeGenerator randomCodeGenerator
-            , IItemSQLService itemSQLService)
+        public RentingService(IIotActionServices iotActionServices,
+            IRentalSQLService rentalSQLService, 
+            RandomCodeGenerator randomCodeGenerator,
+            IPaymentService paymentService,
+            IItemSQLService itemSQLService,
+            IDispenserSQLService dispenserSQLService)
         {
             this.iotActionServices = iotActionServices;
             this.rentalSQLService = rentalSQLService;
             this.randomCodeGenerator = randomCodeGenerator;
+            this.paymentService = paymentService;
             this.itemSQLService = itemSQLService;
+            this.dispenserSQLService = dispenserSQLService;
         }
 
         /// <summary>
@@ -55,7 +62,7 @@ namespace ToolShed.Renting
             {
                 ActionType = ActionType.sendcode,
                 LockerCode = rental.LockerCode,
-                LockerNumber = rental.Item.ItemLocker
+                LockerNumber = rental.ItemRentalDetails.LockerNumber
             };
         }
 
@@ -82,7 +89,7 @@ namespace ToolShed.Renting
             return new Actions
             {
                 ActionType = ActionType.unlock,
-                LockerNumber = rental.Item.ItemLocker
+                LockerNumber = rental.ItemRentalDetails.LockerNumber
             };
         }
 
@@ -109,34 +116,11 @@ namespace ToolShed.Renting
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
+            var rental = await rentalSQLService.GetRentalAsync(rentalId);
+            var state = await dispenserSQLService.GetDispenserStateAsync(rental.DispenserId);
+            rental = await paymentService.CalculateRentalPriceAsync(rental, state);
+
             await rentalSQLService.CompleteRentalAsync(rentalId);
-        }
-
-        /// <summary>
-        /// figure out the users return time (do i really need this ugliness...)
-        /// </summary>
-        /// <param name="rental"></param>
-        /// <returns></returns>
-        private Rental DetermineFinalPrice(Rental rental)
-        {
-            var rentalOnTime = rental.RentalReturnTime <= rental.RentalDueTime;
-            var rentalOverdue = !rentalOnTime;
-
-            if (rentalOnTime)
-            {
-                rental.ReturnType = ReturnType.OnTime;
-            }
-
-            if (rentalOverdue)
-            {
-                var hasPaidFullPrice = rental.Item.BuyPrice < rental.Payment.TotalCost;
-                if (hasPaidFullPrice)
-                    rental.ReturnType = ReturnType.ChargeFullPrice;
-                else
-                    rental.ReturnType = ReturnType.Overdue;
-            }
-
-            return rental;
         }
     }
 }

@@ -28,6 +28,7 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<Rental> RentalSet { get; set; }
         public virtual DbSet<RentalRecord> RentalRecordSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
+        public virtual DbSet<StateSalesTaxes> StateSalesTaxesSet { get; set; }
         public virtual DbSet<Tenant> TenantSet { get; set; }
         public virtual DbSet<UserAddresses> UserAddressesSet { get; set; }
         public virtual DbSet<UserCard> UserCardSet { get; set; }
@@ -68,6 +69,8 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.RentalId);
             modelBuilder.Entity<RentalRecord>().ToTable("RentalRecord")
                 .HasKey(c => c.RentalRecordId);
+            modelBuilder.Entity<StateSalesTaxes>().ToTable("StateSalesTaxes")
+                .HasKey(c => c.StateSalesTaxesId);
             modelBuilder.Entity<Tenant>().ToTable("Tenant")
                 .HasKey(c => c.TenantId);
             modelBuilder.Entity<User>().ToTable("User")

@@ -4,7 +4,7 @@ using ToolShed.Models.API;
 
 namespace ToolShed.Renting.Interfaces
 {
-    public interface IRentingservice
+    public interface IRentingService
     {
         /// <summary>
         /// Preorder rental

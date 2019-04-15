@@ -19,6 +19,16 @@ namespace ToolShed.Models.Repository
         public Guid UserId { get; set; }
 
         /// <summary>
+        /// pk of item rental
+        /// </summary>
+        public Guid ItemRentalDetailsId { get; set; }
+
+        /// <summary>
+        /// dispenser id of the rental
+        /// </summary>
+        public Guid DispenserId { get; set; }
+
+        /// <summary>
         /// the time the rental started
         /// </summary>
         public DateTime RentalStart { get; set; }

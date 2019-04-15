@@ -25,6 +25,13 @@ namespace ToolShed.Repository.Interfaces
         Task<Dispenser> GetDispenserAsync(Guid dispenserId);
 
         /// <summary>
+        /// get the state of where the rental took place for tax purposes
+        /// </summary>
+        /// <param name="dispenserId">pk of dispenser</param>
+        /// <returns>state of dispenser</returns>
+        Task<string> GetDispenserStateAsync(Guid dispenserId);
+
+        /// <summary>
         /// Get all dispensers
         /// </summary>
         /// <returns>list of all dispensers</returns>

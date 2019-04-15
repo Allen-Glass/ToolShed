@@ -25,6 +25,11 @@ namespace ToolShed.Models.API
         public Guid DispenserId { get; set; }
 
         /// <summary>
+        /// the item type
+        /// </summary>
+        public Guid ItemType { get; set; }
+
+        /// <summary>
         /// name of the item
         /// </summary>
         public string DisplayName { get; set; }

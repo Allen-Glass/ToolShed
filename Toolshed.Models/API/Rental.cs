@@ -18,7 +18,12 @@ namespace ToolShed.Models.API
         /// <summary>
         /// Rental Item
         /// </summary>
-        public Item Item { get; set; }
+        public ItemRentalDetails ItemRentalDetails { get; set; }
+
+        /// <summary>
+        /// the dispenser associated with the id
+        /// </summary>
+        public Guid DispenserId { get; set; }
 
         /// <summary>
         /// the time the rental started

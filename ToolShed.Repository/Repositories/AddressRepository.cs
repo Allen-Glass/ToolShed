@@ -30,6 +30,22 @@ namespace ToolShed.Repository.Repositories
             return address.AddressId;
         }
 
+        public async Task<string> GetStateAsync(Guid addressId)
+        {
+            if (addressId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            var state = await toolShedContext.AddressSet
+                .Where(c => c.AddressId.Equals(addressId))
+                .Select(c => c.State)
+                .FirstOrDefaultAsync();
+
+            if (string.IsNullOrEmpty(state))
+                throw new NullReferenceException();
+
+            return state;
+        }
+
         public async Task<Address> GetAddressByAddressIdAsync(Guid addressId)
         {
             if (addressId == Guid.Empty)

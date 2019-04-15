@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace ToolShed.Models.Repository
+namespace ToolShed.Models.API
 {
     public class ItemRentalDetails
     {
         public Guid ItemRentalDetailsId { get; set; }
 
-        public Guid ItemId { get; set; }
+        public Item Item { get; set; }
 
         public double PricePerHour { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ToolShed.Models.Repository;
@@ -23,16 +24,24 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Dispenser>> GetAllDispensers()
+        public async Task<IEnumerable<Dispenser>> GetAllDispensersAsync()
         {
             return await toolShedContext.DispenserSet
                 .ToListAsync();
         }
 
-        public async Task<Dispenser> GetDispenserByDispenserId(Guid dispenserId)
+        public async Task<Dispenser> GetDispenserByDispenserIdAsync(Guid dispenserId)
         {
             return await toolShedContext.DispenserSet
                 .FirstOrDefaultAsync(c => c.DispenserId.Equals(dispenserId));
+        }
+
+        public async Task<Guid> GetDispenserAddressIdAsync(Guid addressId)
+        {
+            return await toolShedContext.DispenserSet
+                .Where(c => c.DispenserAddressId.Equals(addressId))
+                .Select(c => c.DispenserAddressId)
+                .FirstOrDefaultAsync();
         }
 
         public async Task RemoveDispenserAsync(Dispenser dispenser)

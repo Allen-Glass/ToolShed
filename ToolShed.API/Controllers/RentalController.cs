@@ -5,26 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToolShed.Models.API;
-using ToolShed.RentingServices.Interfaces;
+using ToolShed.Renting.Interfaces;
 
 namespace ToolShed.API.Controllers
 {
+    [Route("api/[controller]")]
     public class RentalController : Controller
     {
-        private readonly IRentalService rentalService;
+        private readonly IRentingService rentingService;
 
-        public RentalController(IRentalService rentalService)
+        public RentalController(IRentingService rentingService)
         {
-            this.rentalService = rentalService;
+            this.rentingService = rentingService;
         }
 
-        [HttpPost("process")]
-        public async Task<IActionResult> ProcessNewRentalAsync(Rental rental)
+        [HttpPost("place")]
+        public async Task<IActionResult> PlaceNewRentalAsync(Rental rental)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The rental information is incomplete");
 
-            await rentalService.PlaceRentalAsync(rental);
+            await rentingService.PlaceRentalAsync(rental);
             return Ok();
         }
 
@@ -34,7 +35,7 @@ namespace ToolShed.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("The rental information is incomplete");
 
-            await rentalService.StartRentalAsync(rental);
+            await rentingService.StartRentalAsync(rental);
             return Ok();
         }
 
@@ -44,7 +45,7 @@ namespace ToolShed.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("The rental information is incomplete");
 
-            await rentalService.CheckRentalStatusAsync(new Guid(rentalId));
+            await rentingService.CheckRentalStatusAsync(new Guid(rentalId));
             return Ok();
         }
 
@@ -54,7 +55,7 @@ namespace ToolShed.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("The rental information is incomplete");
 
-            await rentalService.CompleteRentalAsync(rentalId);
+            await rentingService.CompleteRentalAsync(rentalId);
             return Ok();
         }
 

@@ -39,6 +39,16 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
+        public static Models.Repository.ItemRentalDetails CreateItemRentalDetails(ItemRentalDetails itemRentalDetails)
+        {
+            return new Models.Repository.ItemRentalDetails
+            {
+                BaseRentalFee = itemRentalDetails.BaseRentalFee,
+                ItemId = itemRentalDetails.Item.ItemId,
+                PricePerHour = itemRentalDetails.PricePerHour
+            };
+        }
+
         public static Item ConvertDtoItemToItem(Models.Repository.Item item)
         {
             return new Item
@@ -84,6 +94,17 @@ namespace ToolShed.Repository.Mapping
             }
 
             return itemBundlesList;
+        }
+
+        public static ItemRentalDetails ConvertItemRentalDetails(Models.Repository.ItemRentalDetails itemRentalDetails, Models.Repository.Item item)
+        {
+            return new ItemRentalDetails
+            {
+                ItemRentalDetailsId = itemRentalDetails.ItemRentalDetailsId,
+                BaseRentalFee = itemRentalDetails.BaseRentalFee,
+                Item = ConvertDtoItemToItem(item),
+                PricePerHour = itemRentalDetails.PricePerHour
+            };
         }
     }
 }

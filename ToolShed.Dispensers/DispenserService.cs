@@ -42,5 +42,13 @@ namespace ToolShed.Dispensers
 
             await dispenserSQLService.AddItemToDispenserAsync(item, item.DispenserId);
         }
+
+        public async Task PurchaseDispenserAsync(Dispenser dispenser)
+        {
+            if (dispenser == null)
+                throw new ArgumentNullException();
+
+
+        }
     }
 }

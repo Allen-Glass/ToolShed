@@ -13,9 +13,9 @@ namespace ToolShed.Models.API
         public double ClientPay { get; set; }
 
         /// <summary>
-        /// the percentage of money ToolShed receives
+        /// the percentage of money the client receives
         /// </summary>
-        public double ToolShedPercentage { get; set; }
+        public double ClientPercentage { get; set; }
 
         /// <summary>
         /// The amount of money ToolShed receives
@@ -23,9 +23,19 @@ namespace ToolShed.Models.API
         public double ToolShedPay { get; set; }
 
         /// <summary>
-        /// cost before sales, taxes, etc...
+        /// base value for a rental or purchase
         /// </summary>
-        public double BaseCost { get; set; }
+        public double BaseRentalFee { get; set; }
+
+        /// <summary>
+        /// the sales tax of the payment
+        /// </summary>
+        public double SalesTaxCost { get; set; }
+
+        /// <summary>
+        /// the cost of rental or purchase before sales tax is added
+        /// </summary>
+        public double PreTaxTotalCost { get; set; }
 
         /// <summary>
         /// the total cost for the user

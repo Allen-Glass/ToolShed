@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Toolshed.Models.Tools;
 
 namespace ToolShed.Models.Repository
 {
@@ -46,6 +44,6 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// the location of the dispenser
         /// </summary>
-        public Address DispenserLocation { get; set; }
+        public Guid DispenserAddressId { get; set; }
     }
 }
