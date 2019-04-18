@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
 using ToolShed.Models.API;
+using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Mapping;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
 {
-    public class UserSQLService
+    public class UserSQLService : IUserSQLService
     {
         private readonly UserRepository userRepository;
         private readonly AddressRepository addressRepository;
@@ -42,6 +43,22 @@ namespace ToolShed.Repository.Services
                 var addressId = await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(user.Address));
                 await userAddressesRepository.AddUserAddressAsync(AddressMapping.CreateUserAddressDTO(userId, addressId));
             }
+        }
+
+        public async Task CreateNewUserAccount(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException();
+
+            await userRepository.AddUserAsync(UserMapping.CreateDtoUser(user));
+        }
+
+        public async Task<bool> CheckIfUserEmailExists(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentNullException();
+
+            return await userRepository.CheckIfUserEmailExists(email);
         }
 
         public async Task StoreCreditCardAsync(Card card, Guid userId)

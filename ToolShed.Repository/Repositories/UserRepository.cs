@@ -26,6 +26,15 @@ namespace ToolShed.Repository.Repositories
             return user.UserId;
         }
 
+        public async Task<bool> CheckIfUserEmailExists(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentNullException();
+
+            return await toolShedContext.UserSet
+                .AnyAsync();
+        }
+
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await toolShedContext.UserSet

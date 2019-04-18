@@ -13,6 +13,19 @@ namespace ToolShed.Repository.Interfaces
         Task StoreUserInformationAsync(User user);
 
         /// <summary>
+        /// create user account
+        /// </summary>
+        /// <param name="user">user object</param>
+        Task CreateNewUserAccount(User user);
+
+        /// <summary>
+        /// check if user email exists
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <returns>true if user email</returns>
+        Task<bool> CheckIfUserEmailExists(string email);
+
+        /// <summary>
         /// Store credit card information
         /// </summary>
         /// <param name="card">credit card object</param>

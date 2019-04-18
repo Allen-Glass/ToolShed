@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Renting", "ToolShe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Inventory", "ToolShed.Inventory\ToolShed.Inventory.csproj", "{FB9E130C-124D-49B3-BC8E-07215D943FD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Services", "ToolShed.Services\ToolShed.Services.csproj", "{DF371C8D-38A4-49CB-B9D5-61A536E57D48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{FB9E130C-124D-49B3-BC8E-07215D943FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB9E130C-124D-49B3-BC8E-07215D943FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB9E130C-124D-49B3-BC8E-07215D943FD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF371C8D-38A4-49CB-B9D5-61A536E57D48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF371C8D-38A4-49CB-B9D5-61A536E57D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF371C8D-38A4-49CB-B9D5-61A536E57D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF371C8D-38A4-49CB-B9D5-61A536E57D48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

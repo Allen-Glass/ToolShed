@@ -13,8 +13,6 @@ namespace ToolShed.Models.API
         /// <summary>
         /// pk of user
         /// </summary>
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserId { get; set; }
 
         /// <summary>
@@ -36,6 +34,11 @@ namespace ToolShed.Models.API
         /// User's password
         /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// user's password salt
+        /// </summary>
+        public string PasswordSalt { get; set; }
 
         /// <summary>
         /// user address
