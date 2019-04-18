@@ -5,7 +5,7 @@ using ToolShed.Repository.Interfaces;
 
 namespace ToolShed.Payments
 {
-    public class PaymentService
+    public class PaymentService : IPaymentService
     {
         private readonly ITaxService taxService;
         private readonly IRentalSQLService rentalSQLService;
@@ -41,6 +41,10 @@ namespace ToolShed.Payments
             rental.Payment = payment;
 
             return rental;
+        }
+
+        public async Task ProcessPaymentAsync()
+        {
         }
     }
 }

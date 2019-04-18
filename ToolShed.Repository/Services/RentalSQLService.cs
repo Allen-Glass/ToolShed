@@ -111,8 +111,18 @@ namespace ToolShed.Repository.Services
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            await rentalRepository.MarkRentalAsCompleteAsync(rentalId);
+            await rentalRepository.CompleteRentalAsync(rentalId);
             var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+            await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateCompleteDtoRentalRecord(dtoRental));
+        }
+
+        public async Task CompleteRentalAsync(Rental rental)
+        {
+            if (rental == null)
+                throw new ArgumentNullException();
+
+            var dtoRental = RentalMapping.CreateDtoRental(rental);
+            await rentalRepository.CompleteRentalAsync(dtoRental);
             await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateCompleteDtoRentalRecord(dtoRental));
         }
 

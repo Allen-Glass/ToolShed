@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ToolShed.Dispensers.Interfaces;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.Models.API;
 using ToolShed.Models.Enums;
@@ -14,24 +15,21 @@ namespace ToolShed.Renting
     {
         private readonly IIotActionServices iotActionServices;
         private readonly IRentalSQLService rentalSQLService;
-        private readonly IItemSQLService itemSQLService;
-        private readonly IDispenserSQLService dispenserSQLService;
+        private readonly IDispenserService dispenserService;
         private readonly IPaymentService paymentService;
         private readonly RandomCodeGenerator randomCodeGenerator;
 
         public RentingService(IIotActionServices iotActionServices,
-            IRentalSQLService rentalSQLService, 
-            RandomCodeGenerator randomCodeGenerator,
+            IRentalSQLService rentalSQLService,
+            IDispenserService dispenserService,
             IPaymentService paymentService,
-            IItemSQLService itemSQLService,
-            IDispenserSQLService dispenserSQLService)
+            RandomCodeGenerator randomCodeGenerator)
         {
             this.iotActionServices = iotActionServices;
             this.rentalSQLService = rentalSQLService;
-            this.randomCodeGenerator = randomCodeGenerator;
+            this.dispenserService = dispenserService;
             this.paymentService = paymentService;
-            this.itemSQLService = itemSQLService;
-            this.dispenserSQLService = dispenserSQLService;
+            this.randomCodeGenerator = randomCodeGenerator;
         }
 
         /// <summary>
@@ -50,8 +48,11 @@ namespace ToolShed.Renting
             //Create rental
             var rentalGuid = await rentalSQLService.CreateNewRentalAsync(rental);
 
+            //get dispenser iot name
+            var dispenserIotName = await dispenserService.GetDispenserIotNameAsync(rental.DispenserId);
+
             //send dispenser action
-            await iotActionServices.InformDispenserOfActionAsync("MAH_PIE", actions);
+            await iotActionServices.InformDispenserOfActionAsync(dispenserIotName, actions);
 
             return rentalGuid;
         }
@@ -81,7 +82,9 @@ namespace ToolShed.Renting
             if (!workingLockerCode)
                 throw new UnauthorizedAccessException();
 
-            await iotActionServices.InformDispenserOfActionAsync("MAH_PIE", BeginRentalAction(rental));
+            var dispenserIotName = await dispenserService.GetDispenserIotNameAsync(rental.DispenserId);
+
+            await iotActionServices.InformDispenserOfActionAsync(dispenserIotName, BeginRentalAction(rental));
         }
 
         private Actions BeginRentalAction(Rental rental)
@@ -106,10 +109,27 @@ namespace ToolShed.Renting
             return await rentalSQLService.GetRentalAsync(rentalId);
         }
 
+        public async Task ReturnRentalItemAsync(Rental rental)
+        {
+            if (rental == null)
+                throw new ArgumentNullException();
+
+            await iotActionServices.InformDispenserOfActionAsync("MAH_PIE", ReturnRentalAction(rental));
+        }
+
+        private Actions ReturnRentalAction(Rental rental)
+        {
+            return new Actions
+            {
+                ActionType = ActionType.unlock,
+                LockerNumber = rental.ItemRentalDetails.LockerNumber
+            };
+        }
+
         /// <summary>
-        /// 
+        /// Complete rental
         /// </summary>
-        /// <param name="rentalId"></param>
+        /// <param name="rentalId">pk of rental</param>
         /// <returns></returns>
         public async Task CompleteRentalAsync(Guid rentalId)
         {
@@ -117,10 +137,10 @@ namespace ToolShed.Renting
                 throw new ArgumentNullException();
 
             var rental = await rentalSQLService.GetRentalAsync(rentalId);
-            var state = await dispenserSQLService.GetDispenserStateAsync(rental.DispenserId);
+            var state = await dispenserService.GetDispenserStateAsync(rental.DispenserId);
             rental = await paymentService.CalculateRentalPriceAsync(rental, state);
 
-            await rentalSQLService.CompleteRentalAsync(rentalId);
+            await rentalSQLService.CompleteRentalAsync(rental);
         }
     }
 }

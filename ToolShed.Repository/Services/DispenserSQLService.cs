@@ -80,7 +80,6 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             var itemId = await itemRepository.AddItemAsync(ItemMapping.CreateDtoItem(item));
-            await dispenserToolsRepository.AddToolToDispensery();
         }
 
         public async Task AddItemsToDispenserAsync(IEnumerable<Item> items, Guid dispenserId)

@@ -37,7 +37,7 @@ namespace ToolShed.Repository.Mapping
         {
             return new Models.Repository.RentalRecord
             {
-                Action = ($"{rental.Item.ItemName} rental started at {rental.RentalStartTime}."),
+                Action = ($"{rental.ItemRentalDetails.Item.DisplayName} rental started at {rental.RentalStartTime}."),
                 ActionType = RentalAction.confirm,
                 RentalId = rental.RentalId,
                 UserId = rental.User.UserId
@@ -70,7 +70,7 @@ namespace ToolShed.Repository.Mapping
         {
             return new Models.Repository.RentalRecord
             {
-                Action = ($"Rental {rental.RentalId}, successfully. {rental.User.FirstName} {rental.User.LastName} has unlocked {rental.Item.ItemId}."),
+                Action = ($"Rental {rental.RentalId}, successfully. {rental.User.FirstName} {rental.User.LastName} has unlocked {rental.ItemRentalDetails.Item.DisplayName}."),
                 ActionType = RentalAction.correctCode,
                 RentalId = rental.RentalId,
                 UserId = rental.User.UserId
@@ -81,7 +81,7 @@ namespace ToolShed.Repository.Mapping
         {
             return new Models.Repository.RentalRecord
             {
-                Action = ($"Rental {rental.RentalId}, failed with {rental.LockerCode}. {rental.User.FirstName} {rental.User.LastName} has unlocked {rental.Item.ItemId}."),
+                Action = ($"Rental {rental.RentalId}, failed with {rental.LockerCode}. {rental.User.FirstName} {rental.User.LastName} has unlocked {rental.ItemRentalDetails.Item.DisplayName}."),
                 ActionType = RentalAction.badCode,
                 RentalId = rental.RentalId,
                 UserId = rental.User.UserId

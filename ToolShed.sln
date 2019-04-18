@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.API", "ToolShed.API\ToolShed.API.csproj", "{874BBE4F-DF65-49C1-994C-A026D1B429A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolsShed.Scheduler", "ToolsShed.Scheduler\ToolsShed.Scheduler.csproj", "{72A5AE0E-F2CC-4A1F-BB72-715DF2AE1174}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Models", "Toolshed.Models\ToolShed.Models.csproj", "{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Web", "ToolShed.Web\ToolShed.Web.csproj", "{B1B3A044-4305-4069-9C72-A7798E81E7B7}"
@@ -41,10 +39,6 @@ Global
 		{874BBE4F-DF65-49C1-994C-A026D1B429A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{874BBE4F-DF65-49C1-994C-A026D1B429A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{874BBE4F-DF65-49C1-994C-A026D1B429A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72A5AE0E-F2CC-4A1F-BB72-715DF2AE1174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72A5AE0E-F2CC-4A1F-BB72-715DF2AE1174}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72A5AE0E-F2CC-4A1F-BB72-715DF2AE1174}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72A5AE0E-F2CC-4A1F-BB72-715DF2AE1174}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ACB8AEE-5D53-4DDE-B243-0FFA1C5715AE}.Release|Any CPU.ActiveCfg = Release|Any CPU

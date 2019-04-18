@@ -19,7 +19,7 @@ namespace ToolShed.Models.API
         /// <summary>
         /// the unique iot hub registration of the hub
         /// </summary>
-        public string DispenserIoTId { get; set; }
+        public string DispenserIotId { get; set; }
 
         /// <summary>
         /// List of all available tools

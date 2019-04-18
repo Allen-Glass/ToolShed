@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
 {
-    public class TaxesSQLService
+    public class TaxesSQLService : ITaxesSQLService
     {
         private readonly StateSalesTaxRepository stateSalesTaxRepository;
 

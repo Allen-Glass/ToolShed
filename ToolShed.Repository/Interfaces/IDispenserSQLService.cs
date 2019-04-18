@@ -50,7 +50,7 @@ namespace ToolShed.Repository.Interfaces
         /// <param name="tool">tool object</param>
         /// <param name="dispenserId">pk of dispenser</param>
         /// <returns></returns>
-        Task AddItemToDispenserAsync(Item item, Guid dispenserId);
+        Task AddItemToDispenserAsync(Item item);
 
         /// <summary>
         /// add a list of tools to a dispenser

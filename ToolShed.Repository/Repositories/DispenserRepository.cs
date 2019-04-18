@@ -36,12 +36,28 @@ namespace ToolShed.Repository.Repositories
                 .FirstOrDefaultAsync(c => c.DispenserId.Equals(dispenserId));
         }
 
-        public async Task<Guid> GetDispenserAddressIdAsync(Guid addressId)
+        public async Task<Guid> GetDispenserAddressIdAsync(Guid dispenserId)
         {
             return await toolShedContext.DispenserSet
-                .Where(c => c.DispenserAddressId.Equals(addressId))
+                .Where(c => c.DispenserId.Equals(dispenserId))
                 .Select(c => c.DispenserAddressId)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<string> GetDispenserIotNameAsync(Guid dispenserId)
+        {
+            if (dispenserId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            var dispenserIotName = await toolShedContext.DispenserSet
+                .Where(c => c.DispenserId.Equals(dispenserId))
+                .Select(c => c.DispenserIotId)
+                .FirstOrDefaultAsync();
+
+            if (string.IsNullOrEmpty(dispenserIotName))
+                throw new NullReferenceException();
+
+            return dispenserIotName;
         }
 
         public async Task RemoveDispenserAsync(Dispenser dispenser)

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
-using ToolShed.Repository.Services;
+using ToolShed.Payments.Interfaces;
+using ToolShed.Repository.Interfaces;
 
 namespace ToolShed.Payments
 {
-    public class TaxService
+    public class TaxService : ITaxService
     {
-        private readonly TaxesSQLService taxesSQLService;
+        private readonly ITaxesSQLService taxesSQLService;
 
-        public TaxService(TaxesSQLService taxesSQLService)
+        public TaxService(ITaxesSQLService taxesSQLService)
         {
             this.taxesSQLService = taxesSQLService;
         }

@@ -8,8 +8,18 @@ namespace ToolShed.Dispensers.Interfaces
 {
     public interface IDispenserService
     {
+        void AddDispenserToInventory(Dispenser dispenser);
+
+        Task<string> GetDispenserIotNameAsync(Guid dispenserId);
+
+        Task<string> GetDispenserStateAsync(Guid dispenserId);
+
         Task<IEnumerable<ItemBundle>> GetItemBundles();
 
         Task<IEnumerable<ItemBundle>> GetItemBundles(Guid tenantId);
+
+        Task AddItemToDispenserAsync(Item item);
+
+        Task PurchaseDispenserAsync(Dispenser dispenser);
     }
 }

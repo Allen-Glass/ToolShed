@@ -28,6 +28,13 @@ namespace ToolShed.Renting.Interfaces
         Task<Rental> CheckRentalStatusAsync(Guid rentalId);
 
         /// <summary>
+        /// return rental
+        /// </summary>
+        /// <param name="rental"></param>
+        /// <returns></returns>
+        Task ReturnRentalItemAsync(Rental rental);
+
+        /// <summary>
         /// complete user rental
         /// </summary>
         /// <param name="rentalId"></param>

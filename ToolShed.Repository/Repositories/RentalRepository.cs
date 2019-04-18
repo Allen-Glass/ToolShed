@@ -59,13 +59,25 @@ namespace ToolShed.Repository.Repositories
                 .AnyAsync(c => c.LockerCode.Equals(lockerCode));
         }
 
-        public async Task MarkRentalAsCompleteAsync(Guid rentalId)
+        public async Task CompleteRentalAsync(Guid rentalId)
         {
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
             var rental = await GetRentalByRentalIdAsync(rentalId);
 
+            if (rental == null)
+                throw new ArgumentNullException();
+
+            rental.RentalReturned = DateTime.UtcNow;
+            rental.HasBeenReturned = true;
+
+            toolShedContext.Update(rental);
+            await toolShedContext.SaveChangesAsync();
+        }
+
+        public async Task CompleteRentalAsync(Rental rental)
+        {
             if (rental == null)
                 throw new ArgumentNullException();
 

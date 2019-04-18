@@ -51,6 +51,12 @@ namespace ToolShed.Repository.Interfaces
         Task CompleteRentalAsync(Guid rentalId);
 
         /// <summary>
+        /// Complete rental
+        /// </summary>
+        /// <param name="rental">rental object</param>
+        Task CompleteRentalAsync(Rental rental);
+
+        /// <summary>
         /// if user overextends rental duration to the point of paying full price they will be charged full price
         /// </summary>
         /// <param name="rentalId"></param>

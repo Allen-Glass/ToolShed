@@ -22,6 +22,11 @@ namespace ToolShed.Models.Repository
         public string DispenserName { get; set; }
 
         /// <summary>
+        /// the unique iot hub registration of the hub
+        /// </summary>
+        public string DispenserIotId { get; set; }
+
+        /// <summary>
         /// List of all available tools
         /// </summary>
         public Guid DispenserToolsListId { get; set; }

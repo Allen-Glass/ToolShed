@@ -25,6 +25,22 @@ namespace ToolShed.Dispensers
                 throw new ArgumentNullException();
         }
 
+        public async Task<string> GetDispenserIotNameAsync(Guid dispenserId)
+        {
+            if (dispenserId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            return await GetDispenserIotNameAsync(dispenserId);
+        }
+
+        public async Task<string> GetDispenserStateAsync(Guid dispenserId)
+        {
+            if (dispenserId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            return await dispenserSQLService.GetDispenserStateAsync(dispenserId);
+        }
+
         public async Task<IEnumerable<ItemBundle>> GetItemBundles()
         {
             return await itemSQLService.GetItemBundlesAsync();
@@ -40,7 +56,7 @@ namespace ToolShed.Dispensers
             if (item == null)
                 throw new ArgumentNullException();
 
-            await dispenserSQLService.AddItemToDispenserAsync(item, item.DispenserId);
+            await dispenserSQLService.AddItemToDispenserAsync(item);
         }
 
         public async Task PurchaseDispenserAsync(Dispenser dispenser)
