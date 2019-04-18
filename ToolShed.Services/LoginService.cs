@@ -4,10 +4,11 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Services.Interfaces;
 
 namespace ToolShed.Services
 {
-    public class LoginService
+    public class LoginService : ILoginService
     {
         private readonly IUserSQLService userSQLService;
 
@@ -35,7 +36,7 @@ namespace ToolShed.Services
             await userSQLService.CreateNewUserAccount(user);
         }
 
-        public async Task LogIntoAccountAsync(User user)
+        public async Task UpdatePasswordAsync()
         {
 
         }
@@ -63,9 +64,14 @@ namespace ToolShed.Services
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
-                numBytesRequested: 256/8));
+                numBytesRequested: 256 / 8));
 
             return hashed;
+        }
+
+        public async Task LogIntoAccountAsync(User user)
+        {
+
         }
     }
 }

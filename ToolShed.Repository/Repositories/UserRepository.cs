@@ -32,7 +32,7 @@ namespace ToolShed.Repository.Repositories
                 throw new ArgumentNullException();
 
             return await toolShedContext.UserSet
-                .AnyAsync();
+                .AnyAsync(c => c.Email.Equals(email));
         }
 
         public async Task<User> GetUserByEmailAsync(string email)
