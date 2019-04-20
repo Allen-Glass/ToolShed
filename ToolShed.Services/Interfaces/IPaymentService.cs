@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using ToolShed.Models.API;
 
-namespace ToolShed.Payments.Interfaces
+namespace ToolShed.Services.Interfaces
 {
     public interface IPaymentService
     {

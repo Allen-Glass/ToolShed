@@ -69,7 +69,7 @@ namespace ToolShed.Repository.Repositories
             if (rental == null)
                 throw new ArgumentNullException();
 
-            rental.RentalReturned = DateTime.UtcNow;
+            rental.RentalReturnTime = DateTime.UtcNow;
             rental.HasBeenReturned = true;
 
             toolShedContext.Update(rental);
@@ -81,7 +81,7 @@ namespace ToolShed.Repository.Repositories
             if (rental == null)
                 throw new ArgumentNullException();
 
-            rental.RentalReturned = DateTime.UtcNow;
+            rental.RentalReturnTime = DateTime.UtcNow;
             rental.HasBeenReturned = true;
 
             toolShedContext.Update(rental);

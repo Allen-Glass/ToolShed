@@ -33,7 +33,12 @@ namespace ToolShed.Services
 
             user.Password = HashUserPassword(user.Password);
 
-            await userSQLService.CreateNewUserAccount(user);
+            await userSQLService.CreateNewUserAccountAsync(user);
+        }
+
+        public async Task SendPasswordResetEmailAsync(string email)
+        {
+
         }
 
         public async Task UpdatePasswordAsync()
@@ -69,9 +74,26 @@ namespace ToolShed.Services
             return hashed;
         }
 
-        public async Task LogIntoAccountAsync(User user)
+        public async Task<User> LogIntoAccountAsync(User user)
         {
+            if (user == null)
+                throw new ArgumentNullException();
 
+            var accountEmailExists = await userSQLService.CheckIfUserEmailExists(user.Email);
+
+            if (!accountEmailExists)
+                throw new NullReferenceException(nameof(accountEmailExists));
+
+            var dtoHashedPassword = await userSQLService.GetHashedPasswordAsync(user.UserId);
+            var passwordMatches = HashUserPassword(user.Password) == dtoHashedPassword;
+
+            if (!passwordMatches)
+                throw new NullReferenceException(nameof(dtoHashedPassword));
+
+            user = await userSQLService.GetUserInformationAsync(user.UserId);
+            //user needs to be assigned a jwt
+
+            return user;
         }
     }
 }

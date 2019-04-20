@@ -46,7 +46,7 @@ namespace ToolShed.Repository.Repositories
             return state;
         }
 
-        public async Task<Address> GetAddressByAddressIdAsync(Guid addressId)
+        public async Task<Address> GetAddressAsync(Guid addressId)
         {
             if (addressId == Guid.Empty)
                 throw new ArgumentNullException("address guid cannot be empty");
@@ -60,12 +60,12 @@ namespace ToolShed.Repository.Repositories
             return address;
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesByAddressIdsAsync(IEnumerable<Guid> addressIds)
+        public async Task<IEnumerable<Address>> GetAddressesAsync(IEnumerable<Guid> addressIds)
         {
             var addressList = new List<Address>();
             foreach (var addressId in addressIds)
             {
-                addressList.Add(await GetAddressByAddressIdAsync(addressId));
+                addressList.Add(await GetAddressAsync(addressId));
             }
 
             return addressList;

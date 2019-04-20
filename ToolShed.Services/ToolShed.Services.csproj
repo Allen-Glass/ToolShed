@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ToolShed.Helpers\ToolShed.Helpers.csproj" />
     <ProjectReference Include="..\ToolShed.Repository\ToolShed.Repository.csproj" />
   </ItemGroup>
 

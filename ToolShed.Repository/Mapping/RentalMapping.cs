@@ -10,8 +10,8 @@ namespace ToolShed.Repository.Mapping
         {
             return new Models.Repository.Rental
             {
-                RentalStart = DateTime.UtcNow,
-                RentalDue = rental.RentalDueTime,
+                RentalStartTime = DateTime.UtcNow,
+                RentalDueTime = rental.RentalDueTime,
                 HasBeenReturned = false,
                 IsUserOwnedNow = false,
                 UserId = rental.User.UserId,
@@ -23,10 +23,10 @@ namespace ToolShed.Repository.Mapping
         {
             return new Rental
             {
-                RentalStartTime = rental.RentalStart,
-                RentalDueTime = rental.RentalDue,
+                RentalStartTime = rental.RentalStartTime,
+                RentalDueTime = rental.RentalDueTime,
                 RentalId = rental.RentalId,
-                RentalReturnTime = rental.RentalReturned,
+                RentalReturnTime = rental.RentalReturnTime,
                 HasBeenReturned = rental.HasBeenReturned,
                 IsUserOwnedNow = rental.IsUserOwnedNow,
                 LockerCode = rental.LockerCode

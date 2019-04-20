@@ -12,6 +12,6 @@ namespace ToolShed.Services.Interfaces
 
         Task UpdatePasswordAsync();
 
-        Task LogIntoAccountAsync(User user);
+        Task<User> LogIntoAccountAsync(User user);
     }
 }

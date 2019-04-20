@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ToolShed.Models.API;
-using ToolShed.Payments.Interfaces;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Services.Interfaces;
 
-namespace ToolShed.Payments
+namespace ToolShed.Services
 {
     public class PaymentService : IPaymentService
     {
@@ -43,8 +45,19 @@ namespace ToolShed.Payments
             return rental;
         }
 
-        public async Task ProcessPaymentAsync()
+        public async Task ProcessPendingPaymentsToTenantsAsync(IEnumerable<Payment> payments)
         {
+            if (payments == null)
+                throw new ArgumentNullException();
+
+            foreach (var payment in payments)
+            {
+                if (payment.TenantHasBeenPaid == true) //ensure that payments don't get double processed
+                {
+                    //process payment
+                    payment.TenantHasBeenPaid = true;
+                }
+            }
         }
     }
 }

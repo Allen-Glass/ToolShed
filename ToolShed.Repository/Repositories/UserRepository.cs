@@ -67,6 +67,24 @@ namespace ToolShed.Repository.Repositories
                 .ToListAsync();
         }
 
+        public async Task<string> GetHashedPasswordAsync(Guid userId)
+        {
+            return await toolShedContext.UserSet
+                .Where(c => c.UserId.Equals(userId))
+                .Select(c => c.Password)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException();
+
+            toolShedContext.UserSet
+                .Update(user);
+            await toolShedContext.SaveChangesAsync();
+        }
+
         public async Task DeleteUserAsync(User user)
         {
             toolShedContext.UserSet

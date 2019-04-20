@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
 
@@ -18,6 +22,17 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.UserCardSet
                 .AddAsync(userCard);
             await toolShedContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Guid>> GetCardIdsAsync(Guid userId)
+        {
+            if (userId == Guid.Empty)
+                throw new ArgumentNullException(nameof(userId));
+
+            return await toolShedContext.UserCardSet
+                .Where(c => c.UserId.Equals(userId))
+                .Select(c => c.CardId)
+                .ToListAsync();
         }
 
         public async Task DeleteCardAsync(UserCard userCard)

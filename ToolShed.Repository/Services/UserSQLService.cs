@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
 using ToolShed.Models.API;
@@ -32,7 +34,7 @@ namespace ToolShed.Repository.Services
             this.cardAddressRepository = cardAddressRepository;
         }
 
-        public async Task StoreUserInformationAsync(User user)
+        public async Task AddUserInformationAsync(User user)
         {
             if (user == null)
                 throw new ArgumentNullException();
@@ -45,12 +47,83 @@ namespace ToolShed.Repository.Services
             }
         }
 
-        public async Task CreateNewUserAccount(User user)
+        public async Task CreateNewUserAccountAsync(User user)
         {
             if (user == null)
                 throw new ArgumentNullException();
 
             await userRepository.AddUserAsync(UserMapping.CreateDtoUser(user));
+        }
+
+        public async Task<string> GetHashedPasswordAsync(Guid userId)
+        {
+            if (userId == Guid.Empty)
+                throw new ArgumentNullException(nameof(userId));
+
+            var hashedPassword = await userRepository.GetHashedPasswordAsync(userId);
+
+            if (string.IsNullOrEmpty(hashedPassword))
+                throw new ArgumentNullException(nameof(hashedPassword));
+
+            return hashedPassword;
+        }
+
+        public async Task<User> GetUserInformationAsync(Guid userId)
+        {
+            if (userId == Guid.Empty)
+                throw new ArgumentNullException(nameof(userId));
+
+            IEnumerable<Models.Repository.Card> dtoCards;
+            IEnumerable<Card> cards;
+            IEnumerable<Models.Repository.Address> dtoAddresses;
+            var dtoUser = await userRepository.GetUserByUserIdAsync(userId);
+            var user = UserMapping.ConvertDtoUser(dtoUser);
+            var cardIds = await userCardRepository.GetCardIdsAsync(dtoUser.UserId);
+            var addressIds = await userAddressesRepository.GetAddressIdsAsync(dtoUser.UserId);
+
+            if (cardIds != null)
+            {
+                dtoCards = await cardRepository.GetCardsAsync(cardIds);
+                cards = await MapAddressesToCardsAsync(dtoCards);
+                user.CreditCards = cards;
+            }
+            if (addressIds != null)
+            {
+                dtoAddresses = await addressRepository.GetAddressesAsync(addressIds);
+                user.Address = AddressMapping.ConvertDtoAddressToAddress(dtoAddresses.FirstOrDefault());
+            }
+
+            return user;
+        }
+
+        private async Task<IEnumerable<Card>> MapAddressesToCardsAsync(IEnumerable<Models.Repository.Card> cards)
+        {
+            var cardList = new List<Card>();
+            foreach (var dtoCard in cards)
+            {
+                var address = await addressRepository.GetAddressAsync(dtoCard.BillingAddressId);
+                var card = CardMapping.ConvertDtoCardToCard(dtoCard);
+                card.BillingAddress = AddressMapping.ConvertDtoAddressToAddress(address);
+                cardList.Add(card);
+            }
+
+            return cardList;
+        }
+
+        public async Task UpdateUserAccountAsync(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            await userRepository.UpdateUserAsync(UserMapping.CreateDtoUser(user));
+        }
+
+        public async Task DeleteUserAccount(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException();
+
+            await userRepository.DeleteUserAsync(UserMapping.CreateDtoUser(user));
         }
 
         public async Task<bool> CheckIfUserEmailExists(string email)
@@ -61,7 +134,7 @@ namespace ToolShed.Repository.Services
             return await userRepository.CheckIfUserEmailExists(email);
         }
 
-        public async Task StoreCreditCardAsync(Card card, Guid userId)
+        public async Task AddCardAsync(Card card, Guid userId)
         {
             if (card == null || userId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -72,12 +145,12 @@ namespace ToolShed.Repository.Services
             await cardAddressRepository.AddCardAddressAsync(AddressMapping.CreateCardAddressDTO(userId, cardId));
         }
 
-        public async Task DeleteUserAccount(User user)
+        public async Task UpdateCardAsync(Card card)
         {
-            if (user == null)
-                throw new ArgumentNullException();
+            if (card == null)
+                throw new ArgumentNullException(nameof(card));
 
-            await userRepository.DeleteUserAsync(UserMapping.CreateDtoUser(user));
+            await cardRepository.UpdateCardAsync(CardMapping.CreateDtoCard(card));
         }
     }
 }

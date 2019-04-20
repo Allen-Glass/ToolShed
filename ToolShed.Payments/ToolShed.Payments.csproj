@@ -9,4 +9,8 @@
     <ProjectReference Include="..\ToolShed.Repository\ToolShed.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

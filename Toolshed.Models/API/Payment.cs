@@ -1,4 +1,5 @@
-﻿using ToolShed.Models.Enums;
+﻿using System;
+using ToolShed.Models.Enums;
 
 namespace ToolShed.Models.API
 {
@@ -41,6 +42,16 @@ namespace ToolShed.Models.API
         /// the total cost for the user
         /// </summary>
         public double TotalCost { get; set; }
+
+        /// <summary>
+        /// tenant
+        /// </summary>
+        public Guid TenantId { get; set; }
+
+        /// <summary>
+        /// Has tenant been paid yet
+        /// </summary>
+        public bool TenantHasBeenPaid { get; set; }
 
         /// <summary>
         /// how the user is paying for the transaction

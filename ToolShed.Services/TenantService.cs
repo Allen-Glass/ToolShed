@@ -24,6 +24,17 @@ namespace ToolShed.Services
             await tenantSQLService.StoreTenantAsync(tenant);
         }
 
-        public async Task 
+        public async Task<Tenant> GetTenantAsync(Guid tenantId)
+        {
+            if (tenantId == Guid.Empty)
+                throw new ArgumentNullException();
+
+            var tenant = await tenantSQLService.GetTenantAsync(tenantId);
+
+            if (tenant == null)
+                throw new NullReferenceException();
+
+            return tenant;
+        }
     }
 }

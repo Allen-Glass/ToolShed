@@ -10,13 +10,39 @@ namespace ToolShed.Repository.Interfaces
         /// Store user information in sql
         /// </summary>
         /// <param name="user">user infomraiton</param>
-        Task StoreUserInformationAsync(User user);
+        Task AddUserInformationAsync(User user);
 
         /// <summary>
         /// create user account
         /// </summary>
         /// <param name="user">user object</param>
-        Task CreateNewUserAccount(User user);
+        Task CreateNewUserAccountAsync(User user);
+
+        /// <summary>
+        /// get hashed password
+        /// </summary>
+        /// <param name="userId">pk of user</param>
+        /// <returns>hashed password</returns>
+        Task<string> GetHashedPasswordAsync(Guid userId);
+
+        /// <summary>
+        /// get all information associated with a user
+        /// </summary>
+        /// <param name="userId">pk of user</param>
+        /// <returns>user object</returns>
+        Task<User> GetUserInformationAsync(Guid userId);
+
+        /// <summary>
+        /// update user account information
+        /// </summary>
+        /// <param name="user">user object</param>
+        Task UpdateUserAccountAsync(User user);
+
+        /// <summary>
+        /// delete user account
+        /// </summary>
+        /// <param name="user">user object</param>
+        Task DeleteUserAccount(User user);
 
         /// <summary>
         /// check if user email exists
@@ -30,13 +56,6 @@ namespace ToolShed.Repository.Interfaces
         /// </summary>
         /// <param name="card">credit card object</param>
         /// <param name="userId">pk of user</param>
-        Task StoreCreditCardAsync(Card card, Guid userId);
-
-        /// <summary>
-        /// Delete user account information
-        /// </summary>
-        /// <param name="user">user object</param>
-        /// <returns></returns>
-        Task DeleteUserAccount(User user);
+        Task AddCardAsync(Card card, Guid userId);
     }
 }

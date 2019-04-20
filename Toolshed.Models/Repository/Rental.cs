@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ToolShed.Models.Enums;
 
 namespace ToolShed.Models.Repository
 {
@@ -19,44 +20,44 @@ namespace ToolShed.Models.Repository
         public Guid UserId { get; set; }
 
         /// <summary>
-        /// pk of item rental
+        /// Rental Item
         /// </summary>
         public Guid ItemRentalDetailsId { get; set; }
 
         /// <summary>
-        /// dispenser id of the rental
+        /// the dispenser associated with the id
         /// </summary>
         public Guid DispenserId { get; set; }
 
         /// <summary>
         /// the time the rental started
         /// </summary>
-        public DateTime RentalStart { get; set; }
+        public DateTime RentalStartTime { get; set; }
 
         /// <summary>
         /// The time the rental is due
         /// </summary>
-        public DateTime RentalDue { get; set; }
+        public DateTime RentalDueTime { get; set; }
 
         /// <summary>
         /// Time the rental is returned
         /// </summary>
-        public DateTime RentalReturned { get; set; }
+        public DateTime RentalReturnTime { get; set; }
 
         /// <summary>
-        /// The price per hour for rental
+        /// the length of the rental
         /// </summary>
-        public double PricePerHour { get; set; }
+        public int RentalDuration { get; set; }
 
         /// <summary>
-        /// The price per hour after missing return time
+        /// The payment associated with the rental
         /// </summary>
-        public double PricePerHourOver { get; set; }
+        public Guid PaymentId { get; set; }
 
         /// <summary>
-        /// The final cost of the return
+        /// the type of return (overdue, on time, full price, etc...)
         /// </summary>
-        public double FinalCost { get; set; }
+        public ReturnType ReturnType { get; set; }
 
         /// <summary>
         /// User has returned the rental
@@ -69,7 +70,7 @@ namespace ToolShed.Models.Repository
         public bool IsUserOwnedNow { get; set; }
 
         /// <summary>
-        /// unique locker code for dispenser
+        /// unique locker code for rental
         /// </summary>
         public string LockerCode { get; set; }
     }

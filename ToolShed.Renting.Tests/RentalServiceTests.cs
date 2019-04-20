@@ -119,7 +119,7 @@ namespace ToolShed.Renting.Tests
         {
             return new RentingService(CreateIotActionServices(),
                 CreateRentalSQLService(), 
-                new RandomCodeGenerator(6),
+                null,
                 null,
                 null);
         }

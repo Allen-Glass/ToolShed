@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
-using ToolShed.Payments.Interfaces;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Services.Interfaces;
 
-namespace ToolShed.Payments
+namespace ToolShed.Services
 {
     public class TaxService : ITaxService
     {
