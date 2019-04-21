@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Services.Interfaces;
 
 namespace ToolShed.API.Controllers
 {
@@ -11,22 +12,25 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserSQLService userSQLService;
+        private readonly ILoginService loginService;
 
-        public UsersController(IUserSQLService userSQLService)
+        public UsersController(ILoginService loginService)
         {
-            this.userSQLService = userSQLService;
+            this.loginService = loginService;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterUserAsync([FromBody] User user)
+        [HttpPost("create/account")]
+        public async Task<IActionResult> CreateUserAsync([FromBody] User user)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
+            if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password))
+                return BadRequest("The username or password is missing");
+
             try
             {
-                await userSQLService.StoreUserInformationAsync(user);
+                await loginService.CreateNewAccountAsync(user);
                 return Ok();
             }
             catch (Exception ex)
@@ -35,15 +39,16 @@ namespace ToolShed.API.Controllers
             }
         }
 
-        [HttpGet("test")]
-        public async Task<IActionResult> GetUserDetailsAsync()
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> LogIntoUserAccountAsync(User user)
         {
-            if (string.IsNullOrEmpty("userId"))
+            if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
             try
             {
-                return Ok();
+                await loginService.LogIntoAccountAsync(user);
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -59,7 +64,8 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                return Ok();
+                var user = await loginService.GetUserInformationAsync(new Guid(userId));
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -67,14 +73,25 @@ namespace ToolShed.API.Controllers
             }
         }
 
+        [HttpGet("password/reset/{email}")]
+        public async Task<IActionResult> SendPasswordResetAsync(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentNullException();
+
+            await loginService.SendPasswordResetEmailAsync(email);
+            return Ok();
+        }
+
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateUserAccountAsync([FromBody] User userInformation)
+        public async Task<IActionResult> UpdatePasswordAsync([FromBody] User user)
         {
             if (!ModelState.IsValid)
                 return BadRequest("The user information is incomplete");
 
             try
             {
+                await loginService.UpdateUserPasswordAsync(user.UserId, user.Password);
                 return Ok();
             }
             catch (Exception ex)

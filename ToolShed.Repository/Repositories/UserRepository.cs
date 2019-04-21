@@ -85,6 +85,18 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
+        public async Task UpdatePasswordAsync(Guid userId, string password)
+        {
+            var user = await GetUserByUserIdAsync(userId);
+            if (string.IsNullOrEmpty(password))
+                throw new ArgumentNullException(nameof(password));
+
+            toolShedContext.UserSet
+                .Attach(user);
+            toolShedContext.Entry(user).Property(c => c.Password).IsModified = true;
+            await toolShedContext.SaveChangesAsync();
+        }
+
         public async Task DeleteUserAsync(User user)
         {
             toolShedContext.UserSet

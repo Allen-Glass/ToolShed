@@ -5,9 +5,9 @@ using ToolShed.IotHub.Interfaces;
 using ToolShed.Models.API;
 using ToolShed.Models.Enums;
 using ToolShed.Models.IoTHub;
-using ToolShed.Payments.Interfaces;
 using ToolShed.Renting.Interfaces;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Services.Interfaces;
 
 namespace ToolShed.Renting
 {
@@ -109,12 +109,19 @@ namespace ToolShed.Renting
             return await rentalSQLService.GetRentalAsync(rentalId);
         }
 
+        /// <summary>
+        /// return a rental. Trigger action to open locker
+        /// </summary>
+        /// <param name="rental">rental object</param>
+        /// <returns></returns>
         public async Task ReturnRentalItemAsync(Rental rental)
         {
             if (rental == null)
                 throw new ArgumentNullException();
 
-            await iotActionServices.InformDispenserOfActionAsync("MAH_PIE", ReturnRentalAction(rental));
+            var dispenserIotName = await dispenserService.GetDispenserIotNameAsync(rental.DispenserId);
+
+            await iotActionServices.InformDispenserOfActionAsync(dispenserIotName, ReturnRentalAction(rental));
         }
 
         private Actions ReturnRentalAction(Rental rental)

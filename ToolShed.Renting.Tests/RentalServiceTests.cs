@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.IotHub.Services;
 using ToolShed.Models.API;
-using ToolShed.Payments;
-using ToolShed.Payments.Interfaces;
 using ToolShed.Renting.Interfaces;
 using ToolShed.Repository.Context;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Repositories;
 using ToolShed.Repository.Services;
+using ToolShed.Services;
+using ToolShed.Services.Interfaces;
 using Xunit;
 
 namespace ToolShed.Renting.Tests

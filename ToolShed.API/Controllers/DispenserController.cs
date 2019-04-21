@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Toolshed.Models.Dispensers;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;

@@ -10,7 +10,11 @@ namespace ToolShed.Services.Interfaces
     {
         Task CreateNewAccountAsync(User user);
 
-        Task UpdatePasswordAsync();
+        Task<User> GetUserInformationAsync(Guid userId);
+
+        Task SendPasswordResetEmailAsync(string email);
+
+        Task UpdateUserPasswordAsync(Guid userId, string newPassword);
 
         Task<User> LogIntoAccountAsync(User user);
     }

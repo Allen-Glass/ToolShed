@@ -11,10 +11,13 @@ namespace ToolShed.Services
     public class LoginService : ILoginService
     {
         private readonly IUserSQLService userSQLService;
+        private readonly IEmailService emailService;
 
-        public LoginService(IUserSQLService userSQLService)
+        public LoginService(IUserSQLService userSQLService,
+            IEmailService emailService)
         {
             this.userSQLService = userSQLService;
+            this.emailService = emailService;
         }
 
         public async Task CreateNewAccountAsync(User user)
@@ -36,14 +39,32 @@ namespace ToolShed.Services
             await userSQLService.CreateNewUserAccountAsync(user);
         }
 
-        public async Task SendPasswordResetEmailAsync(string email)
+        public async Task<User> GetUserInformationAsync(Guid userId)
         {
+            if (userId == Guid.Empty)
+                throw new ArgumentNullException(nameof(userId));
 
+            return await userSQLService.GetUserInformationAsync(userId);
         }
 
-        public async Task UpdatePasswordAsync()
+        public async Task SendPasswordResetEmailAsync(string email)
         {
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentNullException(nameof(email));
 
+            var emailDoesExist = await userSQLService.CheckIfUserEmailExists(email);
+            if (!emailDoesExist)
+                throw new NullReferenceException(nameof(email));
+
+            await emailService.SendPasswordResetEmailAsync(email);
+        }
+
+        public async Task UpdateUserPasswordAsync(Guid userId, string newPassword)
+        {
+            if (string.IsNullOrEmpty(newPassword))
+                throw new ArgumentNullException();
+
+            await userSQLService.UpdateUserPasswordAsync(userId, newPassword);
         }
 
         /// <summary>

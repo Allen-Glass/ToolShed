@@ -39,6 +39,13 @@ namespace ToolShed.Repository.Interfaces
         Task UpdateUserAccountAsync(User user);
 
         /// <summary>
+        /// update user password
+        /// </summary>
+        /// <param name="userId">pk of user</param>
+        /// <param name="newPassword">user's new password</param>
+        Task UpdateUserPasswordAsync(Guid userId, string newPassword);
+
+        /// <summary>
         /// delete user account
         /// </summary>
         /// <param name="user">user object</param>

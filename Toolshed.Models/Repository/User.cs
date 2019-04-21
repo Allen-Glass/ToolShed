@@ -24,6 +24,11 @@ namespace ToolShed.Models.Repository
         public string LastName { get; set; }
 
         /// <summary>
+        /// user name of account
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
         /// User's email
         /// </summary>
         public string Email { get; set; }

@@ -37,7 +37,7 @@ namespace ToolShed.Repository.Tests
         {
             var addressId = await addressRepository.AddAddressAsync(address);
 
-            var dtoAddress = await addressRepository.GetAddressByAddressIdAsync(addressId);
+            var dtoAddress = await addressRepository.GetAddressAsync(addressId);
 
             Assert.Equal(address, dtoAddress);
         }
@@ -48,14 +48,14 @@ namespace ToolShed.Repository.Tests
             var addressId = Guid.Empty;
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
-                 await addressRepository.GetAddressByAddressIdAsync(addressId));
+                 await addressRepository.GetAddressAsync(addressId));
         }
 
         [Fact]
         public async Task GetNonexistentAddressByAddressId()
         {
             await Assert.ThrowsAsync<NullReferenceException>(async () =>
-                 await addressRepository.GetAddressByAddressIdAsync(fakeGuid));
+                 await addressRepository.GetAddressAsync(fakeGuid));
         }
 
         [Fact]

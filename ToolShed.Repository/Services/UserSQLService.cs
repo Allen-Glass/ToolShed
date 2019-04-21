@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Toolshed.Models.Enums;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Mapping;
@@ -116,6 +115,14 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException(nameof(user));
 
             await userRepository.UpdateUserAsync(UserMapping.CreateDtoUser(user));
+        }
+
+        public async Task UpdateUserPasswordAsync(Guid userId, string newPassword)
+        {
+            if (userId == Guid.Empty)
+                throw new ArgumentNullException(nameof(userId));
+
+            await userRepository.UpdatePasswordAsync(userId, newPassword);
         }
 
         public async Task DeleteUserAccount(User user)
