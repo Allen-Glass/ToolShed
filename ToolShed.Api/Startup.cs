@@ -29,6 +29,7 @@ namespace ToolShed
         public void ConfigureServices(IServiceCollection services)
         {
             var sqlConnection = Configuration["SQLConnectionString"];
+            var iotHubConnectionString = Configuration["IotHubConnectionString"];
 
             services.AddCors(
                     options => options.AddPolicy("Dispenser",
@@ -60,7 +61,7 @@ namespace ToolShed
             services.AddTransient<IDispenserSQLService, DispenserSQLService>();
             services.AddTransient<IIotActionServices, IotActionServices>(sp =>
             {
-                var serviceClient = ServiceClient.CreateFromConnectionString("HostName=toolshed-hub.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=0rV4SLwfduFh0N3xB5fNzZ0/gLa88Qjohr3r9D+yVkw=");
+                var serviceClient = ServiceClient.CreateFromConnectionString(iotHubConnectionString);
                 return new IotActionServices(serviceClient);
             });
 
