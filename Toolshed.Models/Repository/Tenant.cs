@@ -26,6 +26,6 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// Location of tenant
         /// </summary>
-        public Guid TenantAddressId { get; set; }
+        public Guid AddressId { get; set; }
     }
 }

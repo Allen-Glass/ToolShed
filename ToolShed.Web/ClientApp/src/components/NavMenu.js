@@ -37,6 +37,7 @@ export default class NavMenu extends Component {
                 <a onMouseOver={this.showSomething} href="/" className="navbar-link">Rent</a>
                 <a onMouseOver={this.showSomething} href="/" className="navbar-link">Buy</a>
                 <a onMouseOver={this.showSomething} href="/" className="navbar-link">Own</a>
+                <a onMouseOver={this.showSomething} href="/rental/start" className="navbar-link">Rental</a>
                 <a onMouseOver={this.showSomething} href="/login" className="navbar-link">Login</a>
                 <i></i>
                 <i></i>

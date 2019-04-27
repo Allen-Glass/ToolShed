@@ -69,6 +69,14 @@ namespace ToolShed
             services.AddDbContext<ToolShedContext>(options => options.UseSqlServer(sqlConnection), ServiceLifetime.Transient);
             services.AddDbContext<TenantContext>(options => options.UseSqlServer(sqlConnection), ServiceLifetime.Transient);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAuthentication()
+                .AddMicrosoftAccount()
+                .AddGoogle()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = Configuration["FacebookAppId"];
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

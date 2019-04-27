@@ -22,7 +22,7 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// the item type
         /// </summary>
-        public Guid ItemType { get; set; }
+        public Guid ItemTypeId { get; set; }
 
         /// <summary>
         /// name of the item
@@ -53,5 +53,10 @@ namespace ToolShed.Models.Repository
         /// the total price to buy
         /// </summary>
         public double BuyPrice { get; set; }
+
+        /// <summary>
+        /// the state of an item
+        /// </summary>
+        public ItemState ItemState { get; set; }
     }
 }

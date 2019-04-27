@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Repository", "Tool
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Repository.Tests", "ToolShed.Repository.Tests\ToolShed.Repository.Tests.csproj", "{1CEECF66-F58B-454B-BCCB-290D999D54B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.IotHub", "ToolShed.IotHub\ToolShed.IotHub.csproj", "{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Payment.API", "ToolShed.Payment.API\ToolShed.Payment.API.csproj", "{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Payments", "ToolShed.Payments\ToolShed.Payments.csproj", "{CF03BEE0-E65F-4FA6-BC81-B0438461D814}"
@@ -25,15 +23,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Dispensers", "Tool
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Orders", "ToolShed.Orders\ToolShed.Orders.csproj", "{0448B9BF-4464-462B-A19B-C621668076C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Renting", "ToolShed.Renting\ToolShed.Renting.csproj", "{D1280E9F-16FB-4E67-9A5C-966A83738E52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Renting", "ToolShed.Renting\ToolShed.Renting.csproj", "{D1280E9F-16FB-4E67-9A5C-966A83738E52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Inventory", "ToolShed.Inventory\ToolShed.Inventory.csproj", "{FB9E130C-124D-49B3-BC8E-07215D943FD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Inventory", "ToolShed.Inventory\ToolShed.Inventory.csproj", "{FB9E130C-124D-49B3-BC8E-07215D943FD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Services", "ToolShed.Services\ToolShed.Services.csproj", "{DF371C8D-38A4-49CB-B9D5-61A536E57D48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Services", "ToolShed.Services\ToolShed.Services.csproj", "{DF371C8D-38A4-49CB-B9D5-61A536E57D48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Helpers", "ToolShed.Helpers\ToolShed.Helpers.csproj", "{A1910230-0491-48BD-A984-6A190263021E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Helpers", "ToolShed.Helpers\ToolShed.Helpers.csproj", "{A1910230-0491-48BD-A984-6A190263021E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Services.Tests", "ToolShed.Services.Tests\ToolShed.Services.Tests.csproj", "{AAAC6CB6-90BB-4901-8273-07467D5EC9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Services.Tests", "ToolShed.Services.Tests\ToolShed.Services.Tests.csproj", "{AAAC6CB6-90BB-4901-8273-07467D5EC9DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Mobile.Android", "ToolShed.Mobile\ToolShed.Mobile.Android\ToolShed.Mobile.Android.csproj", "{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}"
 EndProject
@@ -41,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Mobile.iOS", "Tool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Mobile.UWP", "ToolShed.Mobile\ToolShed.Mobile.UWP\ToolShed.Mobile.UWP.csproj", "{5181CC35-B845-415E-8CFB-9E017C85E4C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolShed.Mobile", "ToolShed.Mobile\ToolShed.Mobile\ToolShed.Mobile.csproj", "{EB3ACF4E-7031-4ED7-9A9B-C2AC204D7607}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolShed.Mobile", "ToolShed.Mobile\ToolShed.Mobile\ToolShed.Mobile.csproj", "{EB3ACF4E-7031-4ED7-9A9B-C2AC204D7607}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -179,30 +177,6 @@ Global
 		{1CEECF66-F58B-454B-BCCB-290D999D54B1}.Release|x64.Build.0 = Release|Any CPU
 		{1CEECF66-F58B-454B-BCCB-290D999D54B1}.Release|x86.ActiveCfg = Release|Any CPU
 		{1CEECF66-F58B-454B-BCCB-290D999D54B1}.Release|x86.Build.0 = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|ARM.Build.0 = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|x64.Build.0 = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Debug|x86.Build.0 = Debug|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|ARM.ActiveCfg = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|ARM.Build.0 = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|iPhone.Build.0 = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|x64.ActiveCfg = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|x64.Build.0 = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|x86.ActiveCfg = Release|Any CPU
-		{1D41666C-29EE-456B-8CB6-29E9AB2FF43A}.Release|x86.Build.0 = Release|Any CPU
 		{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA295EB-BC46-4F3D-8D82-28ACF9E18A89}.Debug|ARM.ActiveCfg = Debug|Any CPU

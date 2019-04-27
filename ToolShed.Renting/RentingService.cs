@@ -101,12 +101,14 @@ namespace ToolShed.Renting
         /// </summary>
         /// <param name="rentalId"></param>
         /// <returns></returns>
-        public async Task<Rental> CheckRentalStatusAsync(Guid rentalId)
+        public async Task<bool> CheckRentalStatusAsync(Guid rentalId)
         {
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            return await rentalSQLService.GetRentalAsync(rentalId);
+            var rental = await rentalSQLService.GetRentalAsync(rentalId);
+
+            return rental.HasBeenReturned;
         }
 
         /// <summary>

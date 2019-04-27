@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ToolShed.Models.Enums;
 
 namespace ToolShed.Models.API
 {
@@ -58,5 +59,10 @@ namespace ToolShed.Models.API
         /// the total price to buy
         /// </summary>
         public double BuyPrice { get; set; }
+
+        /// <summary>
+        /// the state of an item
+        /// </summary>
+        public ItemState ItemState { get; set; }
     }
 }

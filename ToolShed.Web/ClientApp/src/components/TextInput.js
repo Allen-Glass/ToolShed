@@ -14,12 +14,14 @@ export default class TextInput extends Component {
 
     render() {
         return (
-            <input
-                name={this.props.name}
-                onChange={this.updateInput}
-                value={this.state.input}
-                placeholder={this.props.placeholder}
-            />
+            <div className="text-input">
+                <input
+                    name={this.props.name}
+                    onChange={this.updateInput}
+                    value={this.state.input}
+                    placeholder={this.props.placeholder}
+                />
+            </div>
             );
     }
 }

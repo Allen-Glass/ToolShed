@@ -9,5 +9,7 @@ namespace ToolShed.Models.Repository
         public Guid ItemTypeId { get; set; }
 
         public string DisplayName { get; set; }
+
+        public string Manufacturer { get; set; }
     }
 }

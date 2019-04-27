@@ -32,6 +32,11 @@ namespace ToolShed.Models.Repository
         public string CardHolderName { get; set; }
 
         /// <summary>
+        /// credit card value
+        /// </summary>
+        public string CCV { get; set; }
+
+        /// <summary>
         /// Billing Address of credit card
         /// </summary>
         public Guid BillingAddressId { get; set; }

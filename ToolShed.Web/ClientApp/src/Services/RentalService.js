@@ -9,7 +9,6 @@
             Rental: rental
         })
     })
-        .then(response => response.json())
         .then(data => {
             return data;
         });
@@ -26,7 +25,6 @@ export const StartRental = function (rental) {
             Rental: rental
         })
     })
-        .then(response => response.json())
         .then(data => {
             return data;
         });
@@ -43,7 +41,6 @@ export const ReturnRental = function (rental) {
             Rental: rental
         })
     })
-        .then(response => response.json())
         .then(data => {
             return data;
         });

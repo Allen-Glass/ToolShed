@@ -16,7 +16,7 @@ namespace ToolShed.Models.Repository
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CardAddressesId { get; set; }
+        public Guid CardAddressId { get; set; }
 
         /// <summary>
         /// pk of card id

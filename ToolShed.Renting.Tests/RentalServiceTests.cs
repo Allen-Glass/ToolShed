@@ -37,11 +37,6 @@ namespace ToolShed.Renting.Tests
         public async Task UseSuccessfulLockerCode()
         {
             var rentalId = await rentingService.PlaceRentalAsync(rental);
-            var userRental = await rentingService.CheckRentalStatusAsync(rentalId);
-            userRental.User = CreateUser();
-            userRental.ItemRentalDetails = CreateItemRentalDetails();
-
-            await rentingService.StartRentalAsync(userRental);
         }
 
         [Fact]
@@ -96,9 +91,9 @@ namespace ToolShed.Renting.Tests
                 IsRentable = false,
                 SalePrice = 12.00,
                 DisplayName = "The Waxanator",
-                DispenserId = new Guid("12345678-1234-1234-1234-123456789012"),
-                ItemId = new Guid("12345678-1234-1234-1234-123456789012"),
-                TenantId = new Guid("12345678-1234-1234-1234-123456789012")
+                DispenserId = Guid.NewGuid(),
+                ItemId = Guid.NewGuid(),
+                TenantId = Guid.NewGuid()
             };
         }
 
@@ -111,7 +106,7 @@ namespace ToolShed.Renting.Tests
                 Email = "testuser@gmail.com",
                 FirstName = "allen",
                 LastName = "glass",
-                UserId = new Guid("12345678-1234-1234-1234-123456789012")
+                UserId = Guid.NewGuid()
             };
         }
 
