@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using ToolShed.Models.IoTHub;
+﻿using System.Threading.Tasks;
+using ToolShed.Models.API;
 
 namespace ToolShed.IotHub.Interfaces
 {

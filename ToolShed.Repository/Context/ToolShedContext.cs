@@ -24,7 +24,7 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<MaintenanceProvider> MaintenanceProviderSet { get; set; }
         public virtual DbSet<MaintenanceRequest> MaintenanceRequestSet { get; set; }
         public virtual DbSet<Order> OrderSet { get; set; }
-        public virtual DbSet<OrderDetails> OrderDetailsSet { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetailsSet { get; set; }
         public virtual DbSet<Rental> RentalSet { get; set; }
         public virtual DbSet<RentalRecord> RentalRecordSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
@@ -63,7 +63,7 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.MaintenanceRequestId);
             modelBuilder.Entity<Order>().ToTable("Order")
                 .HasKey(c => c.OrderId);
-            modelBuilder.Entity<OrderDetails>().ToTable("OrderDetails")
+            modelBuilder.Entity<OrderDetail>().ToTable("OrderDetails")
                 .HasKey(c => c.OrderDetailsId);
             modelBuilder.Entity<Rental>().ToTable("Rental")
                 .HasKey(c => c.RentalId);

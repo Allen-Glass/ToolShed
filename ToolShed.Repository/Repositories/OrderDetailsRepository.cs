@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddOrderDetailsAsync(OrderDetails orderDetails)
+        public async Task AddOrderDetailsAsync(OrderDetail orderDetails)
         {
             if (orderDetails == null)
                 throw new ArgumentNullException();
@@ -27,7 +27,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<OrderDetails> GetOrderDetailsAsync(Guid orderDetailsId)
+        public async Task<OrderDetail> GetOrderDetailsAsync(Guid orderDetailsId)
         {
             if (orderDetailsId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -41,12 +41,12 @@ namespace ToolShed.Repository.Repositories
             return orderDetail;
         }
 
-        public async Task<IEnumerable<OrderDetails>> GetOrderDetailsAsync(IEnumerable<Guid> orderDetailIds)
+        public async Task<IEnumerable<OrderDetail>> GetOrderDetailsAsync(IEnumerable<Guid> orderDetailIds)
         {
             if (orderDetailIds == null)
                 throw new ArgumentNullException();
 
-            var orderDetails = new List<OrderDetails>();
+            var orderDetails = new List<OrderDetail>();
             foreach (var orderDetailId in orderDetailIds)
             {
                 orderDetails.Add(await GetOrderDetailsAsync(orderDetailId));

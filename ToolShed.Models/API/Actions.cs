@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ToolShed.Models.Enums;
 
-namespace ToolShed.Models.IoTHub
+namespace ToolShed.Models.API
 {
     public class Actions
     {

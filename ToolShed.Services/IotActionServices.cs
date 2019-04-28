@@ -1,10 +1,9 @@
 ﻿using Microsoft.Azure.Devices;
 using Newtonsoft.Json;
-using System;
 using System.Text;
 using System.Threading.Tasks;
 using ToolShed.IotHub.Interfaces;
-using ToolShed.Models.IoTHub;
+using ToolShed.Models.API;
 
 namespace ToolShed.IotHub.Services
 {

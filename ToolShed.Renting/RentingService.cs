@@ -4,7 +4,6 @@ using ToolShed.Dispensers.Interfaces;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.Models.API;
 using ToolShed.Models.Enums;
-using ToolShed.Models.IoTHub;
 using ToolShed.Renting.Interfaces;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Services.Interfaces;
