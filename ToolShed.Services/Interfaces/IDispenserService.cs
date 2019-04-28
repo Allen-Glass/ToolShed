@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 
-namespace ToolShed.Dispensers.Interfaces
+namespace ToolShed.Services.Interfaces
 {
     public interface IDispenserService
     {
@@ -13,12 +13,6 @@ namespace ToolShed.Dispensers.Interfaces
         Task<string> GetDispenserIotNameAsync(Guid dispenserId);
 
         Task<string> GetDispenserStateAsync(Guid dispenserId);
-
-        Task<IEnumerable<ItemBundle>> GetItemBundles();
-
-        Task<IEnumerable<ItemBundle>> GetItemBundles(Guid tenantId);
-
-        Task AddItemToDispenserAsync(Item item);
 
         Task PurchaseDispenserAsync(Dispenser dispenser);
     }

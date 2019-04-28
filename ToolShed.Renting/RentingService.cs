@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ToolShed.Dispensers.Interfaces;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.Models.API;
 using ToolShed.Models.Enums;

@@ -1,10 +1,12 @@
 using Microsoft.Azure.Devices;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.Threading.Tasks;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.IotHub.Services;
 using ToolShed.Models.API;
+using ToolShed.Models.Enums;
 using ToolShed.Renting.Interfaces;
 using ToolShed.Repository.Context;
 using ToolShed.Repository.Interfaces;
@@ -19,6 +21,7 @@ namespace ToolShed.Renting.Tests
     public class RentalServiceTests
     {
         private readonly IRentingService rentingService;
+        private readonly Guid dispenserId = Guid.NewGuid();
         private readonly Rental rental;
 
         public RentalServiceTests()
@@ -44,7 +47,7 @@ namespace ToolShed.Renting.Tests
                 LockerCode = fakeLockerCode
             };
 
-            await Assert.ThrowsAsync<NullReferenceException>(async () =>
+            await Assert.ThrowsAsync<UnauthorizedAccessException>(async () =>
                  await rentingService.StartRentalAsync(rentalPickup));
         }
 
@@ -52,7 +55,7 @@ namespace ToolShed.Renting.Tests
         {
             return new Rental
             {
-                ReturnType = Models.Enums.ReturnType.ChargeFullPrice,
+                ReturnType = ReturnType.ChargeFullPrice,
                 HasBeenReturned = false,
                 IsUserOwnedNow = false,
                 ItemRentalDetails = CreateItemRentalDetails(),
@@ -60,7 +63,8 @@ namespace ToolShed.Renting.Tests
                 RentalReturnTime = DateTime.UtcNow.Add(new TimeSpan(0, 45, 0)),
                 RentalStartTime = DateTime.UtcNow,
                 User = CreateUser(),
-                LockerCode = "654321"
+                LockerCode = "654321",
+                DispenserId = dispenserId
             };
         }
 
@@ -85,7 +89,7 @@ namespace ToolShed.Renting.Tests
                 IsRentable = false,
                 SalePrice = 12.00,
                 DisplayName = "The Waxanator",
-                DispenserId = Guid.NewGuid(),
+                DispenserId = dispenserId,
                 ItemId = Guid.NewGuid(),
                 TenantId = Guid.NewGuid()
             };
@@ -108,15 +112,35 @@ namespace ToolShed.Renting.Tests
         {
             return new RentingService(CreateIotActionServices(),
                 CreateRentalSQLService(), 
-                null,
-                null,
-                null);
+                CreateDispenserService(),
+                CreatePaymentService(),
+                new RandomCodeGenerator(6));
+        }
+
+        private IDispenserService CreateDispenserService()
+        {
+            var moqDispenserService = new Mock<IDispenserService>();
+            moqDispenserService.Setup(c => c.GetDispenserIotNameAsync(dispenserId)).ReturnsAsync("MUH_PIE");
+
+            return moqDispenserService.Object;
         }
 
         private IIotActionServices CreateIotActionServices()
         {
-            var serviceClient = ServiceClient.CreateFromConnectionString("HostName=toolshed-hub.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=0rV4SLwfduFh0N3xB5fNzZ0/gLa88Qjohr3r9D+yVkw=");
-            return new IotActionServices(serviceClient);
+            var moqIotActionServices = new Mock<IIotActionServices>();
+            moqIotActionServices.Setup(c => c.InformDispenserOfActionAsync("MUH_PIE", CreateActions(CreateRental())));
+
+            return moqIotActionServices.Object;
+        }
+
+        private Actions CreateActions(Rental rental)
+        {
+            return new Actions
+            {
+                ActionType = ActionType.sendcode,
+                LockerCode = rental.LockerCode,
+                LockerNumber = rental.ItemRentalDetails.LockerNumber
+            };
         }
 
         private IPaymentService CreatePaymentService()
@@ -145,6 +169,59 @@ namespace ToolShed.Renting.Tests
             return new TaxesSQLService(CreateStateSalesTaxRepository());
         }
 
+        private IItemSQLService CreateItemSqlService()
+        {
+            return new ItemSQLService(CreateItemRepository(),
+                CreateItemBundleRepository(),
+                CreateItemBundleMappingRepository());
+        }
+
+        private IDispenserSQLService CreateDispenserSqlService()
+        {
+            return new DispenserSQLService(GetInMemoryDispenserRepository(),
+                GetInMemoryItemRepository(),
+                GetInMemoryAddressRepository());
+        }
+
+        private ItemRepository CreateItemRepository()
+        {
+            DbContextOptions<ToolShedContext> options;
+            var builder = new DbContextOptionsBuilder<ToolShedContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            options = builder.Options;
+            var toolshedContext = new ToolShedContext(options);
+            toolshedContext.Database.EnsureDeleted();
+            toolshedContext.Database.EnsureCreated();
+
+            return new ItemRepository(toolshedContext);
+        }
+
+        private ItemBundleRepository CreateItemBundleRepository()
+        {
+            DbContextOptions<ToolShedContext> options;
+            var builder = new DbContextOptionsBuilder<ToolShedContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            options = builder.Options;
+            var toolshedContext = new ToolShedContext(options);
+            toolshedContext.Database.EnsureDeleted();
+            toolshedContext.Database.EnsureCreated();
+
+            return new ItemBundleRepository(toolshedContext);
+        }
+
+        private ItemBundleMappingRepository CreateItemBundleMappingRepository()
+        {
+            DbContextOptions<ToolShedContext> options;
+            var builder = new DbContextOptionsBuilder<ToolShedContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            options = builder.Options;
+            var toolshedContext = new ToolShedContext(options);
+            toolshedContext.Database.EnsureDeleted();
+            toolshedContext.Database.EnsureCreated();
+
+            return new ItemBundleMappingRepository(toolshedContext);
+        }
+
         private StateSalesTaxRepository CreateStateSalesTaxRepository()
         {
             DbContextOptions<ToolShedContext> options;
@@ -156,6 +233,19 @@ namespace ToolShed.Renting.Tests
             toolshedContext.Database.EnsureCreated();
 
             return new StateSalesTaxRepository(toolshedContext);
+        }
+
+        private AddressRepository GetInMemoryAddressRepository()
+        {
+            DbContextOptions<ToolShedContext> options;
+            var builder = new DbContextOptionsBuilder<ToolShedContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            options = builder.Options;
+            var toolshedContext = new ToolShedContext(options);
+            toolshedContext.Database.EnsureDeleted();
+            toolshedContext.Database.EnsureCreated();
+
+            return new AddressRepository(toolshedContext);
         }
 
         private RentalRepository GetInMemoryRentalRepository()

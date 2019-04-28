@@ -6,11 +6,11 @@ namespace ToolShed.Repository.Mapping
 {
     public static class DispenserMapping
     {
-        public static Models.Repository.DispenserTool CreateDispenserToolObject(Guid dispenserId, Guid itemId)
+        public static Models.Repository.DispenserItem CreateDispenserToolObject(Guid dispenserId, Guid itemId)
         {
-            return new Models.Repository.DispenserTool
+            return new Models.Repository.DispenserItem
             {
-                ToolId = itemId,
+                ItemId = itemId,
                 DispenserId = dispenserId
             };
         }

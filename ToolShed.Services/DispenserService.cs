@@ -4,10 +4,11 @@ using System.Text;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Services.Interfaces;
 
 namespace ToolShed.Services
 {
-    public class DispenserService
+    public class DispenserService : IDispenserService
     {
         private readonly IItemSQLService itemSQLService;
         private readonly IDispenserSQLService dispenserSQLService;

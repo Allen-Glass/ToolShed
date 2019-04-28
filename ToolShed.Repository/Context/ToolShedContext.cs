@@ -14,7 +14,7 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<Card> CardSet { get; set; }
         public virtual DbSet<CardAddress> CardAddressSet { get; set; }
         public virtual DbSet<Dispenser> DispenserSet { get; set; }
-        public virtual DbSet<DispenserTool> DispenserToolSet { get; set; }
+        public virtual DbSet<DispenserItem> DispenserItemSet { get; set; }
         public virtual DbSet<Item> ItemSet { get; set; }
         public virtual DbSet<ItemBundle> ItemBundleSet { get; set; }
         public virtual DbSet<ItemBundleMapping> ItemBundleMappingSet { get; set; }
@@ -43,8 +43,8 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.CardAddressId);
             modelBuilder.Entity<Dispenser>().ToTable("Dispenser")
                 .HasKey(c => c.DispenserId);
-            modelBuilder.Entity<DispenserTool>().ToTable("DispenserTool")
-                .HasKey(c => c.DispenserToolId);
+            modelBuilder.Entity<DispenserItem>().ToTable("DispenserItem")
+                .HasKey(c => c.DispenserItemId);
             modelBuilder.Entity<Item>().ToTable("Item")
                 .HasKey(c => c.ItemId);
             modelBuilder.Entity<ItemBundle>().ToTable("ItemBundle")

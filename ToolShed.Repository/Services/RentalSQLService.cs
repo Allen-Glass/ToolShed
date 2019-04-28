@@ -96,14 +96,7 @@ namespace ToolShed.Repository.Services
             if (rental.LockerCode == string.Empty || rental.RentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var workingLockerCode = await rentalRepository.CheckLockerCodeAsync(rental.RentalId, rental.LockerCode);
-
-            if (workingLockerCode == true)
-                await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateSuccessfulLockerCodeRecord(rental));
-            else
-                await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateFailingLockerCodeRecord(rental));
-
-            return workingLockerCode;
+            return await rentalRepository.CheckLockerCodeAsync(rental.RentalId, rental.LockerCode);
         }
 
         public async Task CompleteRentalAsync(Guid rentalId)

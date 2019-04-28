@@ -14,17 +14,15 @@ namespace ToolShed.Repository.Services
         private readonly DispenserRepository dispenserRepository;
         private readonly ItemRepository itemRepository;
         private readonly AddressRepository addressRepository;
-        private readonly DispenserToolsRepository dispenserToolsRepository;
+        private readonly DispenserItemsRepository dispenserItemRepository;
 
         public DispenserSQLService(DispenserRepository dispenserRepository, 
             ItemRepository itemRepository, 
-            AddressRepository addressRepository,
-            DispenserToolsRepository dispenserToolsRepository)
+            AddressRepository addressRepository)
         {
             this.dispenserRepository = dispenserRepository;
             this.itemRepository = itemRepository;
             this.addressRepository = addressRepository;
-            this.dispenserToolsRepository = dispenserToolsRepository;
         }
 
         public async Task RegisterNewDispenserAsync(Dispenser dispenser)
@@ -41,10 +39,13 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             var dtoDispenser = await dispenserRepository.GetDispenserByDispenserIdAsync(dispenserId);
-            var dispenserToolIds = await dispenserToolsRepository.GetAllToolsFromDispensery(dtoDispenser.DispenserId);
-            var dtoItems = await itemRepository.GetItemsByItemIdsAsync(dispenserToolIds);
+            var itemIds = await dispenserItemRepository.GetAllItemsFromDispenseryAsync(dispenserId);
+            var dtoItems = await itemRepository.GetItemsByItemIdsAsync(itemIds);
             var items = ItemMapping.ConvertDtoItemstoItems(dtoItems);
-            return DispenserMapping.ConvertDtoDispenserToDispenser(dtoDispenser, items);
+            var dispenser = DispenserMapping.ConvertDtoDispenserToDispenser(dtoDispenser, items);
+            dispenser.AvailableItems = items;
+
+            return dispenser;
         }
 
         public async Task<string> GetDispenserStateAsync(Guid dispenserId)
@@ -68,7 +69,7 @@ namespace ToolShed.Repository.Services
             if (dispenserId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var itemIds = await dispenserToolsRepository.GetAllToolsFromDispensery(dispenserId);
+            var itemIds = await dispenserItemRepository.GetAllItemsFromDispenseryAsync(dispenserId);
             var dtoItems = await itemRepository.GetItemsByItemIdsAsync(itemIds);
 
             return ItemMapping.ConvertDtoItemstoItems(dtoItems);

@@ -53,7 +53,7 @@ namespace ToolShed
             services.AddTransient<DispenserRepository>();
             services.AddTransient<CardRepository>();
             services.AddTransient<AddressRepository>();
-            services.AddTransient<DispenserToolsRepository>();
+            services.AddTransient<DispenserItemsRepository>();
             services.AddTransient<UserAddressesRepository>();
             services.AddTransient<UserCardRepository>();
             services.AddTransient<UserRepository>();

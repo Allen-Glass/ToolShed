@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ToolShed.Dispensers\ToolShed.Dispensers.csproj" />
     <ProjectReference Include="..\ToolShed.Helpers\ToolShed.Helpers.csproj" />
     <ProjectReference Include="..\ToolShed.Repository\ToolShed.Repository.csproj" />
   </ItemGroup>

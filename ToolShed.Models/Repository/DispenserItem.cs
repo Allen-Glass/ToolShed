@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToolShed.Models.Repository
 {
-    public class DispenserTool
+    public class DispenserItem
     {
         /// <summary>
         /// The unique id of the tool set
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid DispenserToolId { get; set; }
+        public Guid DispenserItemId { get; set; }
 
         /// <summary>
         /// The dispenser id
@@ -19,8 +19,8 @@ namespace ToolShed.Models.Repository
         public Guid DispenserId { get; set; }
 
         /// <summary>
-        /// Tool pk
+        /// item pk
         /// </summary>
-        public Guid ToolId { get; set; }
+        public Guid ItemId { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace ToolShed.Dispensers
             this.dispenserSQLService = dispenserSQLService;
         }
 
-        public void AddDispenserToInventory(Dispenser dispenser)
+        public void AddDispenserToInventoryAsync(Dispenser dispenser)
         {
             if (dispenser == null)
                 throw new ArgumentNullException();
