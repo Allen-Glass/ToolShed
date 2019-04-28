@@ -105,7 +105,7 @@ UserName varchar(30),
 Email varchar(60),
 Password varchar(120)
 );
-CREATE TABLE UserAddresses(
+CREATE TABLE UserAddress(
 UserAddressId UNIQUEIDENTIFIER PRIMARY KEY DEFAULT (NEWID()),
 AddressId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Address(AddressId),
 UserId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES User(UserId)

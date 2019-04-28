@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Toolshed.Models.API;
-using Toolshed.Models.Tools;
 using ToolShed.Models.API;
 
 namespace ToolShed.Repository.Interfaces

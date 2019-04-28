@@ -1,5 +1,4 @@
 ﻿using System;
-using Toolshed.Models.Orders;
 using ToolShed.Models.API;
 
 namespace Toolshed.Models.API

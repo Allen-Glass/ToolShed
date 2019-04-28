@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ToolShed.Models.Enums;
 
 namespace ToolShed.Models.API
@@ -10,5 +11,9 @@ namespace ToolShed.Models.API
         public string OrderName { get; set; }
 
         public OrderStatus OrderStatus { get; set; }
+
+        public bool IsValid { get; set; }
+
+        public IEnumerable<ItemRentalDetails> ItemRentalDetails { get; set; }
     }
 }

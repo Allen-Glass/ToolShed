@@ -44,7 +44,7 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             var dtoTenant = await tenantRepository.GetTenantByIdAsync(tenantId);
-            var dtoAddress = await addressRepository.GetAddressAsync(dtoTenant.TenantAddressId);
+            var dtoAddress = await addressRepository.GetAddressAsync(dtoTenant.AddressId);
 
             if (dtoTenant == null || dtoAddress == null)
                 throw new NullReferenceException();
@@ -110,7 +110,7 @@ namespace ToolShed.Repository.Services
 
             foreach (var dtoTenant in dtoTenants)
             {
-                var address = await addressRepository.GetAddressAsync(dtoTenant.TenantAddressId);
+                var address = await addressRepository.GetAddressAsync(dtoTenant.AddressId);
                 tenants.Add(TenantMapping.ConvertDtoTenantToTenant(dtoTenant, TenantMapping.ConvertDtoAddressToAddress(address)));
             }
 

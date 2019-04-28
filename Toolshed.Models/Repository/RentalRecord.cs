@@ -1,10 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ToolShed.Models.Enums;
 
 namespace ToolShed.Models.Repository
 {
     public class RentalRecord
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid RentalRecordId { get; set; }
 
         public Guid UserId { get; set; }

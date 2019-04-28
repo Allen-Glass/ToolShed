@@ -34,12 +34,6 @@ namespace ToolShed.Renting.Tests
         }
 
         [Fact]
-        public async Task UseSuccessfulLockerCode()
-        {
-            var rentalId = await rentingService.PlaceRentalAsync(rental);
-        }
-
-        [Fact]
         public async Task UseFailingLockerCode()
         {
             var rentalId = await rentingService.PlaceRentalAsync(rental);

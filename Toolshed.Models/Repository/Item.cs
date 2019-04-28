@@ -1,4 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using ToolShed.Models.Enums;
 
 namespace ToolShed.Models.Repository
 {
@@ -7,6 +10,8 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// pk of item
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ItemId { get; set; }
 
         /// <summary>

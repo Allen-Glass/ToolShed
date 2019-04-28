@@ -1,20 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ToolShed.Models.Enums;
+using System.Text;
 
 namespace ToolShed.Models.Repository
 {
-    public class Order
+    public class OrderDetailMapping
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid OrderItemId { get; set; }
+
         public Guid OrderId { get; set; }
 
-        public OrderStatus OrderStatus { get; set; }
-
-        public string OrderName { get; set; }
-
-        public bool IsValid { get; set; }
+        public Guid ItemId { get; set; }
     }
 }

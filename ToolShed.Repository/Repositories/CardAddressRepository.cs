@@ -15,14 +15,14 @@ namespace ToolShed.Repository.Repositories
 
         public async Task AddCardAddressAsync(CardAddress cardAddress)
         {
-            await toolShedContext.CardAddressesSet
+            await toolShedContext.CardAddressSet
                 .AddAsync(cardAddress);
             await toolShedContext.SaveChangesAsync();
         }
 
         public async Task DeleteCardAddresssAsync(CardAddress cardAddress)
         {
-            toolShedContext.CardAddressesSet
+            toolShedContext.CardAddressSet
                 .Remove(cardAddress);
             await toolShedContext.SaveChangesAsync();
         }

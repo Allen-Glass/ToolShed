@@ -49,7 +49,7 @@ namespace ToolShed.Repository.Repositories
         public async Task<Tenant> GetTenantByAddressIdAsync(Guid addressId)
         {
             return await toolShedContext.TenantSet
-                .FirstOrDefaultAsync(c => c.TenantAddressId.Equals(addressId));
+                .FirstOrDefaultAsync(c => c.AddressId.Equals(addressId));
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace ToolShed.Repository.Repositories
         public async Task<IEnumerable<Tenant>> GetTenantsByAddressIdsAsync(IEnumerable<Guid> addressIds)
         {
             return await toolShedContext.TenantSet
-                .Where(c => addressIds.Contains(c.TenantAddressId))
+                .Where(c => addressIds.Contains(c.AddressId))
                 .ToListAsync();
         }
 

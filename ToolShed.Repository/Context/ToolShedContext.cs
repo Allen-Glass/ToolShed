@@ -12,7 +12,7 @@ namespace ToolShed.Repository.Context
 
         public virtual DbSet<Address> AddressSet { get; set; }
         public virtual DbSet<Card> CardSet { get; set; }
-        public virtual DbSet<CardAddress> CardAddressesSet { get; set; }
+        public virtual DbSet<CardAddress> CardAddressSet { get; set; }
         public virtual DbSet<Dispenser> DispenserSet { get; set; }
         public virtual DbSet<DispenserTool> DispenserToolSet { get; set; }
         public virtual DbSet<Item> ItemSet { get; set; }
@@ -39,8 +39,8 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.AddressId);
             modelBuilder.Entity<Card>().ToTable("Card")
                 .HasKey(c => c.CardId);
-            modelBuilder.Entity<CardAddress>().ToTable("CardAddresses")
-                .HasKey(c => c.CardAddressesId);
+            modelBuilder.Entity<CardAddress>().ToTable("CardAddress")
+                .HasKey(c => c.CardAddressId);
             modelBuilder.Entity<Dispenser>().ToTable("Dispenser")
                 .HasKey(c => c.DispenserId);
             modelBuilder.Entity<DispenserTool>().ToTable("DispenserTool")
@@ -75,8 +75,8 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.TenantId);
             modelBuilder.Entity<User>().ToTable("User")
                 .HasKey(c => c.UserId);
-            modelBuilder.Entity<UserAddresses>().ToTable("UserAddresses")
-                .HasKey(c => c.UserAddressesId);
+            modelBuilder.Entity<UserAddresses>().ToTable("UserAddress")
+                .HasKey(c => c.UserAddressId);
             modelBuilder.Entity<UserCard>().ToTable("UserCard")
                 .HasKey(c => c.UserCardId);
         }

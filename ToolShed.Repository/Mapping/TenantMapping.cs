@@ -40,7 +40,7 @@ namespace ToolShed.Repository.Mapping
         {
             return new Models.Repository.Tenant
             {
-                TenantAddressId = addressId,
+                AddressId = addressId,
                 TenantName = tenant.TenantName
             };
         }
