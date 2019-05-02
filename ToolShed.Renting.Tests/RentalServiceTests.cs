@@ -51,6 +51,23 @@ namespace ToolShed.Renting.Tests
                  await rentingService.StartRentalAsync(rentalPickup));
         }
 
+        [Fact]
+        public async Task UseSuccesfulLockerCode_ToStartRental()
+        {
+            var rentalId = await rentingService.PlaceRentalAsync(rental);
+            rental.RentalId = rentalId;
+            await rentingService.StartRentalAsync(rental);
+        }
+
+        [Fact]
+        public async Task ReturnItemToDispenser()
+        {
+            var rentalId = await rentingService.PlaceRentalAsync(rental);
+            rental.RentalId = rentalId;
+            await rentingService.StartRentalAsync(rental);
+            await rentingService.CompleteRentalAsync(rentalId);
+        }
+
         private Rental CreateRental()
         {
             return new Rental

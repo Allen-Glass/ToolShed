@@ -1,4 +1,4 @@
-﻿export const CreateRental = function (rental) {
+﻿export const PlaceRental = function (rental) {
     fetch("", {
         method: 'POST',
         headers: {

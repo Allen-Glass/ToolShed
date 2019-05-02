@@ -29,7 +29,7 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// List of all available tools
         /// </summary>
-        public Guid DispenserToolsListId { get; set; }
+        public Guid DispenserItemId { get; set; }
 
         /// <summary>
         /// last time the dispenser was checked

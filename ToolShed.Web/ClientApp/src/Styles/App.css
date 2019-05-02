@@ -114,6 +114,11 @@
     padding: 6px 0px;
 }
 
+.text-label {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
 @media (min-width: 1200px) {
     .container {
         max-width: 1100px;

@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import TextInput from '../components/TextInput';
-import { StartRental } from '../Services/RentalService';
+import { PlaceRental, StartRental } from '../Services/RentalService';
 
 class RentalStart extends Component {
     constructor(props) {
@@ -11,24 +11,47 @@ class RentalStart extends Component {
         };
     }
 
-    sendRentalStart = (heading) => {
-        this.setState({ codeInput: heading });
+    placeRental = () => {
+        var rental = {
+            "DispenserId": "",
+            "ItemRentalDetails": {
+                "LockerNumber": ""
+            }
+        }
+        PlaceRental(rental);
+    }
+
+    startRental = () => {
+        var lockerCode = document.getElementById("LockerCode").value;
         var rental = {
             "rentalId": "",
-            "LockerCode": "123456"           
+            "LockerCode": lockerCode          
         }
-        console.log(heading.target);
+        StartRental(rental);
     }
 
     render() {
         return (
             <div className="form-container">
                 <TextInput
-                    placeholder="Enter Code"
-                    value=""
+                    id="DispenserId"
+                    label="Dispenser Id"
+                />
+                <TextInput
+                    id="LockerNumber"
+                    label="Locker Number"
                 />
                 <button
-                    onClick={this.sendRentalStart}
+                    onClick={this.startRental}
+                >
+                    <span>Place</span>
+                </button>
+                <TextInput
+                    id="LockerCode"
+                    label="Enter Code"
+                />
+                <button
+                    onClick={this.startRental}
                 >
                     <span>Begin</span>
                 </button>

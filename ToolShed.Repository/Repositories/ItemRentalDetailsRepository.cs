@@ -26,7 +26,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<ItemRentalDetails> GetItemRentalDetailsAsync(Guid itemRentalDetailsId)
+        public virtual async Task<ItemRentalDetails> GetItemRentalDetailsAsync(Guid itemRentalDetailsId)
         {
             if (itemRentalDetailsId == Guid.Empty)
                 throw new ArgumentNullException();

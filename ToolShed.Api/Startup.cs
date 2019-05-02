@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Devices;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.IotHub.Services;
 using ToolShed.Renting;
@@ -27,7 +30,7 @@ namespace ToolShed
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {      
             var sqlConnection = Configuration["SQLConnectionString"];
             var iotHubConnectionString = Configuration["IotHubConnectionString"];
 

@@ -26,6 +26,16 @@
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     },
+    "Allen": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api",
+      "environmentVariables": {
+        "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED": "true",
+        "ASPNETCORE_ENVIRONMENT": "Allen"
+      },
+      "applicationUrl": "https://toolshed-api.azurewebsites.net"
+    },
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,

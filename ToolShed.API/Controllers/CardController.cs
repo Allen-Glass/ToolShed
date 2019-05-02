@@ -26,7 +26,7 @@ namespace ToolShed.API.Controllers
 
             try
             {
-                //await cardSQLService.StoreCardInformationAsync(card);
+                await cardSQLService.AddCardAsync(card);
                 return Ok();
             }
             catch (Exception ex)

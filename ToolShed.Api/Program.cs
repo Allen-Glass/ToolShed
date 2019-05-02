@@ -6,6 +6,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -24,17 +26,15 @@ namespace ToolShed
             {
                 if (!context.HostingEnvironment.IsDevelopment())
                 {
+                    var serviceTokenProvider = new AzureServiceTokenProvider();
+                    var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(serviceTokenProvider.KeyVaultTokenCallback));
+                    var thing = Environment.GetEnvironmentVariable("KeyVaultSecret");
+                    var keyVaultSecret = keyVaultClient.GetSecretAsync(thing).Result;
                     var appConfig = config.Build();
-                    var certStore = new X509Store(StoreLocation.CurrentUser);
-                    certStore.Open(OpenFlags.ReadOnly |
-                                   OpenFlags.OpenExistingOnly);
-                    var cert = certStore.Certificates.Find(X509FindType.FindByThumbprint
-                        , appConfig["CertificateThumbprint"]
-                        , false);
                     config.AddAzureKeyVault(
                         appConfig["KeyVaultUrl"]
                         , appConfig["ClientId"]
-                        , cert.OfType<X509Certificate2>().FirstOrDefault());
+                        , keyVaultSecret.Value);
                 }
             })
                 .UseStartup<Startup>();

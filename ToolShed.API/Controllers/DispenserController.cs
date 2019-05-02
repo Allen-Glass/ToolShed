@@ -23,23 +23,6 @@ namespace ToolShed.API.Controllers
             this.iotActionServices = iotActionServices;
         }
 
-        [HttpGet]
-        [EnableCors("Dispenser")]
-        public async Task<IActionResult> stuff()
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("The user information is incomplete");
-
-            try
-            {
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
-            }
-        }
-
         [HttpPost("register")]
         [EnableCors("Dispenser")]
         public async Task<IActionResult> RegisterNewDispenser([FromBody] Dispenser dispenser)
