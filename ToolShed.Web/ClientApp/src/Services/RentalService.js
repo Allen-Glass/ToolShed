@@ -1,5 +1,5 @@
 ﻿export const PlaceRental = function (rental) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -15,7 +15,7 @@
 }
 
 export const StartRental = function (rental) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -31,7 +31,7 @@ export const StartRental = function (rental) {
 }
 
 export const ReturnRental = function (rental) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

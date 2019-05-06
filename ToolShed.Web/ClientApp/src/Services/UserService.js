@@ -1,5 +1,5 @@
 ﻿export const createUserAccount = function (userInformation) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -16,7 +16,7 @@
 }
 
 export const deleteUserAccount = function (userInformation) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

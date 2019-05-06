@@ -1,5 +1,5 @@
 ﻿export const AddAddress = function (address) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -16,7 +16,7 @@
 }
 
 export const GetAddresses = function (userInformation) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -33,7 +33,7 @@ export const GetAddresses = function (userInformation) {
 }
 
 export const DeleteAddress = function (address) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',

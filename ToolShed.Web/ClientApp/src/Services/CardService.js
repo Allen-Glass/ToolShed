@@ -1,5 +1,5 @@
 ﻿export const SubmitCard = function (card) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

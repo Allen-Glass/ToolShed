@@ -1,5 +1,5 @@
 ﻿export const CreateUserAccount = function (userInformation) {
-    fetch("", {
+    fetch("https://toolshed-api.azurewebsites.net", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
