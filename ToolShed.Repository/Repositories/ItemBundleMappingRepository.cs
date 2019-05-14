@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddItemBundleMappingAsync(ItemBundleMapping itemBundleMapping)
+        public async Task<Guid> AddItemBundleMappingAsync(ItemBundleMapping itemBundleMapping)
         {
             if (itemBundleMapping == null)
                 throw new ArgumentNullException();
@@ -26,9 +26,11 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.ItemBundleMappingSet
                 .AddAsync(itemBundleMapping);
             await toolShedContext.SaveChangesAsync();
+
+            return itemBundleMapping.ItemBundleMappingId;
         }
 
-        public async Task AddItemBundleMappingAsync(Guid itemId, Guid itemBundleId)
+        public async Task<Guid> AddItemBundleMappingAsync(Guid itemId, Guid itemBundleId)
         {
             if (itemBundleId == Guid.Empty || itemId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -39,9 +41,7 @@ namespace ToolShed.Repository.Repositories
                 ItemId = itemId
             };
 
-            await toolShedContext.ItemBundleMappingSet
-                .AddAsync(itemBundleMapping);
-            await toolShedContext.SaveChangesAsync();
+            return await AddItemBundleMappingAsync(itemBundleMapping);
         }
 
         public async Task AddItemBundleMappingsAsync(IEnumerable<ItemBundleMapping> itemBundleMappings)
@@ -106,7 +106,7 @@ namespace ToolShed.Repository.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Guid> GetItemBundleFromItem(Guid itemId)
+        public async Task<Guid> GetItemBundleIdFromItemId(Guid itemId)
         {
             if (itemId == Guid.Empty)
                 throw new ArgumentNullException();

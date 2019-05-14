@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddItemBundleAsync(ItemBundle itemBundle)
+        public async Task<Guid> AddItemBundleAsync(ItemBundle itemBundle)
         {
             if (itemBundle == null)
                 throw new ArgumentNullException();
@@ -26,6 +26,8 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.ItemBundleSet
                 .AddAsync(itemBundle);
             await toolShedContext.SaveChangesAsync();
+
+            return itemBundle.ItemBundleId;
         }
 
         public async Task<ItemBundle> GetItemBundleAsync(Guid itemBundleId)
