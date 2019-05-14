@@ -22,7 +22,7 @@ namespace ToolShed.Repository.Mapping
                 CreationDate = dispenser.CreationDate,
                 DecommissionDate = dispenser.DecommishDate,
                 DispenserName = dispenser.DispenserName,
-                LastMaintenanceCheck = dispenser.LastMaintenanceCheck
+                LastMaintenanceCheckDate = dispenser.LastMaintenanceCheckDate
             };
         }
 
@@ -33,7 +33,7 @@ namespace ToolShed.Repository.Mapping
                 CreationDate = dispenser.CreationDate,
                 DecommishDate = dispenser.DecommissionDate,
                 DispenserName = dispenser.DispenserName,
-                LastMaintenanceCheck = dispenser.LastMaintenanceCheck
+                LastMaintenanceCheckDate = dispenser.LastMaintenanceCheckDate
             };
         }
 
@@ -44,7 +44,7 @@ namespace ToolShed.Repository.Mapping
                 CreationDate = dispenser.CreationDate,
                 DecommishDate = dispenser.DecommissionDate,
                 DispenserName = dispenser.DispenserName,
-                LastMaintenanceCheck = dispenser.LastMaintenanceCheck
+                LastMaintenanceCheckDate = dispenser.LastMaintenanceCheckDate
             };
         }
 

@@ -19,7 +19,7 @@ namespace ToolShed.Models.API
         /// <summary>
         /// the unique iot hub registration of the hub
         /// </summary>
-        public string DispenserIotId { get; set; }
+        public string DispenserIotName { get; set; }
 
         /// <summary>
         /// List of all available tools
@@ -29,7 +29,7 @@ namespace ToolShed.Models.API
         /// <summary>
         /// last time the dispenser was checked
         /// </summary>
-        public DateTime LastMaintenanceCheck { get; set; }
+        public DateTime LastMaintenanceCheckDate { get; set; }
 
         /// <summary>
         /// the date the dispenser is created
@@ -44,6 +44,6 @@ namespace ToolShed.Models.API
         /// <summary>
         /// the location of the dispenser
         /// </summary>
-        public Address DispenserLocation { get; set; }
+        public Address DispenserAddress { get; set; }
     }
 }

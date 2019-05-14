@@ -20,7 +20,7 @@ namespace ToolShed.Repository.Tests
 
         public AddressRepositoryTests()
         {
-            addressRepository = GetInMemoryApplicantRepository();
+            addressRepository = GetInMemoryAddressRepository();
             address = CreateAddress();
             addresses = CreateAddresses();
             fakeGuid = CreateFakeGuid();
@@ -160,7 +160,7 @@ namespace ToolShed.Repository.Tests
             return new Guid("12345678-1234-1234-1234-123456789012");
         }
 
-        private AddressRepository GetInMemoryApplicantRepository()
+        private AddressRepository GetInMemoryAddressRepository()
         {
             DbContextOptions<ToolShedContext> options;
             var builder = new DbContextOptionsBuilder<ToolShedContext>()

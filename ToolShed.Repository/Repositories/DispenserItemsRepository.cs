@@ -37,7 +37,7 @@ namespace ToolShed.Repository.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Guid>> GetAllItemsFromDispenseryAsync(Guid dispenserId)
+        public async Task<IEnumerable<Guid>> GetAllItemsFromDispenserAsync(Guid dispenserId)
         {
             return await toolShedContext.DispenserItemSet
                 .Where(c => c.DispenserId.Equals(dispenserId))

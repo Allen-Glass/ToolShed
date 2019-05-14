@@ -40,7 +40,7 @@ namespace ToolShed.Repository.Tests
         public async Task GetTenantByAddressId()
         {
             await tenantRepository.AddTenantAsync(tenant);
-            var dtoTenant = await tenantRepository.GetTenantByAddressIdAsync(tenant.TenantAddressId);
+            var dtoTenant = await tenantRepository.GetTenantByAddressIdAsync(tenant.AddressId);
 
             Assert.Equal(tenant, dtoTenant);
         }
@@ -49,8 +49,9 @@ namespace ToolShed.Repository.Tests
         {
             return new Tenant
             {
-                TenantAddressId = Guid.NewGuid(),
-                TenantName = "MicroBucks"
+                TenantId = Guid.NewGuid(),
+                TenantName = "MicroBucks",
+                AddressId = Guid.NewGuid()
             };
         }
 

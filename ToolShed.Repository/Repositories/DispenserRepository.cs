@@ -17,11 +17,13 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddDispenserAsync(Dispenser dispenser)
+        public async Task<Guid> AddDispenserAsync(Dispenser dispenser)
         {
             await toolShedContext.DispenserSet
                 .AddAsync(dispenser);
             await toolShedContext.SaveChangesAsync();
+
+            return dispenser.DispenserId;
         }
 
         public async Task<IEnumerable<Dispenser>> GetAllDispensersAsync()
@@ -51,7 +53,7 @@ namespace ToolShed.Repository.Repositories
 
             var dispenserIotName = await toolShedContext.DispenserSet
                 .Where(c => c.DispenserId.Equals(dispenserId))
-                .Select(c => c.DispenserIotId)
+                .Select(c => c.DispenserIotName)
                 .FirstOrDefaultAsync();
 
             if (string.IsNullOrEmpty(dispenserIotName))

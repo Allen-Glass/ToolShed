@@ -39,7 +39,7 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             var dtoDispenser = await dispenserRepository.GetDispenserByDispenserIdAsync(dispenserId);
-            var itemIds = await dispenserItemRepository.GetAllItemsFromDispenseryAsync(dispenserId);
+            var itemIds = await dispenserItemRepository.GetAllItemsFromDispenserAsync(dispenserId);
             var dtoItems = await itemRepository.GetItemsByItemIdsAsync(itemIds);
             var items = ItemMapping.ConvertDtoItemstoItems(dtoItems);
             var dispenser = DispenserMapping.ConvertDtoDispenserToDispenser(dtoDispenser, items);
@@ -69,7 +69,7 @@ namespace ToolShed.Repository.Services
             if (dispenserId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var itemIds = await dispenserItemRepository.GetAllItemsFromDispenseryAsync(dispenserId);
+            var itemIds = await dispenserItemRepository.GetAllItemsFromDispenserAsync(dispenserId);
             var dtoItems = await itemRepository.GetItemsByItemIdsAsync(itemIds);
 
             return ItemMapping.ConvertDtoItemstoItems(dtoItems);
