@@ -71,7 +71,7 @@ namespace ToolShed.Repository.Services
             var cardList = new List<Card>();
             foreach (var dtoCard in cards)
             {
-                var address = await addressRepository.GetAddressAsync(dtoCard.BillingAddressId);
+                var address = await addressRepository.GetAddressAsync(dtoCard.AddressId);
                 var card = CardMapping.ConvertDtoCardToCard(dtoCard);
                 card.BillingAddress = AddressMapping.ConvertDtoAddressToAddress(address);
                 cardList.Add(card);

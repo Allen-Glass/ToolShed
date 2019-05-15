@@ -39,6 +39,6 @@ namespace ToolShed.Models.Repository
         /// <summary>
         /// Billing Address of credit card
         /// </summary>
-        public Guid BillingAddressId { get; set; }
+        public Guid AddressId { get; set; }
     }
 }

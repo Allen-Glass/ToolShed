@@ -31,6 +31,11 @@ namespace ToolShed.Models.API
         public string Email { get; set; }
 
         /// <summary>
+        /// unique username of user
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
         /// User's password
         /// </summary>
         public string Password { get; set; }

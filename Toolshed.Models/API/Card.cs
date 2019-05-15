@@ -28,6 +28,11 @@ namespace ToolShed.Models.API
         public string CardHolderName { get; set; }
 
         /// <summary>
+        /// card ccv
+        /// </summary>
+        public string CCV { get; set; }
+
+        /// <summary>
         /// Billing Address of credit card
         /// </summary>
         public Address BillingAddress { get; set; }

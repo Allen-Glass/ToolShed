@@ -52,7 +52,7 @@ namespace ToolShed.Repository.Tests.Repository
         {
             return new Card
             {
-                BillingAddressId = new Guid("12345678-1234-1234-1234-123456789012"),
+                AddressId = new Guid("12345678-1234-1234-1234-123456789012"),
                 CardHolderName = "John",
                 CardNumber = "0987-9789-9873-0083",
                 UserId = new Guid("12345678-1234-1234-1234-123456789012")

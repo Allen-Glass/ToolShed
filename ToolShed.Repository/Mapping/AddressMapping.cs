@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Toolshed.Models.Enums;
 using ToolShed.Models.API;
 
@@ -18,7 +16,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.CardAddress CreateCardAddressDTO(Guid addressId, Guid cardId)
+        public static Models.Repository.CardAddress CreateCardAddressDTO(Guid cardId, Guid addressId)
         {
             return new Models.Repository.CardAddress
             {

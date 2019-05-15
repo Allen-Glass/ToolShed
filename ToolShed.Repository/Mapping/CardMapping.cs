@@ -7,15 +7,6 @@ namespace ToolShed.Repository.Mapping
 {
     public static class CardMapping
     {
-        public static Models.Repository.Card CreateDtoCard(Card card)
-        {
-            return new Models.Repository.Card
-            {
-                CardHolderName = card.CardHolderName,
-                CardNumber = card.CardNumber,
-                UserId = card.UserId
-            };
-        }
 
         public static Models.Repository.UserCard CreateUserCardDTO(Guid userId, Guid cardId)
         {
@@ -35,6 +26,17 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
+        public static Models.Repository.Card CreateDtoCard(Card card)
+        {
+            return new Models.Repository.Card
+            {
+                CardHolderName = card.CardHolderName,
+                CardNumber = card.CardNumber,
+                UserId = card.UserId,
+                CCV = card.CCV
+            };
+        }
+
         public static Card ConvertDtoCardToCard(Models.Repository.Card card)
         {
             return new Card
@@ -42,7 +44,8 @@ namespace ToolShed.Repository.Mapping
                 UserId = card.UserId,
                 CardId = card.CardId,
                 CardHolderName = card.CardHolderName,
-                CardNumber = card.CardNumber
+                CardNumber = card.CardNumber,
+                CCV = card.CCV
             };
         }
 
