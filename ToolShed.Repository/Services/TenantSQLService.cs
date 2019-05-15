@@ -34,7 +34,7 @@ namespace ToolShed.Repository.Services
             if (tenant == null)
                 throw new ArgumentNullException();
 
-            var addressId = await addressRepository.AddAddressAsync(TenantMapping.CreateDtoAddress(tenant.Address));
+            var addressId = await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(tenant.Address));
             await tenantRepository.AddTenantAsync(TenantMapping.CreateDtoTenant(tenant, addressId));
         }
 
@@ -49,7 +49,8 @@ namespace ToolShed.Repository.Services
             if (dtoTenant == null || dtoAddress == null)
                 throw new NullReferenceException();
 
-            var tenant = TenantMapping.ConvertDtoTenantToTenant(dtoTenant, TenantMapping.ConvertDtoAddressToAddress(dtoAddress));
+            var tenant = TenantMapping.ConvertDtoTenantToTenant(dtoTenant);
+            tenant.Address = AddressMapping.ConvertDtoAddressToAddress(dtoAddress);
 
             return tenant;
         }
@@ -111,7 +112,9 @@ namespace ToolShed.Repository.Services
             foreach (var dtoTenant in dtoTenants)
             {
                 var address = await addressRepository.GetAddressAsync(dtoTenant.AddressId);
-                tenants.Add(TenantMapping.ConvertDtoTenantToTenant(dtoTenant, TenantMapping.ConvertDtoAddressToAddress(address)));
+                var tenant = TenantMapping.ConvertDtoTenantToTenant(dtoTenant);
+                tenant.Address = AddressMapping.ConvertDtoAddressToAddress(address);
+                tenants.Add(tenant);
             }
 
             return tenants;

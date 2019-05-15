@@ -29,7 +29,7 @@ namespace ToolShed.Repository.Mapping
         {
             return new Models.Repository.Address
             {
-                AddressType = AddressType.User,
+                AddressType = address.AddressType,
                 AptNumber = address.AptNumber,
                 City = address.City,
                 Country = address.Country,

@@ -12,7 +12,8 @@ namespace ToolShed.Repository.Mapping
                 Email = user.Email,
                 Password = user.Password,
                 FirstName = user.FirstName,
-                LastName = user.LastName
+                LastName = user.LastName,
+                UserName = user.UserName
             };
         }
 
@@ -24,7 +25,8 @@ namespace ToolShed.Repository.Mapping
                 Password = user.Password,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                AddressId = addressId
+                AddressId = addressId,
+                UserName = user.UserName
             };
         }
 
@@ -35,7 +37,8 @@ namespace ToolShed.Repository.Mapping
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                UserId = user.UserId
+                UserId = user.UserId,
+                UserName = user.UserName
             };
         }
     }
