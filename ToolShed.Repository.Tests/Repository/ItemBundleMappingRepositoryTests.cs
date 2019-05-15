@@ -32,7 +32,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddItemBundlesObjectless()
         {
-            await itemBundleMappingRepository.AddItemBundleMappingAsync(new Guid(), new Guid());
+            await itemBundleMappingRepository.AddItemBundleMappingAsync(Guid.NewGuid(), Guid.NewGuid());
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace ToolShed.Repository.Tests.Repository
         }
 
         [Fact]
-        public async Task GetItemBundlesByItemBundleId()
+        public async Task GetItemBundleMappingAsync()
         {
             var itemBundleId = await itemBundleMappingRepository.AddItemBundleMappingAsync(itemBundleMapping);
             var dtoItem = await itemBundleMappingRepository.GetItemBundleMappingAsync(itemBundleId);
@@ -66,8 +66,8 @@ namespace ToolShed.Repository.Tests.Repository
         {
             return new ItemBundleMapping
             {
-                ItemBundleId = new Guid(),
-                ItemId = new Guid()
+                ItemBundleId = Guid.NewGuid(),
+                ItemId = Guid.NewGuid()
             };
         }
 

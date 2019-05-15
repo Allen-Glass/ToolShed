@@ -71,7 +71,7 @@ namespace ToolShed.Repository.Tests.Repository
             return new ItemBundle
             {
                 DisplayName = "Mac's Special",
-                TenantId = new Guid()
+                TenantId = Guid.NewGuid()
             };
         }
 

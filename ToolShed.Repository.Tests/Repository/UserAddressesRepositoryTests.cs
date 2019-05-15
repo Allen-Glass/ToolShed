@@ -41,8 +41,8 @@ namespace ToolShed.Repository.Tests.Repository
         {
             return new UserAddresses
             {
-                AddressId = new Guid(),
-                UserId = new Guid()
+                AddressId = Guid.NewGuid(),
+                UserId = Guid.NewGuid()
             };
         }
 

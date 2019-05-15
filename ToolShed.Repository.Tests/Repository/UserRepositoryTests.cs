@@ -9,7 +9,7 @@ using ToolShed.Repository.Context;
 using ToolShed.Repository.Repositories;
 using Xunit;
 
-namespace ToolShed.Repository.Tests
+namespace ToolShed.Repository.Tests.Repository
 {
     public class UserRepositoryTests
     {

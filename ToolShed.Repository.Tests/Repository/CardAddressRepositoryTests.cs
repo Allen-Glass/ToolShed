@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
@@ -29,20 +27,20 @@ namespace ToolShed.Repository.Tests.Repository
         }
 
         [Fact]
-        public async Task GetCardIdsByUserId()
+        public async Task GetCardAddress()
         {
             await cardAddressRepository.AddCardAddressAsync(cardAddress);
             var addressIds = await cardAddressRepository.GetAddressAsync(cardAddress.CardId);
 
-            Assert.Equal(addressIds.FirstOrDefault(), cardAddress.CardId);
+            Assert.Equal(addressIds.FirstOrDefault(), cardAddress.AddressId);
         }
 
         private CardAddress CreateCardAddress()
         {
             return new CardAddress
             {
-                AddressId = new Guid(),
-                CardId = new Guid()
+                AddressId = Guid.NewGuid(),
+                CardId = Guid.NewGuid()
             };
         }
 

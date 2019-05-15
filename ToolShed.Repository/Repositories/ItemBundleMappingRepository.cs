@@ -85,7 +85,7 @@ namespace ToolShed.Repository.Repositories
                 throw new ArgumentNullException();
 
             return await toolShedContext.ItemBundleMappingSet
-                .FirstOrDefaultAsync(c => c.ItemBundleId.Equals(itemBundleMappingId));
+                .FirstOrDefaultAsync(c => c.ItemBundleMappingId.Equals(itemBundleMappingId));
         }
 
         public async Task<IEnumerable<Guid>> GetAllItemIdsInBundle(Guid itemBundleId)

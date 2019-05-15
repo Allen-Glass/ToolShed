@@ -9,7 +9,7 @@ using ToolShed.Repository.Context;
 using ToolShed.Repository.Repositories;
 using Xunit;
 
-namespace ToolShed.Repository.Tests
+namespace ToolShed.Repository.Tests.Repository
 {
     public class AddressRepositoryTests
     {
@@ -89,45 +89,6 @@ namespace ToolShed.Repository.Tests
             var firstAddress = dtoAddress.FirstOrDefault();
 
             Assert.Equal(address.ZipCode, firstAddress.ZipCode);
-        }
-
-        [Fact]
-        public async Task GetAddressesOfDispensersByState()
-        {
-            foreach (var item in addresses)
-            {
-                await addressRepository.AddAddressAsync(item);
-            }
-
-            var dtoAddresses = await addressRepository.GetAddressesOfDispensersByStateAsync("NY");
-
-            Assert.Equal(addresses, dtoAddresses);
-        }
-
-        [Fact]
-        public async Task GetAddressesOfDispensersByCity()
-        {
-            foreach (var item in addresses)
-            {
-                await addressRepository.AddAddressAsync(item);
-            }
-
-            var dtoAddresses = await addressRepository.GetAddressesOfDispensersByStateAsync("NY");
-
-            Assert.Equal(addresses, dtoAddresses);
-        }
-
-        [Fact]
-        public async Task GetAddressesOfDispensersByZipCode()
-        {
-            foreach (var item in addresses)
-            {
-                await addressRepository.AddAddressAsync(item);
-            }
-
-            var dtoAddresses = await addressRepository.GetAddressesOfDispensersByStateAsync("NY");
-
-            Assert.Equal(addresses, dtoAddresses);
         }
 
         private Address CreateAddress()

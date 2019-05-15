@@ -1,82 +1,87 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
 using ToolShed.Repository.Repositories;
 using Xunit;
 
-namespace ToolShed.Repository.Tests
+namespace ToolShed.Repository.Tests.Repository
 {
     public class RentalRepositoryTests
     {
         private readonly User newAccount;
-        private readonly User userAccount;
-        private readonly UserRepository userRepository;
+        private readonly Rental rental;
+        private readonly RentalRepository rentalRepository;
 
         public RentalRepositoryTests()
         {
             newAccount = CreateNewAccount();
+            rental = CreateRental();
+            rentalRepository = GetInMemoryRentalRepository();
         }
 
         [Fact]
-        public async Task AddUserAsync()
+        public async Task AddRentalAsync()
         {
-            await userRepository.AddUserAsync(newAccount);
+            await rentalRepository.AddRentalAsync(rental);
         }
 
         [Fact]
-        public async Task ConfirmEmailDoesNotExist()
+        public async Task GetRentalByRentalIdAsync()
         {
-            await userRepository.AddUserAsync(newAccount);
-            var doesExist = await userRepository.CheckIfUserEmailExists(newAccount.Email);
+            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
 
-            Assert.True(doesExist);
+            Assert.Equal(rental, dtoRental);
         }
 
         [Fact]
-        public async Task ConfirmEmailExists()
+        public async Task GetRentalsByUserAsync()
         {
-            await userRepository.AddUserAsync(newAccount);
-            var doesExist = await userRepository.CheckIfUserEmailExists("things");
+            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            var dtoRentals = await rentalRepository.GetRentalsByUserAsync(rental.UserId);
 
-            Assert.False(doesExist);
+            Assert.Equal(rental, dtoRentals.FirstOrDefault());
         }
 
         [Fact]
-        public async Task CheckUserExistEmptyEmail()
+        public async Task CheckLockerCodeAsync()
         {
-            await Assert.ThrowsAsync<ArgumentNullException>(() => userRepository.CheckIfUserEmailExists(""));
+            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            var correctLockerCode = await rentalRepository.CheckLockerCodeAsync(rentalId, rental.LockerCode);
+
+            Assert.True(correctLockerCode);
         }
 
         [Fact]
-        public async Task GetUserByEmail()
+        public async Task CheckBadLockerCodeAsync()
         {
-            await userRepository.AddUserAsync(newAccount);
-            var user = await userRepository.GetUserByEmailAsync(newAccount.Email);
+            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            var correctLockerCode = await rentalRepository.CheckLockerCodeAsync(rental.UserId,"1111");
 
-            Assert.Equal(newAccount, user);
+            Assert.False(correctLockerCode);
         }
 
         [Fact]
-        public async Task GetUserByUserId()
+        public async Task CompleteRentalFromGuidAsync()
         {
-            var id = await userRepository.AddUserAsync(newAccount);
-            var user = await userRepository.GetUserByUserIdAsync(id);
+            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            await rentalRepository.CompleteRentalAsync(rentalId);
+            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
 
-            Assert.Equal(newAccount, user);
+            Assert.True(dtoRental.HasBeenReturned);
         }
 
         [Fact]
-        public async Task GetAllUsers()
+        public async Task CompleteRentalAsync()
         {
-            var id = await userRepository.AddUserAsync(newAccount);
-            var user = await userRepository.GetAllUsers();
+            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            await rentalRepository.CompleteRentalAsync(rentalId);
+            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
 
-            Assert.Equal(newAccount, user.FirstOrDefault());
+            Assert.True(dtoRental.HasBeenReturned);
         }
 
         private User CreateNewAccount()

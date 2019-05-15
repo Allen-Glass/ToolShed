@@ -43,6 +43,7 @@ namespace ToolShed.Repository.Tests.Repository
             var itemIds = new List<Guid>();
             for (int i = 0; i < 5; i++)
             {
+                item.ItemId = Guid.NewGuid();
                 itemIds.Add(await itemRepository.AddItemAsync(item));
             }
 
@@ -61,9 +62,9 @@ namespace ToolShed.Repository.Tests.Repository
                 IsRentable = true,
                 BuyPrice = 25.00,
                 DisplayName = "Wrench Knife",
-                ItemTypeId = new Guid(),
-                DispenserId = new Guid(),
-                TenantId = new Guid()
+                ItemTypeId = Guid.NewGuid(),
+                DispenserId = Guid.NewGuid(),
+                TenantId = Guid.NewGuid()
             };
         }
 
