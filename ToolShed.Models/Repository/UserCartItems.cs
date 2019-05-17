@@ -12,10 +12,6 @@ namespace ToolShed.Models.Repository
 
         public Guid UserCartId { get; set; }
 
-        public Guid ItemRentalDetailsId { get; set; }
-
         public Guid ItemId { get; set; }
-
-        public Guid UserId { get; set; }
     }
 }

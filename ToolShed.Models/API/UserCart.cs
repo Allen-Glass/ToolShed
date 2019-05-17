@@ -13,5 +13,9 @@ namespace ToolShed.Models.API
         public IEnumerable<Guid> ItemIds { get; set; }
 
         public IEnumerable<Guid> ItemRentalIds { get; set; }
+
+        public IEnumerable<Item> Items { get; set; }
+
+        public IEnumerable<ItemRentalDetails> ItemRentals { get; set; }
     }
 }
