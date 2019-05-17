@@ -10,10 +10,10 @@ namespace ToolShed.Services
 {
     public class LoginService : ILoginService
     {
-        private readonly IUserSQLService userSQLService;
+        private readonly IUserDataService userSQLService;
         private readonly IEmailService emailService;
 
-        public LoginService(IUserSQLService userSQLService,
+        public LoginService(IUserDataService userSQLService,
             IEmailService emailService)
         {
             this.userSQLService = userSQLService;

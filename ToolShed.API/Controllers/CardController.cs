@@ -11,9 +11,9 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class CardController : ControllerBase
     {
-        private readonly ICardSQLService cardSQLService;
+        private readonly ICardDataService cardSQLService;
 
-        public CardController(ICardSQLService cardSQLService)
+        public CardController(ICardDataService cardSQLService)
         {
             this.cardSQLService = cardSQLService;
         }

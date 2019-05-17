@@ -9,9 +9,9 @@ namespace ToolShed.Services
 {
     public class TenantService
     {
-        private readonly ITenantSQLService tenantSQLService;
+        private readonly ITenantDataService tenantSQLService;
 
-        public TenantService(ITenantSQLService tenantSQLService)
+        public TenantService(ITenantDataService tenantSQLService)
         {
             this.tenantSQLService = tenantSQLService;
         }

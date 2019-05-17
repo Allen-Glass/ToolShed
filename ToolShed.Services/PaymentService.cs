@@ -10,10 +10,10 @@ namespace ToolShed.Services
     public class PaymentService : IPaymentService
     {
         private readonly ITaxService taxService;
-        private readonly IRentalSQLService rentalSQLService;
+        private readonly IRentalDataService rentalSQLService;
 
         public PaymentService(ITaxService taxService,
-            IRentalSQLService rentalSQLService)
+            IRentalDataService rentalSQLService)
         {
             this.taxService = taxService;
             this.rentalSQLService = rentalSQLService;

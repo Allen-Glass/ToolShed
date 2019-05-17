@@ -12,4 +12,8 @@
     <ProjectReference Include="..\ToolShed.Services\ToolShed.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

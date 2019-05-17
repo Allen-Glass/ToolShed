@@ -60,8 +60,8 @@ namespace ToolShed
             services.AddTransient<UserAddressesRepository>();
             services.AddTransient<UserCardRepository>();
             services.AddTransient<UserRepository>();
-            services.AddTransient<ICardSQLService, CardSQLService>();
-            services.AddTransient<IDispenserSQLService, DispenserSQLService>();
+            services.AddTransient<ICardDataService, CardDataService>();
+            services.AddTransient<IDispenserDataService, DispenserDataService>();
             services.AddTransient<IIotActionServices, IotActionServices>(sp =>
             {
                 var serviceClient = ServiceClient.CreateFromConnectionString(iotHubConnectionString);

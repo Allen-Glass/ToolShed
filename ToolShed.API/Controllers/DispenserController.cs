@@ -13,10 +13,10 @@ namespace ToolShed.API.Controllers
     [ApiController]
     public class DispenserController : ControllerBase
     {
-        private readonly IDispenserSQLService dispenserSQLService;
+        private readonly IDispenserDataService dispenserSQLService;
         private readonly IIotActionServices iotActionServices;
 
-        public DispenserController(IDispenserSQLService dispenserSQLService
+        public DispenserController(IDispenserDataService dispenserSQLService
             , IIotActionServices iotActionServices)
         {
             this.dispenserSQLService = dispenserSQLService;

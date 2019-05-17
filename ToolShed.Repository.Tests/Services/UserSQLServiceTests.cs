@@ -11,16 +11,16 @@ namespace ToolShed.Repository.Tests.Services
 {
     public class UserSQLServiceTests
     {
-        private readonly IUserSQLService userSQLService;
+        private readonly IUserDataService userSQLService;
 
         public UserSQLServiceTests()
         {
             userSQLService = CreateUserSQLService();
         }
 
-        private IUserSQLService CreateUserSQLService()
+        private IUserDataService CreateUserSQLService()
         {
-            return new UserSQLService(GetInMemoryUserRepository(),
+            return new UserDataService(GetInMemoryUserRepository(),
                 GetInMemoryAddressRepository(),
                 GetInMemoryCardRepository(),
                 GetInMemoryUserCardRepository(),

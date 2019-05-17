@@ -32,6 +32,8 @@ namespace ToolShed.Repository.Context
         public virtual DbSet<Tenant> TenantSet { get; set; }
         public virtual DbSet<UserAddresses> UserAddressesSet { get; set; }
         public virtual DbSet<UserCard> UserCardSet { get; set; }
+        public virtual DbSet<UserCart> UserCartSet { get; set; }
+        public virtual DbSet<UserCartItems> UserCartItemsSet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -79,6 +81,10 @@ namespace ToolShed.Repository.Context
                 .HasKey(c => c.UserAddressId);
             modelBuilder.Entity<UserCard>().ToTable("UserCard")
                 .HasKey(c => c.UserCardId);
+            modelBuilder.Entity<UserCart>().ToTable("UserCart")
+                .HasKey(c => c.UserCartId);
+            modelBuilder.Entity<UserCartItems>().ToTable("UserCartItems")
+                .HasKey(c => c.UserCartId);
         }
     }
 }

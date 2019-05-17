@@ -10,9 +10,9 @@ namespace ToolShed.Services
 {
     public class CardService
     {
-        private readonly ICardSQLService cardSQLService;
+        private readonly ICardDataService cardSQLService;
 
-        public CardService(ICardSQLService cardSQLService)
+        public CardService(ICardDataService cardSQLService)
         {
             this.cardSQLService = cardSQLService;
         }

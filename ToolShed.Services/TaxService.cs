@@ -8,9 +8,9 @@ namespace ToolShed.Services
 {
     public class TaxService : ITaxService
     {
-        private readonly ITaxesSQLService taxesSQLService;
+        private readonly ITaxesDataService taxesSQLService;
 
-        public TaxService(ITaxesSQLService taxesSQLService)
+        public TaxService(ITaxesDataService taxesSQLService)
         {
             this.taxesSQLService = taxesSQLService;
         }

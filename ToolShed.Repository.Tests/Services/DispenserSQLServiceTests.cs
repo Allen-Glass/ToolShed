@@ -16,7 +16,7 @@ namespace ToolShed.Repository.Tests.Services
 {
     public class DispenserSQLServiceTests
     {
-        private readonly IDispenserSQLService dispenserSQLService;
+        private readonly IDispenserDataService dispenserSQLService;
         private readonly Dispenser dispenser;
 
         public DispenserSQLServiceTests()
@@ -81,9 +81,9 @@ namespace ToolShed.Repository.Tests.Services
             };
         }
 
-        private IDispenserSQLService CreateDispenserSQLService()
+        private IDispenserDataService CreateDispenserSQLService()
         {
-            return new DispenserSQLService(GetInMemoryDispenserRepository(),
+            return new DispenserDataService(GetInMemoryDispenserRepository(),
                 GetInMemoryItemRepository(),
                 GetInMemoryAddressRepository());
         }
