@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ToolShed.Models.Repository;
@@ -38,6 +39,18 @@ namespace ToolShed.Repository.Repositories
                 throw new NullReferenceException();
 
             return itemRentalDetails;
+        }
+
+        public virtual async Task<IEnumerable<ItemRentalDetails>> GetItemRentalDetailsAsync(IEnumerable<Guid> itemRentalDetailsIds)
+        {
+            var itemRentalDetailList = new List<ItemRentalDetails>();
+            foreach (var id in itemRentalDetailsIds)
+            {
+                var itemRentalDetail = await GetItemRentalDetailsAsync(id);
+                itemRentalDetailList.Add(itemRentalDetail);
+            }
+
+            return itemRentalDetailList;
         }
     }
 }

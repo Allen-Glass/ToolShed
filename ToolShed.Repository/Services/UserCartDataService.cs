@@ -46,12 +46,9 @@ namespace ToolShed.Repository.Services
             }
         }
 
-        public int GetTotalItemsInCart(UserCart userCart)
+        public int GetItemCountInCart(UserCart userCart)
         {
-            var itemCount = userCartItemsRepository.GetItemCountInCartAsync(userCart.UserCartId);
-            var itemRentalCount = userCartItemRentalsRepository.GetItemCountInCartAsync(userCart.UserCartId);
-
-            return itemCount + itemRentalCount;
+            return GetItemCountInCart(userCart.UserCartId);
         }
 
         public int GetItemCountInCart(Guid userCartId)
@@ -62,7 +59,7 @@ namespace ToolShed.Repository.Services
             return itemCount + itemRentalCount;
         }
 
-        public async Task<UserCart> GetAllItemsInCartAsync(UserCart userCart)
+        public async Task<UserCart> GetUserCartAsync(UserCart userCart)
         {
             if (userCart.UserCartId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -70,8 +67,10 @@ namespace ToolShed.Repository.Services
             userCart.ItemIds = await userCartItemsRepository.GetUserCartItemIds(userCart.UserCartId);
             userCart.ItemRentalIds = await userCartItemRentalsRepository.GetItemRentalIdsAsync(userCart.UserCartId);
 
-            userCart.Items = await itemRepository.GetItemsByItemIdsAsync(userCart.ItemIds);
-            userCart.ItemRentals = await itemRentalDetailsRepository.GetItemRentalDetailsAsync(userCart.ItemRentalIds);
+            var items = await itemRepository.GetItemsByItemIdsAsync(userCart.ItemIds);
+            var itemRentalDetails = await itemRentalDetailsRepository.GetItemRentalDetailsAsync(userCart.ItemRentalIds);
+
+            return userCart;
         }
     }
 }
