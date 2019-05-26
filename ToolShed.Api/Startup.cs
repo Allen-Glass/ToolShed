@@ -10,11 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using ToolShed.IotHub.Interfaces;
-using ToolShed.IotHub.Services;
 using ToolShed.Repository.Context;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Repositories;
 using ToolShed.Repository.Services;
+using ToolShed.Services.Iot;
+using ToolShed.Services.Rentals;
 
 namespace ToolShed
 {
