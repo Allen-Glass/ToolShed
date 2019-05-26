@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToolShed.Models.API;
-using ToolShed.Renting.Interfaces;
+using ToolShed.Services.Interfaces;
 
 namespace ToolShed.API.Controllers
 {

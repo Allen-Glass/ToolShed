@@ -11,7 +11,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using ToolShed.IotHub.Interfaces;
 using ToolShed.IotHub.Services;
-using ToolShed.Renting;
 using ToolShed.Repository.Context;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Repositories;
