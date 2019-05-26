@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Toolshed.Models\ToolShed.Models.csproj" />
     <ProjectReference Include="..\ToolShed.Repository\ToolShed.Repository.csproj" />
+    <ProjectReference Include="..\ToolShed.Services\ToolShed.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

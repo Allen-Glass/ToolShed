@@ -81,5 +81,24 @@ namespace ToolShed.Repository.Repositories
                 .Select(c => c.ItemRentalDetailsId)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<UserCartItemRentals>> GetUserCartItemRentals(Guid userCartId)
+        {
+            return await toolShedContext.UserCartItemRentalsSet
+                .Where(c => c.UserCartId.Equals(userCartId))
+                .ToListAsync();
+        }
+
+        public async Task DeleteUserCartItemRentalsAsync(Guid userCartId)
+        {
+            var userCartItemRentals = await GetUserCartItemRentals(userCartId);
+            foreach (var item in userCartItemRentals)
+            {
+                toolShedContext.UserCartItemRentalsSet
+                    .Remove(item);
+            }
+
+            await toolShedContext.SaveChangesAsync();
+        }
     }
 }

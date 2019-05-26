@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
+using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Mapping;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
 {
-    public class UserCartDataService
+    public class UserCartDataService : IUserCartDataService
     {
         private readonly UserCartRepository userCartRepository;
         private readonly UserCartItemsRepository userCartItemsRepository;
@@ -61,9 +62,6 @@ namespace ToolShed.Repository.Services
 
         public async Task<UserCart> GetUserCartAsync(UserCart userCart)
         {
-            if (userCart.UserCartId == Guid.Empty)
-                throw new ArgumentNullException();
-
             userCart.ItemIds = await userCartItemsRepository.GetUserCartItemIds(userCart.UserCartId);
             userCart.ItemRentalIds = await userCartItemRentalsRepository.GetItemRentalIdsAsync(userCart.UserCartId);
 
@@ -71,6 +69,43 @@ namespace ToolShed.Repository.Services
             var itemRentalDetails = await itemRentalDetailsRepository.GetItemRentalDetailsAsync(userCart.ItemRentalIds);
 
             return userCart;
+        }
+
+        public async Task<UserCart> GetUserCartAsync(Guid userId)
+        {
+            var userCart = await userCartRepository.GetActiveUserCartAsync(userId);
+            return await GetUserCartAsync(UserCartMapping.ConvertUserCart(userCart));
+        }
+
+        public async Task<Guid> GetUserCartIdAsync(Guid userId)
+        {
+            return await userCartRepository.GetUserCartIdAsync(userId);
+        }
+
+        public async Task UpdateUserCartAsync(UserCart userCart)
+        {
+            if (userCart.UserCartId == Guid.Empty && userCart.UserId != Guid.Empty)
+            {
+                userCart.UserCartId = await userCartRepository.GetUserCartIdAsync(userCart.UserId);
+            }
+
+            if (userCart.ItemIds != null)
+            {
+                await userCartItemsRepository.AddUserCartItemsAsync(userCart.UserCartId, userCart.ItemIds);
+            }
+
+            if (userCart.ItemRentalIds != null)
+            {
+                await userCartItemRentalsRepository.AddUserRentalItemAsync(userCart.UserCartId, userCart.ItemRentalIds);
+            }
+        }
+
+        public async Task DeleteUserCartAsync(Guid userId)
+        {
+            var userCartId = await userCartRepository.GetUserCartIdAsync(userId);
+            await userCartItemRentalsRepository.DeleteUserCartItemRentalsAsync(userCartId);
+            await userCartItemsRepository.DeleteUserCartItemsAsync(userCartId);
+            await userCartRepository.DeleteUserCartAsync(userId);
         }
     }
 }

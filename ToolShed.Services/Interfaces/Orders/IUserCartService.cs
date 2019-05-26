@@ -14,5 +14,6 @@ namespace ToolShed.Services.Interfaces.Orders
         /// <param name="userCart"></param>
         /// <returns></returns>
         Task SaveCartAsync(UserCart userCart);
+        Task SaveCartAsync(Models.API.UserCart userCart);
     }
 }
