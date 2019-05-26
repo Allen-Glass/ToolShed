@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
@@ -55,8 +54,8 @@ namespace ToolShed.Repository.Repositories
                 };
                 await toolShedContext.UserCartItemsSet
                     .AddAsync(userCartItems);
-            }           
-            await toolShedContext.SaveChangesAsync();
+                await toolShedContext.SaveChangesAsync();
+            }   
         }
 
         public int GetItemCountInCartAsync(Guid userCartId)
