@@ -45,7 +45,7 @@ class Home extends Component {
             });}
     }
 
-    SendFullName =  () => {
+    SendFullName = () => {
         fetch("https://toolshed-api.azurewebsites.net/api/dispenser/sendaction",
             {
                 method: 'POST',
@@ -61,6 +61,9 @@ class Home extends Component {
 
     }
 
+    goToSearchMapsPage = () => {
+        window.location.href = "/maps/search";
+    }
 
     render() {
         return (
@@ -69,7 +72,7 @@ class Home extends Component {
                     <div className="hero-header">
                         <span id="hero-header-text">Build Faster, Sooner<br /></span>
                         <span id="header-header-subtext">See what items are being sold and rented in your area.<br /></span>
-                        <button>Search your area</button>
+                        <button onClick={this.goToSearchMapsPage}>Search your area</button>
                     </div>
                     <div className="hero-image">
                         <img src={require("../images/bridge.jpeg")} alt="home image" />

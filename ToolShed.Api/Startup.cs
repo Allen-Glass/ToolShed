@@ -33,6 +33,13 @@ namespace ToolShed
         {      
             var sqlConnection = Configuration["SQLConnectionString"];
             var iotHubConnectionString = Configuration["IotHubConnectionString"];
+            var facebookAppId = Configuration["Facebook:AppId"];
+            var facebookSecret = Configuration["FacebookAppSecret"];
+            var googleClientId = Configuration["Google:ClientId"];
+            var googleSecret = Configuration["GoogleSecret"];
+            var microsoftClientId = Configuration["Microsoft:ClientId"];
+            var microsoftClientSecret = Configuration["MicrosoftSecret"];
+
 
             services.AddCors(
                     options => options.AddPolicy("Dispenser",
@@ -74,11 +81,19 @@ namespace ToolShed
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddAuthentication()
-                .AddMicrosoftAccount()
-                .AddGoogle()
+                .AddMicrosoftAccount(microsoftOptions => {
+                    microsoftOptions.ClientId = microsoftClientId;
+                    microsoftOptions.ClientSecret = microsoftClientSecret;
+                })
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = googleClientId;
+                    googleOptions.ClientSecret = googleSecret;
+                })
                 .AddFacebook(facebookOptions =>
                 {
-                    facebookOptions.AppId = Configuration["FacebookAppId"];
+                    facebookOptions.AppId = facebookAppId;
+                    facebookOptions.AppSecret = facebookSecret;
                 });
         }
 

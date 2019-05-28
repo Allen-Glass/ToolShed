@@ -30,13 +30,13 @@ class Login extends Component {
         return (
             <div>
                 <GoogleLogin
-                    clientId="580066842012-091fuh06s2kg8ukunrbtjskrobgmuaim.apps.googleusercontent.com"
+                    clientId="295742437329-n8u2meoh1ij198no8ncg501pph8vjbe7.apps.googleusercontent.com"
                     buttonText="Login"
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseGoogle}
                 />
                 <FacebookLogin
-                    appId=""
+                    appId="1967682820008412"
                     autoLoad={true}
                     fields="name, email, picture"
                     callback={this.responseFacebook}
