@@ -50,7 +50,7 @@ namespace ToolShed.Repository.Services
             var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
             var dtoItemRentalDetails = await itemRentalDetailsRepository.GetItemRentalDetailsAsync(dtoRental.ItemRentalDetailsId);
             var dtoItem = itemRepository.GetItemByItemIdAsync(dtoItemRentalDetails.ItemId);
-            var dtoUser = userRepository.GetUserByUserIdAsync(dtoRental.UserId);
+            var dtoUser = userRepository.GetUserAsync(dtoRental.UserId);
 
             if (dtoRental == null)
                 throw new NullReferenceException();
@@ -75,7 +75,7 @@ namespace ToolShed.Repository.Services
                 throw new NullReferenceException();
 
             var rental = RentalMapping.ConvertDtoRentalToRental(dtoRental);
-            var dtoUser = await userRepository.GetUserByUserIdAsync(dtoRental.UserId);
+            var dtoUser = await userRepository.GetUserAsync(dtoRental.UserId);
             rental.User = UserMapping.ConvertDtoUser(dtoUser);
 
             return rental;

@@ -35,16 +35,28 @@ namespace ToolShed.Repository.Repositories
                 .AnyAsync(c => c.Email.Equals(email));
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<User> GetUserAsync(string email)
         {
             return await toolShedContext.UserSet
                 .FirstOrDefaultAsync(c => c.Email.Equals(email));
         }
 
-        public async Task<User> GetUserByUserIdAsync(Guid userId)
+        public async Task<User> GetUserAsync(Guid userId)
         {
             return await toolShedContext.UserSet
                 .FirstOrDefaultAsync(c => c.UserId.Equals(userId));
+        }
+
+        public async Task<IEnumerable<User>> GetUsersAsync(IEnumerable<Guid> userIds)
+        {
+            var userList = new List<User>();
+            foreach(var userId in userIds)
+            {
+                var user = await GetUserAsync(userId);
+                userList.Add(user);
+            }
+
+            return userList;
         }
 
         public async Task<IEnumerable<User>> GetAllUsers()
@@ -87,7 +99,7 @@ namespace ToolShed.Repository.Repositories
 
         public async Task UpdatePasswordAsync(Guid userId, string password)
         {
-            var user = await GetUserByUserIdAsync(userId);
+            var user = await GetUserAsync(userId);
             if (string.IsNullOrEmpty(password))
                 throw new ArgumentNullException(nameof(password));
 

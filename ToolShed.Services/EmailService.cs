@@ -31,5 +31,19 @@ namespace ToolShed.Services
                 throw new HttpRequestException(
                     $"Unable to send email to {email}. {await response.Content.ReadAsStringAsync()}");
         }
+
+        public async Task SendUserInviteToTenantAsync(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentNullException(nameof(email));
+
+            var client = httpClientFactory.CreateClient(EmailConstants.InviteBaseUrl);
+            var httpContent = RequestExtensions.PrepareHttpContent(email);
+            var response = await client.PostAsync(EmailConstants.InviteClient, httpContent);
+
+            if (!response.IsSuccessStatusCode)
+                throw new HttpRequestException(
+                    $"Unable to send email to {email}. {await response.Content.ReadAsStringAsync()}");
+        }
     }
 }

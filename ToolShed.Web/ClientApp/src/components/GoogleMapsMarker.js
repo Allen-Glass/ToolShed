@@ -22,4 +22,10 @@ export const GoogleMapsMarker = ({
                 )
             }
         </Motion>
+    );
+
+export const simpleMarkerHOC = compose(
+    defaultProps({
+        styles: simple
+    })
 );

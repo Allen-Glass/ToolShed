@@ -8,5 +8,7 @@ namespace ToolShed.Services.Interfaces
     public interface IEmailService
     {
         Task SendPasswordResetEmailAsync(string email);
+
+        Task SendUserInviteToTenantAsync(string email);
     }
 }

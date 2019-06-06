@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ToolShed.Models.API;
 
 namespace ToolShed.Repository.Mapping
@@ -40,6 +41,17 @@ namespace ToolShed.Repository.Mapping
                 UserId = user.UserId,
                 UserName = user.UserName
             };
+        }
+
+        public static IEnumerable<User> ConvertDtoUsers(IEnumerable<Models.Repository.User> users)
+        {
+            var userList = new List<User>();
+            foreach (var user in users)
+            {
+                userList.Add(ConvertDtoUser(user));
+            }
+
+            return userList;
         }
     }
 }

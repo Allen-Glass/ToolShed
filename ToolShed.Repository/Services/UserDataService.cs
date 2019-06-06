@@ -75,7 +75,7 @@ namespace ToolShed.Repository.Services
             IEnumerable<Models.Repository.Card> dtoCards;
             IEnumerable<Card> cards;
             IEnumerable<Models.Repository.Address> dtoAddresses;
-            var dtoUser = await userRepository.GetUserByUserIdAsync(userId);
+            var dtoUser = await userRepository.GetUserAsync(userId);
             var user = UserMapping.ConvertDtoUser(dtoUser);
             var cardIds = await userCardRepository.GetCardIdsAsync(dtoUser.UserId);
             var addressIds = await userAddressesRepository.GetAddressIdsAsync(dtoUser.UserId);

@@ -58,7 +58,7 @@ namespace ToolShed.Repository.Tests.Repository
         public async Task GetUserByEmail()
         {
             await userRepository.AddUserAsync(newAccount);
-            var user = await userRepository.GetUserByEmailAsync(newAccount.Email);
+            var user = await userRepository.GetUserAsync(newAccount.Email);
 
             Assert.Equal(newAccount, user);
         }
@@ -67,7 +67,7 @@ namespace ToolShed.Repository.Tests.Repository
         public async Task GetUserByUserId()
         {
             var id = await userRepository.AddUserAsync(newAccount);
-            var user = await userRepository.GetUserByUserIdAsync(id);
+            var user = await userRepository.GetUserAsync(id);
 
             Assert.Equal(newAccount, user);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
+using ToolShed.Helpers;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Mapping;
@@ -16,13 +17,19 @@ namespace ToolShed.Repository.Services
     public class TenantDataService : ITenantDataService
     {
         private readonly TenantRepository tenantRepository;
+        private readonly TenantUserRepository tenantUserRepository;
         private readonly AddressRepository addressRepository;
+        private readonly UserRepository userRepository;
 
-        public TenantDataService(TenantRepository tenantRepository
-            , AddressRepository addressRepository)
+        public TenantDataService(TenantRepository tenantRepository,
+            AddressRepository addressRepository,
+            TenantUserRepository tenantUserRepository,
+            UserRepository userRepository)
         {
             this.tenantRepository = tenantRepository;
             this.addressRepository = addressRepository;
+            this.tenantUserRepository = tenantUserRepository;
+            this.userRepository = userRepository;
         }
 
         /// <summary>
@@ -36,6 +43,14 @@ namespace ToolShed.Repository.Services
 
             var addressId = await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(tenant.Address));
             await tenantRepository.AddTenantAsync(TenantMapping.CreateDtoTenant(tenant, addressId));
+        }
+
+        public async Task AddUserToTenantAsync(Tenant tenant, User user)
+        {
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenant);
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(user);
+
+            await tenantUserRepository.AddUserToTenantAsync(tenant.TenantId, user.UserId);
         }
 
         public async Task<Tenant> GetTenantAsync(Guid tenantId)
@@ -55,6 +70,16 @@ namespace ToolShed.Repository.Services
             return tenant;
         }
 
+        public async Task<IEnumerable<User>> GetAllUsersInTenantAsync(Guid tenantId)
+        {
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantId);
+
+            var userIds = await tenantUserRepository.GetAllUserIdsInTenantAsync(tenantId);
+            var users = await userRepository.GetUsersAsync(userIds);
+
+            return UserMapping.ConvertDtoUsers(users);
+        }
+
         /// <summary>
         /// Get all tenants
         /// </summary>
@@ -69,6 +94,16 @@ namespace ToolShed.Repository.Services
             var tenants = await MapAddressesToTenants(dtoTenants);
 
             return tenants;
+        }
+
+        public async Task<IEnumerable<Tenant>> GetTenantsAsync(Guid userId)
+        {
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(userId);
+
+            var tenantIds = await tenantUserRepository.GetAllTenantIdsForUserAsync(userId);
+            var dtoTenants = await tenantRepository.GetTenantsByTenantIdsAsync(tenantIds);
+
+            return TenantMapping.ConvertDtoTenantsToTenants(dtoTenants);
         }
 
         /// <summary>
@@ -88,6 +123,14 @@ namespace ToolShed.Repository.Services
                 throw new NullReferenceException();
 
             return tenants;
+        }
+
+        public async Task<bool> IsUserInTenantAsync(Tenant tenant, User user)
+        {
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenant.TenantId);
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(user.UserId);
+
+            return await tenantUserRepository.IsUserInTenantAsync(tenant.TenantId, user.UserId);
         }
 
         public async Task DeleteTenantAsync(Tenant tenant)
