@@ -41,16 +41,16 @@ namespace ToolShed.Repository.Repositories
         public async Task<IEnumerable<Guid>> GetAllUserIdsInTenantAsync(Guid tenantId)
         {
             return await toolShedContext.TenantUserSet
-                .Where(c => c.UserId.Equals(tenantId))
-                .Select(c => c.TenantId)
+                .Where(c => c.TenantId.Equals(tenantId))
+                .Select(c => c.UserId)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Guid>> GetAllTenantIdsForUserAsync(Guid userId)
         {
             return await toolShedContext.TenantUserSet
-                .Where(c => c.TenantId.Equals(userId))
-                .Select(c => c.UserId)
+                .Where(c => c.UserId.Equals(userId))
+                .Select(c => c.TenantId)
                 .ToListAsync();
         }
 

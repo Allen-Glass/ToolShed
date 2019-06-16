@@ -22,8 +22,8 @@ namespace ToolShed.Repository.Services
         private readonly UserRepository userRepository;
 
         public TenantDataService(TenantRepository tenantRepository,
+            TenantUserRepository tenantUserRepository, 
             AddressRepository addressRepository,
-            TenantUserRepository tenantUserRepository,
             UserRepository userRepository)
         {
             this.tenantRepository = tenantRepository;
@@ -38,8 +38,7 @@ namespace ToolShed.Repository.Services
         /// <param name="tenant">tenant object</param>
         public async Task StoreTenantAsync(Tenant tenant)
         {
-            if (tenant == null)
-                throw new ArgumentNullException();
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenant);
 
             var addressId = await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(tenant.Address));
             await tenantRepository.AddTenantAsync(TenantMapping.CreateDtoTenant(tenant, addressId));
@@ -55,8 +54,7 @@ namespace ToolShed.Repository.Services
 
         public async Task<Tenant> GetTenantAsync(Guid tenantId)
         {
-            if (tenantId == Guid.Empty)
-                throw new ArgumentNullException();
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantId);
 
             var dtoTenant = await tenantRepository.GetTenantByIdAsync(tenantId);
             var dtoAddress = await addressRepository.GetAddressAsync(dtoTenant.AddressId);
@@ -113,8 +111,7 @@ namespace ToolShed.Repository.Services
         /// <returns></returns>
         public async Task<IEnumerable<Tenant>> GetTenantsAsync(IEnumerable<Guid> tenantIds)
         {
-            if (tenantIds == null)
-                throw new ArgumentNullException();
+            NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantIds);
 
             var dtoTenants = await tenantRepository.GetTenantsByTenantIdsAsync(tenantIds);
             var tenants = await MapAddressesToTenants(dtoTenants);

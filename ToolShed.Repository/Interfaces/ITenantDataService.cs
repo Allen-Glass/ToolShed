@@ -14,6 +14,14 @@ namespace ToolShed.Repository.Interfaces
         Task StoreTenantAsync(Tenant tenant);
 
         /// <summary>
+        /// add user to tenant
+        /// </summary>
+        /// <param name="tenant"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task AddUserToTenantAsync(Tenant tenant, User user);
+
+        /// <summary>
         /// get tenant by their id
         /// </summary>
         /// <param name="tenantId">tenant pk</param>
