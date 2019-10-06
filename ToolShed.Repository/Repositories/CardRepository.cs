@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddCardAsync(Card card)
+        public async Task<Guid> AddAsync(Card card)
         {
             await toolShedContext.CardSet
                 .AddAsync(card);
@@ -26,7 +26,7 @@ namespace ToolShed.Repository.Repositories
             return card.CardId;
         }
 
-        public async Task<Card> GetCardAsync(Guid cardId)
+        public async Task<Card> GetAsync(Guid cardId)
         {
             if (cardId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -40,7 +40,7 @@ namespace ToolShed.Repository.Repositories
             return card;
         }
 
-        public async Task<IEnumerable<Card>> GetCardsAsync(IEnumerable<Guid> cardIds)
+        public async Task<IEnumerable<Card>> ListAsync(IEnumerable<Guid> cardIds)
         {
             if (cardIds == null)
                 throw new ArgumentNullException();
@@ -70,7 +70,7 @@ namespace ToolShed.Repository.Repositories
             return cards;
         }
 
-        public async Task UpdateCardAsync(Card card)
+        public async Task UpdateAsync(Card card)
         {
             if (card == null)
                 throw new ArgumentNullException();
@@ -80,17 +80,17 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task DeleteCardAsync(Card card)
+        public async Task DeleteAsync(Card card)
         {
             toolShedContext.CardSet
                 .Remove(card);
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task DeleteCardAsync(Guid cardId)
+        public async Task DeleteAsync(Guid cardId)
         {
             toolShedContext.CardSet
-                .Remove(await GetCardAsync(cardId));
+                .Remove(await GetAsync(cardId));
             await toolShedContext.SaveChangesAsync();
         }
     }

@@ -25,13 +25,13 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddAddress()
         {
-            await cardRepository.AddCardAsync(card);
+            await cardRepository.AddAsync(card);
         }
 
         [Fact]
         public async Task GetCardByUserId()
         {
-            await cardRepository.AddCardAsync(card);
+            await cardRepository.AddAsync(card);
 
             var dtoCards = await cardRepository.GetCardsByUserIdAsync(card.UserId);
             var dtoCard = dtoCards.FirstOrDefault();

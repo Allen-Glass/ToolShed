@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddItemAsync(Item item)
+        public async Task<Guid> AddAsync(Item item)
         {
             await toolShedContext.ItemSet
                 .AddAsync(item);
@@ -26,25 +26,25 @@ namespace ToolShed.Repository.Repositories
             return item.ItemId;
         }
 
-        public async Task<Item> GetItemByItemIdAsync(Guid itemId)
+        public async Task<Item> GetAsync(Guid itemId)
         {
             return await toolShedContext.ItemSet
                 .FirstOrDefaultAsync(c => c.ItemId.Equals(itemId));
         }
 
-        public async Task<IEnumerable<Item>> GetItemsByItemIdsAsync(IEnumerable<Guid> itemIds)
+        public async Task<IEnumerable<Item>> ListAsync(IEnumerable<Guid> itemIds)
         {
             var itemsList = new List<Item>();
             foreach (var id in itemIds)
             {
-                var item = await GetItemByItemIdAsync(id);
+                var item = await GetAsync(id);
                 itemsList.Add(item);
             }
 
             return itemsList;
         }
 
-        public async Task DeleteItemAsync(Item item)
+        public async Task DeleteAsync(Item item)
         {
             toolShedContext.ItemSet
                 .Remove(item);

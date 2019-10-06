@@ -26,13 +26,13 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddUserCart()
         {
-            await userCartRepository.AddUserCartAsync(userCart);
+            await userCartRepository.AddAsync(userCart);
         }
 
         [Fact]
         public async Task DoesUserHaveItemsInCart_Success()
         {
-            await userCartRepository.AddUserCartAsync(userCart);
+            await userCartRepository.AddAsync(userCart);
             var hasItem = await userCartRepository.DoesUserHaveItemsInCart(UserId);
 
             Assert.True(hasItem);
@@ -41,7 +41,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task DoesUserHaveItemsInCart_Failure()
         {
-            await userCartRepository.AddUserCartAsync(userCart);
+            await userCartRepository.AddAsync(userCart);
             var hasItem = await userCartRepository.DoesUserHaveItemsInCart(Guid.NewGuid()); ;
 
             Assert.False(hasItem);
@@ -50,8 +50,8 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetActiveUserCart()
         {
-            await userCartRepository.AddUserCartAsync(this.userCart);
-            var userCart = await userCartRepository.GetActiveUserCartAsync(UserId);
+            await userCartRepository.AddAsync(this.userCart);
+            var userCart = await userCartRepository.GetAsync(UserId);
 
             Assert.Equal(this.userCart, userCart);
         }
@@ -59,7 +59,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetUserCartId()
         {
-            await userCartRepository.AddUserCartAsync(this.userCart);
+            await userCartRepository.AddAsync(this.userCart);
             var userCartId = await userCartRepository.GetUserCartIdAsync(UserId);
 
             Assert.Equal(UserCartId, userCartId);

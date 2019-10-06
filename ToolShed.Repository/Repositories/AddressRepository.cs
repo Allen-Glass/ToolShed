@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddAddressAsync(Address address)
+        public async Task<Guid> AddAsync(Address address)
         {
             if (address == null)
                 throw new ArgumentNullException();
@@ -46,7 +46,7 @@ namespace ToolShed.Repository.Repositories
             return state;
         }
 
-        public async Task<Address> GetAddressAsync(Guid addressId)
+        public async Task<Address> GetAsync(Guid addressId)
         {
             if (addressId == Guid.Empty)
                 throw new ArgumentNullException("address guid cannot be empty");
@@ -60,12 +60,12 @@ namespace ToolShed.Repository.Repositories
             return address;
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesAsync(IEnumerable<Guid> addressIds)
+        public async Task<IEnumerable<Address>> ListAsync(IEnumerable<Guid> addressIds)
         {
             var addressList = new List<Address>();
             foreach (var addressId in addressIds)
             {
-                addressList.Add(await GetAddressAsync(addressId));
+                addressList.Add(await GetAsync(addressId));
             }
 
             return addressList;
@@ -200,7 +200,7 @@ namespace ToolShed.Repository.Repositories
                 .ToListAsync();
         }
 
-        public async Task UpdateAddressAsync(Address oldAddress, Address newAddress)
+        public async Task UpdateAsync(Address oldAddress, Address newAddress)
         {
             if (oldAddress == null || newAddress == null)
                 throw new ArgumentNullException();
@@ -212,7 +212,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAddressAsync(Address address)
+        public async Task DeleteAsync(Address address)
         {
             if (address == null)
                 throw new ArgumentNullException();

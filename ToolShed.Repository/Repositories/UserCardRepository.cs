@@ -17,14 +17,14 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddUserCardAsync(UserCard userCard)
+        public async Task AddAsync(UserCard userCard)
         {
             await toolShedContext.UserCardSet
                 .AddAsync(userCard);
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Guid>> GetCardIdsAsync(Guid userId)
+        public async Task<IEnumerable<Guid>> ListIdsAsync(Guid userId)
         {
             if (userId == Guid.Empty)
                 throw new ArgumentNullException(nameof(userId));
@@ -35,7 +35,7 @@ namespace ToolShed.Repository.Repositories
                 .ToListAsync();
         }
 
-        public async Task DeleteCardAsync(UserCard userCard)
+        public async Task DeleteAsync(UserCard userCard)
         {
             toolShedContext.UserCardSet
                 .Remove(userCard);

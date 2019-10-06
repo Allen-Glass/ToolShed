@@ -36,8 +36,8 @@ namespace ToolShed.Repository.Services
             if (rental == null)
                 throw new ArgumentNullException();
 
-            var rentalId = await rentalRepository.AddRentalAsync(RentalMapping.CreateDtoRental(rental));
-            await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateDtoRentalRecord(rental));
+            var rentalId = await rentalRepository.AddAsync(RentalMapping.CreateDtoRental(rental));
+            rentalRecordsRepository.AddAsync(RentalMapping.CreateDtoRentalRecord(rental));
 
             return rentalId;
         }
@@ -47,10 +47,10 @@ namespace ToolShed.Repository.Services
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
-            var dtoItemRentalDetails = await itemRentalDetailsRepository.GetItemRentalDetailsAsync(dtoRental.ItemRentalDetailsId);
-            var dtoItem = itemRepository.GetItemByItemIdAsync(dtoItemRentalDetails.ItemId);
-            var dtoUser = userRepository.GetUserAsync(dtoRental.UserId);
+            var dtoRental = await rentalRepository.GetAsync(rentalId);
+            var dtoItemRentalDetails = await itemRentalDetailsRepository.GetAsync(dtoRental.ItemRentalDetailsId);
+            var dtoItem = itemRepository.GetAsync(dtoItemRentalDetails.ItemId);
+            var dtoUser = userRepository.GetAsync(dtoRental.UserId);
 
             if (dtoRental == null)
                 throw new NullReferenceException();
@@ -69,13 +69,13 @@ namespace ToolShed.Repository.Services
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+            var dtoRental = await rentalRepository.GetAsync(rentalId);
 
             if (dtoRental == null)
                 throw new NullReferenceException();
 
             var rental = RentalMapping.ConvertDtoRentalToRental(dtoRental);
-            var dtoUser = await userRepository.GetUserAsync(dtoRental.UserId);
+            var dtoUser = await userRepository.GetAsync(dtoRental.UserId);
             rental.User = UserMapping.ConvertDtoUser(dtoUser);
 
             return rental;
@@ -86,7 +86,7 @@ namespace ToolShed.Repository.Services
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+            var dtoRental = await rentalRepository.GetAsync(rentalId);
 
             return dtoRental.LockerCode;
         }
@@ -105,8 +105,8 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             await rentalRepository.CompleteRentalAsync(rentalId);
-            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
-            await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateCompleteDtoRentalRecord(dtoRental));
+            var dtoRental = await rentalRepository.GetAsync(rentalId);
+            await rentalRecordsRepository.AddAsync(RentalMapping.CreateCompleteDtoRentalRecord(dtoRental));
         }
 
         public async Task CompleteRentalAsync(Rental rental)
@@ -116,7 +116,7 @@ namespace ToolShed.Repository.Services
 
             var dtoRental = RentalMapping.CreateDtoRental(rental);
             await rentalRepository.CompleteRentalAsync(dtoRental);
-            await rentalRecordsRepository.AddRentalRecordAsync(RentalMapping.CreateCompleteDtoRentalRecord(dtoRental));
+            await rentalRecordsRepository.AddAsync(RentalMapping.CreateCompleteDtoRentalRecord(dtoRental));
         }
 
         public async Task ChargeUserFullPriceAsync(Guid rentalId)

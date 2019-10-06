@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddRentalAsync(Rental rental)
+        public async Task<Guid> AddAsync(Rental rental)
         {
             if (rental == null)
                 throw new ArgumentNullException();
@@ -29,7 +29,7 @@ namespace ToolShed.Repository.Repositories
             return rental.RentalId;
         }
 
-        public async Task<Rental> GetRentalByRentalIdAsync(Guid rentalId)
+        public async Task<Rental> GetAsync(Guid rentalId)
         {
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -38,7 +38,7 @@ namespace ToolShed.Repository.Repositories
                 .FirstOrDefaultAsync(c => c.RentalId.Equals(rentalId));
         }
 
-        public async Task<IEnumerable<Rental>> GetRentalsByUserAsync(Guid userId)
+        public async Task<IEnumerable<Rental>> ListAsync(Guid userId)
         {
             if (userId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -63,7 +63,7 @@ namespace ToolShed.Repository.Repositories
             if (rentalId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var rental = await GetRentalByRentalIdAsync(rentalId);
+            var rental = await GetAsync(rentalId);
 
             if (rental == null)
                 throw new ArgumentNullException();

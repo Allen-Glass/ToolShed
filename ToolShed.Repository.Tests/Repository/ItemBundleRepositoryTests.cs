@@ -26,23 +26,23 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddItemBundles()
         {
-            await itemBundleRepository.AddItemBundleAsync(itemBundle);
+            await itemBundleRepository.AddAsync(itemBundle);
         }
 
         [Fact]
         public async Task GetItemBundleByItemBundleId()
         {
-            var itemBundleId = await itemBundleRepository.AddItemBundleAsync(itemBundle);
-            var dtoItem = await itemBundleRepository.GetItemBundleAsync(itemBundleId);
+            var itemBundleId = await itemBundleRepository.AddAsync(itemBundle);
+            var dtoItem = await itemBundleRepository.GetAsync(itemBundleId);
 
-            Assert.Equal(itemBundle, dtoItem);
+            Assert.Equal(itemBundleId, dtoItem.ItemBundleId);
         }
 
         [Fact]
         public async Task GetAllItemBundles()
         {
-            var itemBundleId = await itemBundleRepository.AddItemBundleAsync(itemBundle);
-            var dtoItem = await itemBundleRepository.GetItemBundlesAsync();
+            var itemBundleId = await itemBundleRepository.AddAsync(itemBundle);
+            var dtoItem = await itemBundleRepository.ListAsync();
 
             Assert.Equal(itemBundle, dtoItem.FirstOrDefault());
         }
@@ -50,8 +50,8 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetAllItemBundlesByTenant()
         {
-            var itemBundleId = await itemBundleRepository.AddItemBundleAsync(itemBundle);
-            var dtoItem = await itemBundleRepository.GetItemBundlesAsync(itemBundle.TenantId);
+            var itemBundleId = await itemBundleRepository.AddAsync(itemBundle);
+            var dtoItem = await itemBundleRepository.ListAsync(itemBundle.TenantId);
 
             Assert.Equal(itemBundle, dtoItem.FirstOrDefault());
         }
@@ -59,9 +59,9 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetAllItemBundlesByBundleIds()
         {
-            var itemBundleId = await itemBundleRepository.AddItemBundleAsync(itemBundle);
+            var itemBundleId = await itemBundleRepository.AddAsync(itemBundle);
             var itemList = new List<Guid> { itemBundleId };
-            var dtoItem = await itemBundleRepository.GetItemBundlesAsync(itemList);
+            var dtoItem = await itemBundleRepository.ListAsync(itemList);
 
             Assert.Equal(itemBundle, dtoItem.FirstOrDefault());
         }

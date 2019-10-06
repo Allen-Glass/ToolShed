@@ -25,14 +25,14 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddItem()
         {
-            await itemRepository.AddItemAsync(item);
+            await itemRepository.AddAsync(item);
         }
 
         [Fact]
         public async Task GetItemByItemId()
         {
-            var itemId = await itemRepository.AddItemAsync(item);
-            var dtoItem = await itemRepository.GetItemByItemIdAsync(itemId);
+            var itemId = await itemRepository.AddAsync(item);
+            var dtoItem = await itemRepository.GetAsync(itemId);
 
             Assert.Equal(item, dtoItem);
         }
@@ -44,10 +44,10 @@ namespace ToolShed.Repository.Tests.Repository
             for (int i = 0; i < 5; i++)
             {
                 item.ItemId = Guid.NewGuid();
-                itemIds.Add(await itemRepository.AddItemAsync(item));
+                itemIds.Add(await itemRepository.AddAsync(item));
             }
 
-            var items = await itemRepository.GetItemsByItemIdsAsync(itemIds);
+            var items = await itemRepository.ListAsync(itemIds);
 
             Assert.NotNull(items);
         }

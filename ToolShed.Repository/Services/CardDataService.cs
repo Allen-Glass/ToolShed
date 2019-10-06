@@ -31,9 +31,9 @@ namespace ToolShed.Repository.Services
             if (card == null || card.UserId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            await cardRepository.AddCardAsync(CardMapping.CreateDtoCard(card));
-            await userCardRepository.AddUserCardAsync(CardMapping.CreateUserCardDTO(card));
-            await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(card.BillingAddress));
+            await cardRepository.AddAsync(CardMapping.CreateDtoCard(card));
+            await userCardRepository.AddAsync(CardMapping.CreateUserCardDTO(card));
+            await addressRepository.AddAsync(AddressMapping.CreateDtoAddress(card.BillingAddress));
         }
 
         public async Task<Card> GetCardAsync(Guid cardId)
@@ -41,7 +41,7 @@ namespace ToolShed.Repository.Services
             if (cardId == Guid.Empty)
                 throw new ArgumentNullException(nameof(cardId));
 
-            var card = await cardRepository.GetCardAsync(cardId);
+            var card = await cardRepository.GetAsync(cardId);
             return CardMapping.ConvertDtoCardToCard(card);
         }
 
@@ -62,7 +62,7 @@ namespace ToolShed.Repository.Services
 
             foreach (var card in cards)
             {
-                await cardRepository.DeleteCardAsync(CardMapping.CreateDtoCard(card));
+                await cardRepository.DeleteAsync(CardMapping.CreateDtoCard(card));
             }
         }
 
@@ -71,7 +71,7 @@ namespace ToolShed.Repository.Services
             var cardList = new List<Card>();
             foreach (var dtoCard in cards)
             {
-                var address = await addressRepository.GetAddressAsync(dtoCard.AddressId);
+                var address = await addressRepository.GetAsync(dtoCard.AddressId);
                 var card = CardMapping.ConvertDtoCardToCard(dtoCard);
                 card.BillingAddress = AddressMapping.ConvertDtoAddressToAddress(address);
                 cardList.Add(card);

@@ -28,7 +28,7 @@ namespace ToolShed.Repository.Services
             if (itemBundle == null)
                 throw new ArgumentNullException();
 
-            await itemBundleRepository.AddItemBundleAsync(ItemMapping.CreateDtoItemBundle(itemBundle));
+            await itemBundleRepository.AddAsync(ItemMapping.CreateDtoItemBundle(itemBundle));
         }
 
         public async Task AddItemAsync(Item item)
@@ -36,7 +36,7 @@ namespace ToolShed.Repository.Services
             if (item == null)
                 throw new ArgumentNullException();
 
-            await itemRepository.AddItemAsync(ItemMapping.CreateDtoItem(item));
+            await itemRepository.AddAsync(ItemMapping.CreateDtoItem(item));
         }
 
         public async Task AddItemsToBundleAsync(IEnumerable<Item> items, Guid itemBundleId)
@@ -52,14 +52,14 @@ namespace ToolShed.Repository.Services
 
         public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync()
         {
-            var itemBundles = await itemBundleRepository.GetItemBundlesAsync();
+            var itemBundles = await itemBundleRepository.ListAsync();
 
             return ItemMapping.ConvertDtoItemBundlesToItemBundles(itemBundles);
         }
 
         public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync(Guid tenantId)
         {
-            var itemBundles = await itemBundleRepository.GetItemBundlesAsync();
+            var itemBundles = await itemBundleRepository.ListAsync();
 
             return ItemMapping.ConvertDtoItemBundlesToItemBundles(itemBundles);
         }
@@ -67,7 +67,7 @@ namespace ToolShed.Repository.Services
         public async Task<IEnumerable<Item>> GetItemsInBundleAsync()
         {
             var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle();
-            var dtoItems = await itemRepository.GetItemsByItemIdsAsync(itemIds);
+            var dtoItems = await itemRepository.ListAsync(itemIds);
 
             return ItemMapping.ConvertDtoItemstoItems(dtoItems);
         }
@@ -78,7 +78,7 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException();
 
             var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle(itemBundleId);
-            var dtoItems = await itemRepository.GetItemsByItemIdsAsync(itemIds);
+            var dtoItems = await itemRepository.ListAsync(itemIds);
 
             return ItemMapping.ConvertDtoItemstoItems(dtoItems);
         }
@@ -88,7 +88,7 @@ namespace ToolShed.Repository.Services
             if (itemId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var dtoItem = await itemRepository.GetItemByItemIdAsync(itemId);
+            var dtoItem = await itemRepository.GetAsync(itemId);
 
             return ItemMapping.ConvertDtoItemToItem(dtoItem);
         }
@@ -98,7 +98,7 @@ namespace ToolShed.Repository.Services
             if (itemIds == null)
                 throw new ArgumentNullException();
 
-            var dtoItems =  await itemRepository.GetItemsByItemIdsAsync(itemIds);
+            var dtoItems =  await itemRepository.ListAsync(itemIds);
 
             return ItemMapping.ConvertDtoItemstoItems(dtoItems);
         }
@@ -108,9 +108,9 @@ namespace ToolShed.Repository.Services
             if (itemId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var tool = await itemRepository.GetItemByItemIdAsync(itemId);
+            var tool = await itemRepository.GetAsync(itemId);
 
-            await itemRepository.DeleteItemAsync(tool);
+            await itemRepository.DeleteAsync(tool);
         }
     }
 }

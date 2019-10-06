@@ -25,14 +25,14 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddDispenser()
         {
-            await dispenserRepository.AddDispenserAsync(dispenser);
+            await dispenserRepository.AddAsync(dispenser);
         }
 
         [Fact]
         public async Task GetAllDispenser()
         {
-            await dispenserRepository.AddDispenserAsync(dispenser);
-            var dtoDispenser = await dispenserRepository.GetAllDispensersAsync();
+            await dispenserRepository.AddAsync(dispenser);
+            var dtoDispenser = await dispenserRepository.ListAsync();
 
             Assert.Equal(dispenser, dtoDispenser.FirstOrDefault());
         }
@@ -40,7 +40,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetDispenserByDispenserIdAsync()
         {
-            var dispenserId = await dispenserRepository.AddDispenserAsync(dispenser);
+            var dispenserId = await dispenserRepository.AddAsync(dispenser);
             var dtoDispenser = await dispenserRepository.GetDispenserByDispenserIdAsync(dispenserId);
 
             Assert.Equal(dispenser, dtoDispenser);
@@ -49,7 +49,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetDispenserAddressIdAsync()
         {
-            var dispenserId = await dispenserRepository.AddDispenserAsync(dispenser);
+            var dispenserId = await dispenserRepository.AddAsync(dispenser);
             var dispenserAddress = await dispenserRepository.GetDispenserAddressIdAsync(dispenserId);
 
             Assert.Equal(dispenser.DispenserAddressId, dispenserAddress);
@@ -58,7 +58,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetDispenserIotNameAsync()
         {
-            var dispenserId = await dispenserRepository.AddDispenserAsync(dispenser);
+            var dispenserId = await dispenserRepository.AddAsync(dispenser);
             var dispenserName = await dispenserRepository.GetDispenserIotNameAsync(dispenserId);
 
             Assert.Equal(dispenser.DispenserIotName, dispenserName);

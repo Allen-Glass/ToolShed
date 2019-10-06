@@ -29,15 +29,15 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddAddress()
         {
-            await addressRepository.AddAddressAsync(address);
+            await addressRepository.AddAsync(address);
         }
 
         [Fact]
         public async Task GetAddressByAddressId()
         {
-            var addressId = await addressRepository.AddAddressAsync(address);
+            var addressId = await addressRepository.AddAsync(address);
 
-            var dtoAddress = await addressRepository.GetAddressAsync(addressId);
+            var dtoAddress = await addressRepository.GetAsync(addressId);
 
             Assert.Equal(address, dtoAddress);
         }
@@ -48,20 +48,20 @@ namespace ToolShed.Repository.Tests.Repository
             var addressId = Guid.Empty;
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
-                 await addressRepository.GetAddressAsync(addressId));
+                 await addressRepository.GetAsync(addressId));
         }
 
         [Fact]
         public async Task GetNonexistentAddressByAddressId()
         {
             await Assert.ThrowsAsync<NullReferenceException>(async () =>
-                 await addressRepository.GetAddressAsync(fakeGuid));
+                 await addressRepository.GetAsync(fakeGuid));
         }
 
         [Fact]
         public async Task GetAddressesByState()
         {
-            var addressId = addressRepository.AddAddressAsync(address);
+            var addressId = addressRepository.AddAsync(address);
 
             var dtoAddress = await addressRepository.GetAddressesByStateAsync("NY");
             var firstAddress = dtoAddress.FirstOrDefault();
@@ -72,7 +72,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetAddressesByCity()
         {
-            var addressId = addressRepository.AddAddressAsync(address);
+            var addressId = addressRepository.AddAsync(address);
 
             var dtoAddress = await addressRepository.GetAddressByCityAsync("NYC");
             var firstAddress = dtoAddress.FirstOrDefault();
@@ -83,7 +83,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetAddressesByZip()
         {
-            var addressId = addressRepository.AddAddressAsync(address);
+            var addressId = addressRepository.AddAsync(address);
 
             var dtoAddress = await addressRepository.GetAddressByZipCodeAsync("46879");
             var firstAddress = dtoAddress.FirstOrDefault();

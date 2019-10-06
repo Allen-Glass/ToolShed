@@ -25,14 +25,14 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddUserCard()
         {
-            await userCardRepository.AddUserCardAsync(userCard);
+            await userCardRepository.AddAsync(userCard);
         }
 
         [Fact]
         public async Task GetCardIdsByUserId()
         {
-            await userCardRepository.AddUserCardAsync(userCard);
-            var cardIds = await userCardRepository.GetCardIdsAsync(userCard.UserId);
+            await userCardRepository.AddAsync(userCard);
+            var cardIds = await userCardRepository.ListIdsAsync(userCard.UserId);
 
             Assert.Equal(cardIds.FirstOrDefault(), userCard.CardId);
         }

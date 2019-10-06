@@ -24,14 +24,14 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddItem()
         {
-            await itemTypeRepository.AddItemTypeAsync(itemType);
+            await itemTypeRepository.AddAsync(itemType);
         }
 
         [Fact]
         public async Task GetItemByItemId()
         {
-            var itemTypeId = await itemTypeRepository.AddItemTypeAsync(itemType);
-            var dtoItemType = await itemTypeRepository.GetItemTypeAsync(itemTypeId);
+            var itemTypeId = await itemTypeRepository.AddAsync(itemType);
+            var dtoItemType = await itemTypeRepository.GetAsync(itemTypeId);
 
             Assert.Equal(itemType, dtoItemType);
         }

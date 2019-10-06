@@ -23,14 +23,14 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddUserCard()
         {
-            await cardAddressRepository.AddCardAddressAsync(cardAddress);
+            await cardAddressRepository.AddAsync(cardAddress);
         }
 
         [Fact]
         public async Task GetCardAddress()
         {
-            await cardAddressRepository.AddCardAddressAsync(cardAddress);
-            var addressIds = await cardAddressRepository.GetAddressAsync(cardAddress.CardId);
+            await cardAddressRepository.AddAsync(cardAddress);
+            var addressIds = await cardAddressRepository.GetAsync(cardAddress.CardId);
 
             Assert.Equal(addressIds.FirstOrDefault(), cardAddress.AddressId);
         }

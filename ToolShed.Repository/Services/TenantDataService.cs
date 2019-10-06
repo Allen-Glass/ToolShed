@@ -40,8 +40,8 @@ namespace ToolShed.Repository.Services
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenant);
 
-            var addressId = await addressRepository.AddAddressAsync(AddressMapping.CreateDtoAddress(tenant.Address));
-            await tenantRepository.AddTenantAsync(TenantMapping.CreateDtoTenant(tenant, addressId));
+            var addressId = await addressRepository.AddAsync(AddressMapping.CreateDtoAddress(tenant.Address));
+            await tenantRepository.AddAsync(TenantMapping.CreateDtoTenant(tenant, addressId));
         }
 
         public async Task AddUserToTenantAsync(Tenant tenant, User user)
@@ -49,15 +49,15 @@ namespace ToolShed.Repository.Services
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenant);
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(user);
 
-            await tenantUserRepository.AddUserToTenantAsync(tenant.TenantId, user.UserId);
+            await tenantUserRepository.AddAsync(tenant.TenantId, user.UserId);
         }
 
         public async Task<Tenant> GetTenantAsync(Guid tenantId)
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantId);
 
-            var dtoTenant = await tenantRepository.GetTenantByIdAsync(tenantId);
-            var dtoAddress = await addressRepository.GetAddressAsync(dtoTenant.AddressId);
+            var dtoTenant = await tenantRepository.GetAsync(tenantId);
+            var dtoAddress = await addressRepository.GetAsync(dtoTenant.AddressId);
 
             if (dtoTenant == null || dtoAddress == null)
                 throw new NullReferenceException();
@@ -72,7 +72,7 @@ namespace ToolShed.Repository.Services
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantId);
 
-            var userIds = await tenantUserRepository.GetAllUserIdsInTenantAsync(tenantId);
+            var userIds = await tenantUserRepository.ListAsync(tenantId);
             var users = await userRepository.GetUsersAsync(userIds);
 
             return UserMapping.ConvertDtoUsers(users);
@@ -84,7 +84,7 @@ namespace ToolShed.Repository.Services
         /// <returns></returns>
         public async Task<IEnumerable<Tenant>> GetTenantsAsync()
         {
-            var dtoTenants = await tenantRepository.GetAllTenantsAsync();
+            var dtoTenants = await tenantRepository.ListAsync();
 
             if (dtoTenants == null)
                 throw new NullReferenceException();
@@ -99,7 +99,7 @@ namespace ToolShed.Repository.Services
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(userId);
 
             var tenantIds = await tenantUserRepository.GetAllTenantIdsForUserAsync(userId);
-            var dtoTenants = await tenantRepository.GetTenantsByTenantIdsAsync(tenantIds);
+            var dtoTenants = await tenantRepository.ListAsync(tenantIds);
 
             return TenantMapping.ConvertDtoTenantsToTenants(dtoTenants);
         }
@@ -113,7 +113,7 @@ namespace ToolShed.Repository.Services
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantIds);
 
-            var dtoTenants = await tenantRepository.GetTenantsByTenantIdsAsync(tenantIds);
+            var dtoTenants = await tenantRepository.ListAsync(tenantIds);
             var tenants = await MapAddressesToTenants(dtoTenants);
 
             if (dtoTenants == null)
@@ -151,7 +151,7 @@ namespace ToolShed.Repository.Services
 
             foreach (var dtoTenant in dtoTenants)
             {
-                var address = await addressRepository.GetAddressAsync(dtoTenant.AddressId);
+                var address = await addressRepository.GetAsync(dtoTenant.AddressId);
                 var tenant = TenantMapping.ConvertDtoTenantToTenant(dtoTenant);
                 tenant.Address = AddressMapping.ConvertDtoAddressToAddress(address);
                 tenants.Add(tenant);

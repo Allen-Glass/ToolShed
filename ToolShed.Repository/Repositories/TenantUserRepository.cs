@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddUserToTenantAsync(Guid tenantId, Guid userId)
+        public async Task AddAsync(Guid tenantId, Guid userId)
         {
             var tenantUser = new TenantUser
             {
@@ -31,14 +31,14 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task AddUserToTenantAsync(TenantUser tenantUser)
+        public async Task AddAsync(TenantUser tenantUser)
         {
             await toolShedContext.TenantUserSet
                 .AddAsync(tenantUser);
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Guid>> GetAllUserIdsInTenantAsync(Guid tenantId)
+        public async Task<IEnumerable<Guid>> ListAsync(Guid tenantId)
         {
             return await toolShedContext.TenantUserSet
                 .Where(c => c.TenantId.Equals(tenantId))
@@ -61,7 +61,7 @@ namespace ToolShed.Repository.Repositories
                 .AnyAsync(c => c.UserId.Equals(userId));
         }
 
-        public async Task RemoveUserFromTenant(Guid tenantId, Guid userId)
+        public async Task DeleteTenantAsync(Guid tenantId, Guid userId)
         {
             var tenantUser = new TenantUser
             {
@@ -73,7 +73,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task RemoveUserFromTenant(TenantUser tenantUser)
+        public async Task DeleteUserFromTenantAsync(TenantUser tenantUser)
         {
             toolShedContext.Remove(tenantUser);
             await toolShedContext.SaveChangesAsync();

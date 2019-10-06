@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddStateSalesTaxAsync(StateSalesTaxes stateSalesTaxes)
+        public async Task AddAsync(StateSalesTaxes stateSalesTaxes)
         {
             if (stateSalesTaxes == null)
                 throw new ArgumentNullException();
@@ -28,7 +28,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<StateSalesTaxes> GetStateSalesTaxAsync(string state)
+        public async Task<StateSalesTaxes> GetAsync(string state)
         {
             if (string.IsNullOrEmpty(state))
                 throw new ArgumentNullException();
@@ -42,7 +42,7 @@ namespace ToolShed.Repository.Repositories
             return dtoStateSalesTax;
         }
 
-        public async Task<StateSalesTaxes> GetStateSalesTaxAsync(Guid stateSalesTaxesId)
+        public async Task<StateSalesTaxes> GetAsync(Guid stateSalesTaxesId)
         {
             if (stateSalesTaxesId == Guid.Empty)
                 throw new ArgumentNullException();

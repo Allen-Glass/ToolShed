@@ -25,14 +25,14 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddUserAddresses()
         {
-            await userAddressRepository.AddUserAddressAsync(userAddress);
+            await userAddressRepository.AddAsync(userAddress);
         }
 
         [Fact]
         public async Task GetAddressesByUserId()
         {
-            await userAddressRepository.AddUserAddressAsync(userAddress);
-            var addressId = await userAddressRepository.GetAddressIdsAsync(userAddress.UserId);
+            await userAddressRepository.AddAsync(userAddress);
+            var addressId = await userAddressRepository.ListIdsAsync(userAddress.UserId);
 
             Assert.Equal(addressId.FirstOrDefault(), userAddress.AddressId);
         }

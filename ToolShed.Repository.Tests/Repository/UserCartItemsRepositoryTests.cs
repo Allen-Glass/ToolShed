@@ -26,7 +26,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddUserCartItems_Object()
         {
-            await userCartItemsRepository.AddUserCartItemsAsync(userCartItems);
+            await userCartItemsRepository.AddAsync(userCartItems);
         }
 
         [Fact]
@@ -39,13 +39,13 @@ namespace ToolShed.Repository.Tests.Repository
                 userCartItems
             };
 
-            await userCartItemsRepository.AddUserCartItemsAsync(list);
+            await userCartItemsRepository.AddAsync(list);
         }
 
         [Fact]
         public async Task AddUserCartItems_DualParameter_Singular()
         {
-            await userCartItemsRepository.AddUserCartItemsAsync(UserCartId, ItemId);
+            await userCartItemsRepository.AddAsync(UserCartId, ItemId);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ToolShed.Repository.Tests.Repository
                 Guid.NewGuid()
             };
 
-            await userCartItemsRepository.AddUserCartItemsAsync(UserCartId, itemList);
+            await userCartItemsRepository.AddAsync(UserCartId, itemList);
         }
 
         [Fact]
@@ -71,8 +71,8 @@ namespace ToolShed.Repository.Tests.Repository
                 Guid.NewGuid()
             };
 
-            await userCartItemsRepository.AddUserCartItemsAsync(UserCartId, itemList);
-            var itemCount = userCartItemsRepository.GetItemCountInCartAsync(UserCartId);
+            await userCartItemsRepository.AddAsync(UserCartId, itemList);
+            var itemCount = userCartItemsRepository.GetCountAsync(UserCartId);
             Assert.Equal(itemList.Count, itemCount);
         }
 
@@ -89,8 +89,8 @@ namespace ToolShed.Repository.Tests.Repository
                 itemId3
             };
 
-            await userCartItemsRepository.AddUserCartItemsAsync(UserCartId, itemList);
-            var userCartItems = await userCartItemsRepository.GetUserCartItems(UserCartId);
+            await userCartItemsRepository.AddAsync(UserCartId, itemList);
+            var userCartItems = await userCartItemsRepository.ListAsync(UserCartId);
             var hasItem1 = itemList.Contains(itemId1);
             var hasItem2 = itemList.Contains(itemId2);
             var hasItem3 = itemList.Contains(itemId3);
@@ -112,8 +112,8 @@ namespace ToolShed.Repository.Tests.Repository
                 itemId3
             };
 
-            await userCartItemsRepository.AddUserCartItemsAsync(UserCartId, itemList);
-            var userCartItems = await userCartItemsRepository.GetUserCartItems(UserCartId);
+            await userCartItemsRepository.AddAsync(UserCartId, itemList);
+            var userCartItems = await userCartItemsRepository.ListAsync(UserCartId);
             var hasItem1 = itemList.Contains(itemId1);
             var hasItem2 = itemList.Contains(itemId2);
             var hasItem3 = itemList.Contains(itemId3);

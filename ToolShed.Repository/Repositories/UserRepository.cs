@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddUserAsync(User user)
+        public async Task<Guid> AddAsync(User user)
         {
             await toolShedContext
                 .AddAsync(user);
@@ -35,13 +35,13 @@ namespace ToolShed.Repository.Repositories
                 .AnyAsync(c => c.Email.Equals(email));
         }
 
-        public async Task<User> GetUserAsync(string email)
+        public async Task<User> GetAsync(string email)
         {
             return await toolShedContext.UserSet
                 .FirstOrDefaultAsync(c => c.Email.Equals(email));
         }
 
-        public async Task<User> GetUserAsync(Guid userId)
+        public async Task<User> GetAsync(Guid userId)
         {
             return await toolShedContext.UserSet
                 .FirstOrDefaultAsync(c => c.UserId.Equals(userId));
@@ -52,14 +52,14 @@ namespace ToolShed.Repository.Repositories
             var userList = new List<User>();
             foreach(var userId in userIds)
             {
-                var user = await GetUserAsync(userId);
+                var user = await GetAsync(userId);
                 userList.Add(user);
             }
 
             return userList;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<User>> ListAsync()
         {
             return await toolShedContext.UserSet
                 .ToListAsync();
@@ -87,7 +87,7 @@ namespace ToolShed.Repository.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task UpdateUserAsync(User user)
+        public async Task UpdateAsync(User user)
         {
             if (user == null)
                 throw new ArgumentNullException();
@@ -99,7 +99,7 @@ namespace ToolShed.Repository.Repositories
 
         public async Task UpdatePasswordAsync(Guid userId, string password)
         {
-            var user = await GetUserAsync(userId);
+            var user = await GetAsync(userId);
             if (string.IsNullOrEmpty(password))
                 throw new ArgumentNullException(nameof(password));
 
@@ -109,7 +109,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task DeleteUserAsync(User user)
+        public async Task DeleteAsync(User user)
         {
             toolShedContext.UserSet
                 .Remove(user);

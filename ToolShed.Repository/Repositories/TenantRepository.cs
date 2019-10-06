@@ -24,7 +24,7 @@ namespace ToolShed.Repository.Repositories
         /// add tenant
         /// </summary>
         /// <param name="tenant">tenant dto</param>
-        public async Task AddTenantAsync(Tenant tenant)
+        public async Task AddAsync(Tenant tenant)
         {
             await toolShedContext.TenantSet
                 .AddAsync(tenant);
@@ -35,7 +35,7 @@ namespace ToolShed.Repository.Repositories
         /// grab tenant by their id
         /// </summary>
         /// <param name="tenantId">tenant id</param
-        public async Task<Tenant> GetTenantByIdAsync(Guid tenantId)
+        public async Task<Tenant> GetAsync(Guid tenantId)
         {
             return await toolShedContext.TenantSet
                 .FirstOrDefaultAsync(c => c.TenantId.Equals(tenantId));
@@ -56,7 +56,7 @@ namespace ToolShed.Repository.Repositories
         /// Grab all tenants
         /// </summary>
         /// <returns>list of dto tenants</returns>
-        public async Task<IEnumerable<Tenant>> GetAllTenantsAsync()
+        public async Task<IEnumerable<Tenant>> ListAsync()
         {
             return await toolShedContext.TenantSet
                 .ToListAsync();
@@ -66,7 +66,7 @@ namespace ToolShed.Repository.Repositories
         /// get tenants by their ids
         /// </summary>
         /// <param name="tenantIds">pk of tenants</param>
-        public async Task<IEnumerable<Tenant>> GetTenantsByTenantIdsAsync(IEnumerable<Guid> tenantIds)
+        public async Task<IEnumerable<Tenant>> ListAsync(IEnumerable<Guid> tenantIds)
         {
             return await toolShedContext.TenantSet
                 .Where(c => tenantIds.Contains(c.TenantId))
@@ -78,7 +78,7 @@ namespace ToolShed.Repository.Repositories
         /// </summary>
         /// <param name="addressIds">pks of addresses</param>
         /// <returns>list of tenant dtos</returns>
-        public async Task<IEnumerable<Tenant>> GetTenantsByAddressIdsAsync(IEnumerable<Guid> addressIds)
+        public async Task<IEnumerable<Tenant>> ListTenantsByAddressIdsAsync(IEnumerable<Guid> addressIds)
         {
             return await toolShedContext.TenantSet
                 .Where(c => addressIds.Contains(c.AddressId))
@@ -89,7 +89,7 @@ namespace ToolShed.Repository.Repositories
         /// update tenant information
         /// </summary>
         /// <param name="tenant">tenant dto</param>
-        public async Task UpdateTenantAsync(Tenant tenant)
+        public async Task UpdateAsync(Tenant tenant)
         {
             toolShedContext.TenantSet
                 .Update(tenant);
@@ -100,7 +100,7 @@ namespace ToolShed.Repository.Repositories
         /// remove tenant
         /// </summary>
         /// <param name="tenant">tenant dto</param>
-        public async Task DeleteTenantAsync(Tenant tenant)
+        public async Task DeleteAsync(Tenant tenant)
         {
             toolShedContext.TenantSet.Remove(tenant);
             await toolShedContext.SaveChangesAsync();

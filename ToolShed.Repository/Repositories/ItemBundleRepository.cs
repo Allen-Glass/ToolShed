@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddItemBundleAsync(ItemBundle itemBundle)
+        public async Task<Guid> AddAsync(ItemBundle itemBundle)
         {
             if (itemBundle == null)
                 throw new ArgumentNullException();
@@ -30,7 +30,7 @@ namespace ToolShed.Repository.Repositories
             return itemBundle.ItemBundleId;
         }
 
-        public async Task<ItemBundle> GetItemBundleAsync(Guid itemBundleId)
+        public async Task<ItemBundle> GetAsync(Guid itemBundleId)
         {
             if (itemBundleId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -39,13 +39,13 @@ namespace ToolShed.Repository.Repositories
                 .FirstOrDefaultAsync(c => c.ItemBundleId.Equals(itemBundleId));
         }
 
-        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync()
+        public async Task<IEnumerable<ItemBundle>> ListAsync()
         {
             return await toolShedContext.ItemBundleSet
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync(Guid tenantId)
+        public async Task<IEnumerable<ItemBundle>> ListAsync(Guid tenantId)
         {
             if (tenantId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -55,7 +55,7 @@ namespace ToolShed.Repository.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync(IEnumerable<Guid> itemBundleIds)
+        public async Task<IEnumerable<ItemBundle>> ListAsync(IEnumerable<Guid> itemBundleIds)
         {
             if (itemBundleIds == null)
                 throw new ArgumentNullException();
@@ -63,7 +63,7 @@ namespace ToolShed.Repository.Repositories
             var itemBundleList = new List<ItemBundle>();
             foreach (var itemBundleId in itemBundleIds)
             {
-                itemBundleList.Add(await GetItemBundleAsync(itemBundleId));
+                itemBundleList.Add(await GetAsync(itemBundleId));
             }
 
             return itemBundleList;

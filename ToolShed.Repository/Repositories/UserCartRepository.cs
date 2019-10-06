@@ -16,7 +16,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddUserCartAsync(UserCart userCart)
+        public async Task AddAsync(UserCart userCart)
         {
             await toolShedContext.UserCartSet
                 .AddAsync(userCart);
@@ -29,7 +29,7 @@ namespace ToolShed.Repository.Repositories
                 .AnyAsync(c => c.UserId.Equals(userId));
         }
 
-        public async Task<UserCart> GetActiveUserCartAsync(Guid userId)
+        public async Task<UserCart> GetAsync(Guid userId)
         {
             return await toolShedContext.UserCartSet
                 .FirstOrDefaultAsync(c => c.UserId.Equals(userId));
@@ -43,9 +43,9 @@ namespace ToolShed.Repository.Repositories
             return userCart.UserCartId;
         }
 
-        public async Task DeleteUserCartAsync(Guid userId)
+        public async Task DeleteAsync(Guid userId)
         {
-            var userCart = await GetActiveUserCartAsync(userId);
+            var userCart = await GetAsync(userId);
             toolShedContext.UserCartSet
                 .Remove(userCart);
             await toolShedContext.SaveChangesAsync();

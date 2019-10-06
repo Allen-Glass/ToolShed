@@ -14,14 +14,14 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddMaintenanceProviderAsync(MaintenanceProvider maintenanceProvider)
+        public async Task AddAsync(MaintenanceProvider maintenanceProvider)
         {
             await toolShedContext.MaintenanceProviderSet
                 .AddAsync(maintenanceProvider);
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task DeleteMaintenanceProviderAsync(MaintenanceProvider maintenanceProvider)
+        public async Task DeleteAsync(MaintenanceProvider maintenanceProvider)
         {
             toolShedContext.MaintenanceProviderSet
                 .Remove(maintenanceProvider);

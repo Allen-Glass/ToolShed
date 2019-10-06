@@ -17,21 +17,21 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddUserCartItemsAsync(UserCartItems userCartItems)
+        public async Task AddAsync(UserCartItems userCartItems)
         {
             await toolShedContext.UserCartItemsSet
                 .AddAsync(userCartItems);
             await toolShedContext.SaveChangesAsync();
         }     
 
-        public async Task AddUserCartItemsAsync(IEnumerable<UserCartItems> userCartItems)
+        public async Task AddAsync(IEnumerable<UserCartItems> userCartItems)
         {
             await toolShedContext.UserCartItemsSet
                 .AddRangeAsync(userCartItems);
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task AddUserCartItemsAsync(Guid userCartId, Guid itemId)
+        public async Task AddAsync(Guid userCartId, Guid itemId)
         {
             var userCartItems = new UserCartItems
             {
@@ -43,7 +43,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task AddUserCartItemsAsync(Guid userCartId, IEnumerable<Guid> itemIds)
+        public async Task AddAsync(Guid userCartId, IEnumerable<Guid> itemIds)
         {
             foreach (var itemId in itemIds)
             {
@@ -58,21 +58,21 @@ namespace ToolShed.Repository.Repositories
             }   
         }
 
-        public int GetItemCountInCartAsync(Guid userCartId)
+        public int GetCountAsync(Guid userCartId)
         {
             return toolShedContext.UserCartItemsSet
                 .Where(c => c.UserCartId.Equals(userCartId))
                 .Count();
         }
 
-        public async Task<IEnumerable<UserCartItems>> GetUserCartItems(Guid userCartId)
+        public async Task<IEnumerable<UserCartItems>> ListAsync(Guid userCartId)
         {
             return await toolShedContext.UserCartItemsSet
                 .Where(c => c.UserCartId.Equals(userCartId))
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Guid>> GetUserCartItemIds(Guid userCartId)
+        public async Task<IEnumerable<Guid>> ListIdsAsync(Guid userCartId)
         {
             return await toolShedContext.UserCartItemsSet
                 .Where(c => c.UserCartId.Equals(userCartId))
@@ -82,7 +82,7 @@ namespace ToolShed.Repository.Repositories
 
         public async Task DeleteUserCartItemsAsync(Guid userCartId)
         {
-            var userCartItems = await GetUserCartItems(userCartId);
+            var userCartItems = await ListAsync(userCartId);
             foreach (var item in userCartItems)
             {
                 toolShedContext.UserCartItemsSet

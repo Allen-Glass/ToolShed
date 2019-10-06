@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddItemTypeAsync(ItemType itemType)
+        public async Task<Guid> AddAsync(ItemType itemType)
         {
             if (itemType == null)
                 throw new ArgumentNullException();
@@ -28,7 +28,7 @@ namespace ToolShed.Repository.Repositories
             return itemType.ItemTypeId;
         }
 
-        public async Task<ItemType> GetItemTypeAsync(Guid itemTypeId)
+        public async Task<ItemType> GetAsync(Guid itemTypeId)
         {
             if (itemTypeId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -37,7 +37,7 @@ namespace ToolShed.Repository.Repositories
                 .FirstOrDefaultAsync(c => c.ItemTypeId.Equals(itemTypeId));
         }
 
-        public async Task DeleteItemTypeAsync(ItemType itemType)
+        public async Task DeleteAsync(ItemType itemType)
         {
             toolShedContext.Remove(itemType);
             await toolShedContext.SaveChangesAsync();

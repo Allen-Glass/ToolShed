@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddOrderAsync(Order order)
+        public async Task AddAsync(Order order)
         {
             if (order == null)
                 throw new ArgumentNullException();
@@ -27,7 +27,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<Order> GetOrderAsync(Guid orderId)
+        public async Task<Order> GetAsync(Guid orderId)
         {
             if (orderId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -41,7 +41,7 @@ namespace ToolShed.Repository.Repositories
             return order;
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersAsync(IEnumerable<Guid> orderIds)
+        public async Task<IEnumerable<Order>> ListAsync(IEnumerable<Guid> orderIds)
         {
             if (orderIds == null)
                 throw new ArgumentNullException();
@@ -49,24 +49,24 @@ namespace ToolShed.Repository.Repositories
             var orders = new List<Order>();
             foreach (var orderId in orderIds)
             {
-                orders.Add(await GetOrderAsync(orderId));
+                orders.Add(await GetAsync(orderId));
             }
 
             return orders;
         }
 
-        public async Task UpdateOrderAsync(Order order)
+        public async Task UpdateAsync(Order order)
         {
             if (order == null)
                 throw new ArgumentNullException();
         }
 
-        public async Task UpdateOrderAsync(Guid orderId)
+        public async Task UpdateAsync(Guid orderId)
         {
             if (orderId == Guid.Empty)
                 throw new ArgumentNullException();
 
-            var order = await GetOrderAsync(orderId);
+            var order = await GetAsync(orderId);
         }
     }
 }

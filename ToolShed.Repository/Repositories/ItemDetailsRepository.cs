@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddItemDetailsAsync(ItemDetails itemDetails)
+        public async Task AddAsync(ItemDetails itemDetails)
         {
             if (itemDetails == null)
                 throw new ArgumentNullException();
@@ -28,13 +28,13 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ItemDetails>> GetItemBundlesAsync()
+        public async Task<IEnumerable<ItemDetails>> GetAsync()
         {
             return await toolShedContext.ItemDetailsSet
                 .ToListAsync();
         }
 
-        public async Task<ItemDetails> GetItemDetailsAsync(Guid itemDetailsId)
+        public async Task<ItemDetails> GetAsync(Guid itemDetailsId)
         {
             if (itemDetailsId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -43,7 +43,7 @@ namespace ToolShed.Repository.Repositories
                 .FirstOrDefaultAsync(c => c.ItemDetailsId.Equals(itemDetailsId));
         }
 
-        public async Task<IEnumerable<ItemDetails>> GetItemDetailsAsync(IEnumerable<Guid> itemDetailsId)
+        public async Task<IEnumerable<ItemDetails>> ListAsync(IEnumerable<Guid> itemDetailsId)
         {
             if (itemDetailsId == null)
                 throw new ArgumentNullException();
@@ -51,7 +51,7 @@ namespace ToolShed.Repository.Repositories
             var itemDetailList = new List<ItemDetails>();
             foreach (var itemDetailId in itemDetailsId)
             {
-                itemDetailList.Add(await GetItemDetailsAsync(itemDetailId));
+                itemDetailList.Add(await GetAsync(itemDetailId));
             }
 
             return itemDetailList;

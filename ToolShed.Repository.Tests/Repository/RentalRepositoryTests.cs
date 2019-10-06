@@ -25,14 +25,14 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddRentalAsync()
         {
-            await rentalRepository.AddRentalAsync(rental);
+            await rentalRepository.AddAsync(rental);
         }
 
         [Fact]
         public async Task GetRentalByRentalIdAsync()
         {
-            var rentalId = await rentalRepository.AddRentalAsync(rental);
-            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+            var rentalId = await rentalRepository.AddAsync(rental);
+            var dtoRental = await rentalRepository.GetAsync(rentalId);
 
             Assert.Equal(rental, dtoRental);
         }
@@ -40,8 +40,8 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetRentalsByUserAsync()
         {
-            var rentalId = await rentalRepository.AddRentalAsync(rental);
-            var dtoRentals = await rentalRepository.GetRentalsByUserAsync(rental.UserId);
+            var rentalId = await rentalRepository.AddAsync(rental);
+            var dtoRentals = await rentalRepository.ListAsync(rental.UserId);
 
             Assert.Equal(rental, dtoRentals.FirstOrDefault());
         }
@@ -49,7 +49,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task CheckLockerCodeAsync()
         {
-            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            var rentalId = await rentalRepository.AddAsync(rental);
             var correctLockerCode = await rentalRepository.CheckLockerCodeAsync(rentalId, rental.LockerCode);
 
             Assert.True(correctLockerCode);
@@ -58,7 +58,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task CheckBadLockerCodeAsync()
         {
-            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            var rentalId = await rentalRepository.AddAsync(rental);
             var correctLockerCode = await rentalRepository.CheckLockerCodeAsync(rental.UserId,"1111");
 
             Assert.False(correctLockerCode);
@@ -67,9 +67,9 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task CompleteRentalFromGuidAsync()
         {
-            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            var rentalId = await rentalRepository.AddAsync(rental);
             await rentalRepository.CompleteRentalAsync(rentalId);
-            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+            var dtoRental = await rentalRepository.GetAsync(rentalId);
 
             Assert.True(dtoRental.HasBeenReturned);
         }
@@ -77,9 +77,9 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task CompleteRentalAsync()
         {
-            var rentalId = await rentalRepository.AddRentalAsync(rental);
+            var rentalId = await rentalRepository.AddAsync(rental);
             await rentalRepository.CompleteRentalAsync(rentalId);
-            var dtoRental = await rentalRepository.GetRentalByRentalIdAsync(rentalId);
+            var dtoRental = await rentalRepository.GetAsync(rentalId);
 
             Assert.True(dtoRental.HasBeenReturned);
         }

@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddItemRentalDetailsAsync(ItemRentalDetails itemRentalDetails)
+        public async Task AddAsync(ItemRentalDetails itemRentalDetails)
         {
             if (itemRentalDetails == null)
                 throw new ArgumentNullException();
@@ -27,7 +27,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public virtual async Task<ItemRentalDetails> GetItemRentalDetailsAsync(Guid itemRentalDetailsId)
+        public virtual async Task<ItemRentalDetails> GetAsync(Guid itemRentalDetailsId)
         {
             if (itemRentalDetailsId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -41,12 +41,12 @@ namespace ToolShed.Repository.Repositories
             return itemRentalDetails;
         }
 
-        public virtual async Task<IEnumerable<ItemRentalDetails>> GetItemRentalDetailsAsync(IEnumerable<Guid> itemRentalDetailsIds)
+        public virtual async Task<IEnumerable<ItemRentalDetails>> ListAsync(IEnumerable<Guid> itemRentalDetailsIds)
         {
             var itemRentalDetailList = new List<ItemRentalDetails>();
             foreach (var id in itemRentalDetailsIds)
             {
-                var itemRentalDetail = await GetItemRentalDetailsAsync(id);
+                var itemRentalDetail = await GetAsync(id);
                 itemRentalDetailList.Add(itemRentalDetail);
             }
 

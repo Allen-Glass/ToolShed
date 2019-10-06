@@ -24,14 +24,14 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddTenantAsync()
         {
-            await tenantRepository.AddTenantAsync(tenant);
+            await tenantRepository.AddAsync(tenant);
         }
 
         [Fact]
         public async Task GetTenantByTenantsId()
         {
-            await tenantRepository.AddTenantAsync(tenant);
-            var dtoTenant = await tenantRepository.GetTenantByIdAsync(tenant.TenantId);
+            await tenantRepository.AddAsync(tenant);
+            var dtoTenant = await tenantRepository.GetAsync(tenant.TenantId);
 
             Assert.Equal(tenant, dtoTenant);
         }
@@ -39,7 +39,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetTenantByAddressId()
         {
-            await tenantRepository.AddTenantAsync(tenant);
+            await tenantRepository.AddAsync(tenant);
             var dtoTenant = await tenantRepository.GetTenantByAddressIdAsync(tenant.AddressId);
 
             Assert.Equal(tenant, dtoTenant);

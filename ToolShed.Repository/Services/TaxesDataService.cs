@@ -19,7 +19,7 @@ namespace ToolShed.Repository.Services
             if (string.IsNullOrEmpty(state))
                 throw new ArgumentNullException();
 
-            var stateSalesTax = await stateSalesTaxRepository.GetStateSalesTaxAsync(state);
+            var stateSalesTax = await stateSalesTaxRepository.GetAsync(state);
 
             return stateSalesTax.SalesTaxPercentage;
         }

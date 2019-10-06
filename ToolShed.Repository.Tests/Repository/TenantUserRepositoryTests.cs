@@ -27,7 +27,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddTenantAsync()
         {
-            await tenantUserRepository.AddUserToTenantAsync(tenantId, userId);
+            await tenantUserRepository.AddAsync(tenantId, userId);
         }
 
         [Fact]
@@ -39,14 +39,14 @@ namespace ToolShed.Repository.Tests.Repository
                 UserId = userId
             };
 
-            await tenantUserRepository.AddUserToTenantAsync(tenantUser);
+            await tenantUserRepository.AddAsync(tenantUser);
         }
 
         [Fact]
         public async Task GetAllUserIdsInTenantAsync()
         {
-            await tenantUserRepository.AddUserToTenantAsync(tenantId, userId);
-            var userIds = await tenantUserRepository.GetAllUserIdsInTenantAsync(tenantId);
+            await tenantUserRepository.AddAsync(tenantId, userId);
+            var userIds = await tenantUserRepository.ListAsync(tenantId);
 
             Assert.Equal(userId, userIds.FirstOrDefault());
         }
@@ -54,7 +54,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetAllTenantIdsForUserAsync()
         {
-            await tenantUserRepository.AddUserToTenantAsync(tenantId, userId);
+            await tenantUserRepository.AddAsync(tenantId, userId);
             var tenantIds = await tenantUserRepository.GetAllTenantIdsForUserAsync(userId);
 
             Assert.Equal(tenantId, tenantIds.FirstOrDefault());
@@ -63,7 +63,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task IsUserInTenantAsync_True()
         {
-            await tenantUserRepository.AddUserToTenantAsync(tenantId, userId);
+            await tenantUserRepository.AddAsync(tenantId, userId);
             var isInTenant = await tenantUserRepository.IsUserInTenantAsync(tenantId, userId);
 
             Assert.True(isInTenant);
@@ -73,7 +73,7 @@ namespace ToolShed.Repository.Tests.Repository
         public async Task IsUserInTenantAsync_False()
         {
             var newUserId = Guid.NewGuid();
-            await tenantUserRepository.AddUserToTenantAsync(tenantId, userId);
+            await tenantUserRepository.AddAsync(tenantId, userId);
             var isInTenant = await tenantUserRepository.IsUserInTenantAsync(tenantId, newUserId);
 
             Assert.False(isInTenant);

@@ -27,13 +27,13 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task AddUserAsync()
         {
-            await userRepository.AddUserAsync(newAccount);
+            await userRepository.AddAsync(newAccount);
         }
 
         [Fact]
         public async Task ConfirmEmailDoesNotExist()
         {
-            await userRepository.AddUserAsync(newAccount);
+            await userRepository.AddAsync(newAccount);
             var doesExist = await userRepository.CheckIfUserEmailExists(newAccount.Email);
 
             Assert.True(doesExist);
@@ -42,7 +42,7 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task ConfirmEmailExists()
         {
-            await userRepository.AddUserAsync(newAccount);
+            await userRepository.AddAsync(newAccount);
             var doesExist = await userRepository.CheckIfUserEmailExists("things");
 
             Assert.False(doesExist);
@@ -57,8 +57,8 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetUserByEmail()
         {
-            await userRepository.AddUserAsync(newAccount);
-            var user = await userRepository.GetUserAsync(newAccount.Email);
+            await userRepository.AddAsync(newAccount);
+            var user = await userRepository.GetAsync(newAccount.Email);
 
             Assert.Equal(newAccount, user);
         }
@@ -66,8 +66,8 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetUserByUserId()
         {
-            var id = await userRepository.AddUserAsync(newAccount);
-            var user = await userRepository.GetUserAsync(id);
+            var id = await userRepository.AddAsync(newAccount);
+            var user = await userRepository.GetAsync(id);
 
             Assert.Equal(newAccount, user);
         }
@@ -75,8 +75,8 @@ namespace ToolShed.Repository.Tests.Repository
         [Fact]
         public async Task GetAllUsers()
         {
-            var id = await userRepository.AddUserAsync(newAccount);
-            var user = await userRepository.GetAllUsers();
+            var id = await userRepository.AddAsync(newAccount);
+            var user = await userRepository.ListAsync();
 
             Assert.Equal(newAccount, user.FirstOrDefault());
         }
