@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
@@ -55,18 +55,33 @@ namespace ToolShed.Repository.Repositories
             return orders;
         }
 
-        public async Task UpdateAsync(Order order)
+        public async Task UpdateAsync(Order order, CancellationToken cancellationToken = default)
         {
             if (order == null)
                 throw new ArgumentNullException();
+
+            var foo = await GetAsync(order.OrderId);
+            foo.OrderStatus = order.OrderStatus;
+
+            await toolShedContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task UpdateAsync(Guid orderId)
         {
             if (orderId == Guid.Empty)
                 throw new ArgumentNullException();
+        }
+
+        public async Task DeleteAsync(Guid orderId, CancellationToken cancellationToken = default)
+        {
+            if (orderId == Guid.Empty)
+                throw new ArgumentNullException(nameof(orderId));
 
             var order = await GetAsync(orderId);
+
+            toolShedContext.OrderSet
+                .Remove(order);
+            toolShedContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

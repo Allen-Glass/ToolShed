@@ -45,6 +45,14 @@ namespace ToolShed.Repository.Mapping
             return orderList;
         }
 
+        public static Models.Repository.OrderRecord CreateDtoRecord(UserOrder userOrder)
+        {
+            return new Models.Repository.OrderRecord
+            {
+
+            };
+        }
+
         public static Order ConvertDtoOrder(Models.Repository.Order order)
         {
             return new Order

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
+using ToolShed.Repository.Mapping;
 using ToolShed.Repository.Repositories;
 
 namespace ToolShed.Repository.Services
@@ -12,17 +12,43 @@ namespace ToolShed.Repository.Services
     {
         private readonly OrderRepository orderRepository;
         private readonly OrderDetailsRepository orderDetailsRepository;
+        private readonly OrderRecordRepository orderRecordRepository;
 
         public OrderDataService(OrderRepository orderRepository,
-            OrderDetailsRepository orderDetailsRepository)
+            OrderDetailsRepository orderDetailsRepository,
+            OrderRecordRepository orderRecordRepository)
         {
-            this.orderRepository = orderRepository;
-            this.orderDetailsRepository = orderDetailsRepository;
+            this.orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
+            this.orderDetailsRepository = orderDetailsRepository ?? throw new ArgumentNullException(nameof(orderDetailsRepository));
+            this.orderRecordRepository = orderRecordRepository ?? throw new ArgumentNullException(nameof(orderRecordRepository));
         }
 
-        public async Task AddOrderAsync(Order order)
+        public async Task AddOrderAsync(UserOrder userOrder, CancellationToken cancellationToken = default)
         {
+            if (userOrder == null)
+                throw new ArgumentNullException(nameof(userOrder));
 
+            await orderRepository.AddAsync(OrderMapping.CreateDtoOrder(userOrder.Order));
+            await orderDetailsRepository.AddAsync(OrderMapping.CreateDtoOrderDetail(userOrder.OrderDetail));
+            orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
+        }
+
+        public async Task UpdateOrderStateAsync(UserOrder userOrder, CancellationToken cancellationToken = default)
+        {
+            if (userOrder == null)
+                throw new ArgumentNullException(nameof(userOrder));
+
+            await orderRepository.UpdateAsync(OrderMapping.CreateDtoOrder(userOrder.Order), cancellationToken);
+            orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
+        }
+
+        public async Task UpdateOrderDetailsAsync(UserOrder userOrder, CancellationToken cancellationToken = default)
+        {
+            if (userOrder == null)
+                throw new ArgumentNullException(nameof(userOrder));
+
+            await orderDetailsRepository.UpdateAsync(OrderMapping.CreateDtoOrderDetail(userOrder.OrderDetail), cancellationToken);
+            orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
         }
     }
 }

@@ -1,23 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 using ToolShed.Models.Enums;
 
 namespace ToolShed.Models.Repository
 {
-    public class OrderDetail
+    public class OrderRecord
     {
+        public OrderRecord()
+        {
+
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid OrderDetailsId { get; set; }
+        public long OrderRecordId { get; set; }
 
-        public Guid OrderId { get; set; }
-        
-        public Guid ItemId { get; set; }
+        public Guid UserId { get; set; }
 
-        public Guid ItemRentalDetailId { get; set; }
+        public string OrderDescription { get; set; }
 
-        public double Pricing { get; set; }
+        public OrderStatus OrderStatus { get; set; }
 
         public OrderDetailType OrderDetailType { get; set; }
     }

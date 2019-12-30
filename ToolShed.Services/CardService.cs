@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
-using ToolShed.Repository.Services;
 
 namespace ToolShed.Services
 {

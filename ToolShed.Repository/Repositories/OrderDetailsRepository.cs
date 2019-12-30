@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
@@ -53,6 +54,20 @@ namespace ToolShed.Repository.Repositories
             }
 
             return orderDetails;
+        }
+
+        public async Task UpdateAsync(OrderDetail orderDetail, CancellationToken cancellationToken = default)
+        {
+            if (orderDetail == null)
+                throw new ArgumentNullException(nameof(orderDetail));
+
+            var foo = await GetAsync(orderDetail.OrderDetailsId);
+            foo.ItemId = orderDetail.ItemId;
+            foo.ItemRentalDetailId = orderDetail.ItemRentalDetailId;
+            foo.OrderDetailType = orderDetail.OrderDetailType;
+            foo.Pricing = orderDetail.Pricing;
+
+            await toolShedContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

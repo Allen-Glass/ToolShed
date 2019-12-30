@@ -36,7 +36,7 @@ namespace ToolShed.Repository.Services
         public async Task AddUserInformationAsync(User user)
         {
             if (user == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(user));
 
             var userId = await userRepository.AddAsync(UserMapping.CreateDtoUser(user));
             if (user.Address != null)
@@ -49,7 +49,7 @@ namespace ToolShed.Repository.Services
         public async Task CreateNewUserAccountAsync(User user)
         {
             if (user == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(user));
 
             await userRepository.AddAsync(UserMapping.CreateDtoUser(user));
         }

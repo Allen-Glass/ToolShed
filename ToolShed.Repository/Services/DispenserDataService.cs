@@ -85,8 +85,11 @@ namespace ToolShed.Repository.Services
 
         public async Task AddItemsToDispenserAsync(IEnumerable<Item> items, Guid dispenserId)
         {
-            if (items == null || dispenserId == Guid.Empty)
-                throw new ArgumentNullException();
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+
+            if (dispenserId == Guid.Empty)
+                throw new ArgumentNullException(nameof(dispenserId));
 
             foreach (var item in items)
             {
