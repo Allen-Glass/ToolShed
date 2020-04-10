@@ -6,8 +6,12 @@
 
         Venmo,
 
-        Paypal,
+        PayPal,
 
-        ApplePay
+        ApplePay,
+
+        AndroidPay,
+
+        SamsungPay
     }
 }

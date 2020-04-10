@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Braintree" Version="4.16.0" />
     <PackageReference Include="Microsoft.Azure.Devices" Version="1.18.2" />
     <PackageReference Include="Microsoft.Azure.Management.IotHub" Version="2.1.1" />
     <PackageReference Include="Microsoft.Azure.Storage.Queue" Version="11.1.1" />

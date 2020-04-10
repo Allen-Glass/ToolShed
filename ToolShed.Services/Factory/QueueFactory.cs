@@ -15,6 +15,7 @@ namespace ToolShed.Services.Factory
             ICloudQueue cloudQueue)
         {
             this.references = references;
+            this.cloudQueue = cloudQueue;
         }
 
         public CloudQueue CreateQueueClient(QueueType queueType)
