@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 
@@ -6,20 +7,20 @@ namespace ToolShed.Repository.Interfaces
 {
     public interface IUserCartDataService
     {
-        Task SaveUserCartAsync(UserCart userCart);
+        Task SaveUserCartAsync(UserCart userCart, CancellationToken cancellationToken = default);
 
-        int GetItemCountInCart(UserCart userCart);
+        Task<int> GetItemCountInCart(UserCart userCart, CancellationToken cancellationToken = default);
 
-        int GetItemCountInCart(Guid userCartId);
+        Task<int> GetItemCountInCart(Guid userCartId, CancellationToken cancellationToken = default);
 
-        Task<UserCart> GetUserCartAsync(UserCart userCart);
+        Task<UserCart> GetUserCartAsync(UserCart userCart, CancellationToken cancellationToken = default);
 
-        Task<UserCart> GetUserCartAsync(Guid userId);
+        Task<UserCart> GetUserCartAsync(Guid userId, CancellationToken cancellationToken = default);
 
-        Task<Guid> GetUserCartIdAsync(Guid userId);
+        Task<Guid> GetUserCartIdAsync(Guid userId, CancellationToken cancellationToken = default);
 
-        Task UpdateUserCartAsync(UserCart userCart);
+        Task UpdateUserCartAsync(UserCart userCart, CancellationToken cancellationToken = default);
 
-        Task DeleteUserCartAsync(Guid userId);
+        Task DeleteUserCartAsync(Guid userId, CancellationToken cancellationToken = default);
     }
 }

@@ -6,7 +6,7 @@ namespace ToolShed.Repository.Mapping
 {
     public static class RentalMapping
     {
-        public static Models.Repository.Rental CreateDtoRental(Rental rental)
+        public static Models.Repository.Rental CreateDtoRental(this Rental rental)
         {
             return new Models.Repository.Rental
             {
@@ -19,7 +19,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Rental ConvertDtoRentalToRental(Models.Repository.Rental rental)
+        public static Rental ConvertDtoRentalToRental(this Models.Repository.Rental rental)
         {
             return new Rental
             {
@@ -33,7 +33,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.RentalRecord CreateDtoRentalRecord(Rental rental)
+        public static Models.Repository.RentalRecord CreateDtoRentalRecord(this Rental rental)
         {
             return new Models.Repository.RentalRecord
             {
@@ -44,7 +44,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.RentalRecord CreateCompleteDtoRentalRecord(Models.Repository.Rental rental)
+        public static Models.Repository.RentalRecord CreateCompleteDtoRentalRecord(this Models.Repository.Rental rental)
         {
             return new Models.Repository.RentalRecord
             {
@@ -55,7 +55,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.RentalRecord CreateFullPriceDtoRentalRecord(Models.Repository.Rental rental)
+        public static Models.Repository.RentalRecord CreateFullPriceDtoRentalRecord(this Models.Repository.Rental rental)
         {
             return new Models.Repository.RentalRecord
             {
@@ -66,7 +66,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.RentalRecord CreateSuccessfulLockerCodeRecord(Rental rental)
+        public static Models.Repository.RentalRecord CreateSuccessfulLockerCodeRecord(this Rental rental)
         {
             return new Models.Repository.RentalRecord
             {
@@ -77,7 +77,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.RentalRecord CreateFailingLockerCodeRecord(Rental rental)
+        public static Models.Repository.RentalRecord CreateFailingLockerCodeRecord(this Rental rental)
         {
             return new Models.Repository.RentalRecord
             {

@@ -16,6 +16,7 @@ namespace ToolShed.Services.Payment.Stripe
         {
             this.chargeService = chargeService;
         }
+
         public async Task<Charge> CaptureAsync(string chargeId, ChargeCaptureOptions chargeCaptureOptions = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
         {
             return await chargeService.CaptureAsync(chargeId, chargeCaptureOptions, requestOptions, cancellationToken);

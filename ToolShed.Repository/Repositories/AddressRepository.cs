@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Toolshed.Models.Enums;
 using ToolShed.Models.Repository;
@@ -18,27 +19,27 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddAsync(Address address)
+        public async Task<Guid> AddAsync(Address address, CancellationToken cancellationToken = default)
         {
             if (address == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(address));
 
             await toolShedContext.AddressSet
-                .AddAsync(address);
-            await toolShedContext.SaveChangesAsync();
+                .AddAsync(address, cancellationToken);
+            await toolShedContext.SaveChangesAsync(cancellationToken);
 
             return address.AddressId;
         }
 
-        public async Task<string> GetStateAsync(Guid addressId)
+        public async Task<string> GetStateAsync(Guid addressId, CancellationToken cancellationToken = default)
         {
             if (addressId == Guid.Empty)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(addressId));
 
             var state = await toolShedContext.AddressSet
                 .Where(c => c.AddressId.Equals(addressId))
                 .Select(c => c.State)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (string.IsNullOrEmpty(state))
                 throw new NullReferenceException();
@@ -46,13 +47,13 @@ namespace ToolShed.Repository.Repositories
             return state;
         }
 
-        public async Task<Address> GetAsync(Guid addressId)
+        public async Task<Address> GetAsync(Guid addressId, CancellationToken cancellationToken = default)
         {
             if (addressId == Guid.Empty)
-                throw new ArgumentNullException("address guid cannot be empty");
+                throw new ArgumentNullException(nameof(addressId));
 
             var address = await toolShedContext.AddressSet
-                .FirstOrDefaultAsync(c => c.AddressId.Equals(addressId));
+                .FirstOrDefaultAsync(c => c.AddressId.Equals(addressId), cancellationToken);
 
             if (address == null)
                 throw new NullReferenceException();
@@ -60,166 +61,169 @@ namespace ToolShed.Repository.Repositories
             return address;
         }
 
-        public async Task<IEnumerable<Address>> ListAsync(IEnumerable<Guid> addressIds)
+        public async Task<IEnumerable<Address>> ListAsync(IEnumerable<Guid> addressIds, CancellationToken cancellationToken = default)
         {
+            if (addressIds == null)
+                throw new ArgumentNullException(nameof(addressIds));
+
             var addressList = new List<Address>();
             foreach (var addressId in addressIds)
             {
-                addressList.Add(await GetAsync(addressId));
+                addressList.Add(await GetAsync(addressId, cancellationToken));
             }
 
             return addressList;
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesByStateAsync(string state)
+        public async Task<IEnumerable<Address>> GetAddressesByStateAsync(string state, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(state))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(state));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.State.Equals(state))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressByCityAsync(string city)
+        public async Task<IEnumerable<Address>> GetAddressByCityAsync(string city, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(city))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(city));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.City.Equals(city))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressByZipCodeAsync(string zipCode)
+        public async Task<IEnumerable<Address>> GetAddressByZipCodeAsync(string zipCode, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(zipCode))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(zipCode));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.ZipCode.Equals(zipCode))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByStateAsync(string state)
+        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByStateAsync(string state, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(state))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(state));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.State.Equals(state))
                 .Where(c => c.AddressType == AddressType.Dispenser)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByCityAsync(string city)
+        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByCityAsync(string city, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(city))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(city));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.City.Equals(city))
                 .Where(c => c.AddressType == AddressType.Dispenser)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByZipCodeAsync(string zipCode)
+        public async Task<IEnumerable<Address>> GetAddressesOfDispensersByZipCodeAsync(string zipCode, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(zipCode))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(zipCode));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.ZipCode.Equals(zipCode))
                 .Where(c => c.AddressType == AddressType.Dispenser)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfUsersByCityAsync(string city)
+        public async Task<IEnumerable<Address>> GetAddressesOfUsersByCityAsync(string city, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(city))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(city));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.City.Equals(city))
                 .Where(c => c.AddressType == AddressType.User)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfUsersByStateAsync(string state)
+        public async Task<IEnumerable<Address>> GetAddressesOfUsersByStateAsync(string state, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(state))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(state));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.State.Equals(state))
                 .Where(c => c.AddressType == AddressType.User)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfUsersByZipCodeAsync(string zipCode)
+        public async Task<IEnumerable<Address>> GetAddressesOfUsersByZipCodeAsync(string zipCode, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(zipCode))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(zipCode));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.ZipCode.Equals(zipCode))
                 .Where(c => c.AddressType == AddressType.User)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfCardsByCityAsync(string city)
+        public async Task<IEnumerable<Address>> GetAddressesOfCardsByCityAsync(string city, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(city))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(city));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.City.Equals(city))
                 .Where(c => c.AddressType == AddressType.User)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfCardsByStateAsync(string state)
+        public async Task<IEnumerable<Address>> GetAddressesOfCardsByStateAsync(string state, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(state))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(state));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.State.Equals(state))
                 .Where(c => c.AddressType == AddressType.Card)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesOfCardsByZipCodeAsync(string zipCode)
+        public async Task<IEnumerable<Address>> GetAddressesOfCardsByZipCodeAsync(string zipCode, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(zipCode))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(zipCode));
 
             return await toolShedContext.AddressSet
                 .Where(c => c.ZipCode.Equals(zipCode))
                 .Where(c => c.AddressType == AddressType.Card)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(Address oldAddress, Address newAddress)
+        public async Task UpdateAsync(Address oldAddress, Address newAddress, CancellationToken cancellationToken = default)
         {
-            if (oldAddress == null || newAddress == null)
-                throw new ArgumentNullException();
+            if (oldAddress == null)
+                throw new ArgumentNullException(nameof(oldAddress));
 
-            toolShedContext.AddressSet
-                .Remove(oldAddress);
-            await toolShedContext.AddressSet
-                .AddAsync(newAddress);
-            await toolShedContext.SaveChangesAsync();
+            if (newAddress == null)
+                throw new ArgumentNullException(nameof(newAddress));
+
+            //get old address dto, update with new address properties then save change
+            await toolShedContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(Address address)
+        public async Task DeleteAsync(Address address, CancellationToken cancellationToken = default)
         {
             if (address == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(address));
 
             toolShedContext.AddressSet
                 .Remove(address);
-            await toolShedContext.SaveChangesAsync();    
+            await toolShedContext.SaveChangesAsync(cancellationToken);    
         }
     }
 }

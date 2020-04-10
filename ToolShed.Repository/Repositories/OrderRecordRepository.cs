@@ -26,12 +26,12 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task GetAsync()
+        public async Task GetAsync(CancellationToken cancellationToken = default)
         {
 
         }
 
-        public async Task ListAsync()
+        public async Task ListAsync(CancellationToken cancellationToken = default)
         {
 
         }

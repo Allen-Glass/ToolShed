@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
@@ -18,44 +19,44 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddAsync(ItemBundle itemBundle)
+        public async Task<Guid> AddAsync(ItemBundle itemBundle, CancellationToken cancellationToken = default)
         {
             if (itemBundle == null)
                 throw new ArgumentNullException();
 
             await toolShedContext.ItemBundleSet
-                .AddAsync(itemBundle);
-            await toolShedContext.SaveChangesAsync();
+                .AddAsync(itemBundle, cancellationToken);
+            await toolShedContext.SaveChangesAsync(cancellationToken);
 
             return itemBundle.ItemBundleId;
         }
 
-        public async Task<ItemBundle> GetAsync(Guid itemBundleId)
+        public async Task<ItemBundle> GetAsync(Guid itemBundleId, CancellationToken cancellationToken = default)
         {
             if (itemBundleId == Guid.Empty)
                 throw new ArgumentNullException();
 
             return await toolShedContext.ItemBundleSet
-                .FirstOrDefaultAsync(c => c.ItemBundleId.Equals(itemBundleId));
+                .FirstOrDefaultAsync(c => c.ItemBundleId.Equals(itemBundleId), cancellationToken);
         }
 
-        public async Task<IEnumerable<ItemBundle>> ListAsync()
+        public async Task<IEnumerable<ItemBundle>> ListAsync(CancellationToken cancellationToken = default)
         {
             return await toolShedContext.ItemBundleSet
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<ItemBundle>> ListAsync(Guid tenantId)
+        public async Task<IEnumerable<ItemBundle>> ListAsync(Guid tenantId, CancellationToken cancellationToken = default)
         {
             if (tenantId == Guid.Empty)
                 throw new ArgumentNullException();
 
             return await toolShedContext.ItemBundleSet
                 .Where(c => c.TenantId.Equals(tenantId))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<ItemBundle>> ListAsync(IEnumerable<Guid> itemBundleIds)
+        public async Task<IEnumerable<ItemBundle>> ListAsync(IEnumerable<Guid> itemBundleIds, CancellationToken cancellationToken = default)
         {
             if (itemBundleIds == null)
                 throw new ArgumentNullException();

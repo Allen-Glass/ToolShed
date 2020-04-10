@@ -7,7 +7,7 @@ namespace ToolShed.Repository.Mapping
 {
     public static class UserCartMapping
     {
-        public static Models.Repository.UserCart CreateUserCartDto(UserCart userCart)
+        public static Models.Repository.UserCart CreateUserCartDto(this UserCart userCart)
         {
             return new Models.Repository.UserCart
             {
@@ -15,7 +15,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static UserCart ConvertUserCart(Models.Repository.UserCart userCart)
+        public static UserCart ConvertUserCart(this Models.Repository.UserCart userCart)
         {
             return new UserCart
             {

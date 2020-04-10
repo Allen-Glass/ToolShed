@@ -23,15 +23,13 @@ namespace ToolShed.Services
         public async Task CreateNewAccountAsync(User user)
         {
             if (user == null)
-            {
-                throw new ArgumentNullException();
-            }
+                throw new ArgumentNullException(nameof(user));
 
             var userEmailAlreadyExist = await userSQLService.CheckIfUserEmailExists(user.Email);
 
             if (userEmailAlreadyExist)
             {
-                throw new Exception();
+                throw new Exception(); //create new exception
             }
 
             user.Password = HashUserPassword(user.Password);
@@ -98,7 +96,7 @@ namespace ToolShed.Services
         public async Task<User> LogIntoAccountAsync(User user)
         {
             if (user == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(user));
 
             var accountEmailExists = await userSQLService.CheckIfUserEmailExists(user.Email);
 

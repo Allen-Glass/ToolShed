@@ -23,7 +23,7 @@ namespace ToolShed.Services
         public async Task AddTenantAsync(Tenant tenant)
         {
             if (tenant == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(tenant));
 
             await tenantSQLService.StoreTenantAsync(tenant);
         }
@@ -31,10 +31,10 @@ namespace ToolShed.Services
         public async Task InviteUserToTenantAsync(Tenant tenant, User user)
         {
             if (tenant == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(tenant));
 
             if (user == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(user));
 
             await emailService.SendUserInviteToTenantAsync(user.Email);
         }
@@ -42,21 +42,21 @@ namespace ToolShed.Services
         public async Task AcceptUserInviteAsync(Tenant tenant, User user)
         {
             if (tenant == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(tenant));
 
             if (user == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(user));
         }
 
         public async Task<Tenant> GetTenantAsync(Guid tenantId)
         {
             if (tenantId == Guid.Empty)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(tenantId));
 
             var tenant = await tenantSQLService.GetTenantAsync(tenantId);
 
             if (tenant == null)
-                throw new NullReferenceException();
+                throw new NullReferenceException(); //create sql referance not found exception
 
             return tenant;
         }

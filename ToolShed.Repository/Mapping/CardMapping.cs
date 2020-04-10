@@ -7,7 +7,7 @@ namespace ToolShed.Repository.Mapping
     public static class CardMapping
     {
 
-        public static Models.Repository.UserCard CreateUserCardDTO(Guid userId, Guid cardId)
+        public static Models.Repository.UserCard CreateUserCardDTO(this Guid userId, Guid cardId)
         {
             return new Models.Repository.UserCard
             {
@@ -16,7 +16,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.UserCard CreateUserCardDTO(Card card)
+        public static Models.Repository.UserCard CreateUserCardDTO(this Card card)
         {
             return new Models.Repository.UserCard
             {
@@ -25,7 +25,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.Card CreateDtoCard(Card card)
+        public static Models.Repository.Card CreateDtoCard(this Card card)
         {
             return new Models.Repository.Card
             {
@@ -36,7 +36,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Card ConvertDtoCardToCard(Models.Repository.Card card)
+        public static Card ConvertDtoCardToCard(this Models.Repository.Card card)
         {
             return new Card
             {
@@ -48,7 +48,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<Card> ConvertDtoCardsToCards(IEnumerable<Models.Repository.Card> cards)
+        public static IEnumerable<Card> ConvertDtoCardsToCards(this IEnumerable<Models.Repository.Card> cards)
         {
             var cardList = new List<Card>();
             foreach (var card in cards)

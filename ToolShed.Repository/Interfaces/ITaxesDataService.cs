@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 namespace ToolShed.Repository.Interfaces
 {
     public interface ITaxesDataService
     {
-        Task<double> GetStateSalesTaxAsync(string state);
+        Task<double> GetStateSalesTaxAsync(string state, CancellationToken cancellationToken = default);
     }
 }

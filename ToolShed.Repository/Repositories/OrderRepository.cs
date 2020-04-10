@@ -17,7 +17,7 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddAsync(Order order)
+        public async Task AddAsync(Order order, CancellationToken cancellationToken = default)
         {
             if (order == null)
                 throw new ArgumentNullException();
@@ -27,7 +27,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync();
         }
 
-        public async Task<Order> GetAsync(Guid orderId)
+        public async Task<Order> GetAsync(Guid orderId, CancellationToken cancellationToken = default)
         {
             if (orderId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -41,7 +41,7 @@ namespace ToolShed.Repository.Repositories
             return order;
         }
 
-        public async Task<IEnumerable<Order>> ListAsync(IEnumerable<Guid> orderIds)
+        public async Task<IEnumerable<Order>> ListAsync(IEnumerable<Guid> orderIds, CancellationToken cancellationToken = default)
         {
             if (orderIds == null)
                 throw new ArgumentNullException();
@@ -66,7 +66,7 @@ namespace ToolShed.Repository.Repositories
             await toolShedContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(Guid orderId)
+        public async Task UpdateAsync(Guid orderId, CancellationToken cancellationToken = default)
         {
             if (orderId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -81,7 +81,7 @@ namespace ToolShed.Repository.Repositories
 
             toolShedContext.OrderSet
                 .Remove(order);
-            toolShedContext.SaveChangesAsync(cancellationToken);
+            await toolShedContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

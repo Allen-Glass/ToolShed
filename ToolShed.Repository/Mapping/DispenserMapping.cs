@@ -6,7 +6,7 @@ namespace ToolShed.Repository.Mapping
 {
     public static class DispenserMapping
     {
-        public static Models.Repository.DispenserItem CreateDispenserToolObject(Guid dispenserId, Guid itemId)
+        public static Models.Repository.DispenserItem CreateDispenserToolObject(this Guid dispenserId, Guid itemId)
         {
             return new Models.Repository.DispenserItem
             {
@@ -15,7 +15,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.Dispenser ConvertDispenserToDtoDispenser(Dispenser dispenser)
+        public static Models.Repository.Dispenser ConvertDispenserToDtoDispenser(this Dispenser dispenser)
         {
             return new Models.Repository.Dispenser
             {
@@ -26,7 +26,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Dispenser ConvertDtoDispenserToDispenser(Models.Repository.Dispenser dispenser)
+        public static Dispenser ConvertDtoDispenserToDispenser(this Models.Repository.Dispenser dispenser)
         {
             return new Dispenser
             {
@@ -37,7 +37,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Dispenser ConvertDtoDispenserToDispenser(Models.Repository.Dispenser dispenser, IEnumerable<Item> items)
+        public static Dispenser ConvertDtoDispenserToDispenser(this Models.Repository.Dispenser dispenser, IEnumerable<Item> items)
         {
             return new Dispenser
             {
@@ -48,7 +48,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<Dispenser> ConvertDtoDispensersToDispensers(IEnumerable<Models.Repository.Dispenser> dispensers)
+        public static IEnumerable<Dispenser> ConvertDtoDispensersToDispensers(this IEnumerable<Models.Repository.Dispenser> dispensers)
         {
             var dispenserList = new List<Dispenser>();
             foreach (var dispenser in dispensers)

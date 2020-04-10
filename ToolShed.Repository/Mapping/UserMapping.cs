@@ -6,7 +6,7 @@ namespace ToolShed.Repository.Mapping
 {
     public static class UserMapping
     {
-        public static Models.Repository.User CreateDtoUser(User user)
+        public static Models.Repository.User CreateDtoUser(this User user)
         {
             return new Models.Repository.User
             {
@@ -18,7 +18,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.User CreateDtoUser(User user, Guid addressId)
+        public static Models.Repository.User CreateDtoUser(this User user, Guid addressId)
         {
             return new Models.Repository.User
             {
@@ -31,7 +31,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static User ConvertDtoUser(Models.Repository.User user)
+        public static User ConvertDtoUser(this Models.Repository.User user)
         {
             return new User
             {
@@ -43,7 +43,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<User> ConvertDtoUsers(IEnumerable<Models.Repository.User> users)
+        public static IEnumerable<User> ConvertDtoUsers(this IEnumerable<Models.Repository.User> users)
         {
             var userList = new List<User>();
             foreach (var user in users)

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using ToolShed.Helpers;
 using ToolShed.Models.Constants;
@@ -24,7 +22,7 @@ namespace ToolShed.Services
                 throw new ArgumentNullException(nameof(email));
 
             var client = httpClientFactory.CreateClient(EmailConstants.SendJoshEmailClient);
-            var httpContent = RequestExtensions.PrepareHttpContent(email);
+            var httpContent = email.PrepareHttpContent();
             var response = await client.PostAsync(EmailConstants.SendJoshEmailBaseURL, httpContent);
 
             if (!response.IsSuccessStatusCode)
@@ -38,7 +36,7 @@ namespace ToolShed.Services
                 throw new ArgumentNullException(nameof(email));
 
             var client = httpClientFactory.CreateClient(EmailConstants.InviteBaseUrl);
-            var httpContent = RequestExtensions.PrepareHttpContent(email);
+            var httpContent = email.PrepareHttpContent();
             var response = await client.PostAsync(EmailConstants.InviteClient, httpContent);
 
             if (!response.IsSuccessStatusCode)

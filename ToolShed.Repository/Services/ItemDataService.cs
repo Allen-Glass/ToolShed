@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using ToolShed.Models.API;
 using ToolShed.Repository.Interfaces;
@@ -18,97 +19,100 @@ namespace ToolShed.Repository.Services
             ItemBundleRepository itemBundleRepository,
             ItemBundleMappingRepository itemBundleMappingRepository)
         {
-            this.itemRepository = itemRepository;
-            this.itemBundleRepository = itemBundleRepository;
-            this.itemBundleMappingRepository = itemBundleMappingRepository;
+            this.itemRepository = itemRepository ?? throw new ArgumentNullException(nameof(itemRepository));
+            this.itemBundleRepository = itemBundleRepository ?? throw new ArgumentNullException(nameof(itemBundleRepository));
+            this.itemBundleMappingRepository = itemBundleMappingRepository ?? throw new ArgumentNullException(nameof(itemBundleMappingRepository));
         }
 
-        public async Task CreateItemBundleAsync(ItemBundle itemBundle)
+        public async Task CreateItemBundleAsync(ItemBundle itemBundle, CancellationToken cancellationToken = default)
         {
             if (itemBundle == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(itemBundle));
 
-            await itemBundleRepository.AddAsync(ItemMapping.CreateDtoItemBundle(itemBundle));
+            await itemBundleRepository.AddAsync(itemBundle.CreateDtoItemBundle(), cancellationToken);
         }
 
-        public async Task AddItemAsync(Item item)
+        public async Task AddItemAsync(Item item, CancellationToken cancellationToken = default)
         {
             if (item == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(item));
 
-            await itemRepository.AddAsync(ItemMapping.CreateDtoItem(item));
+            await itemRepository.AddAsync(item.CreateDtoItem(), cancellationToken);
         }
 
-        public async Task AddItemsToBundleAsync(IEnumerable<Item> items, Guid itemBundleId)
+        public async Task AddItemsToBundleAsync(IEnumerable<Item> items, Guid itemBundleId, CancellationToken cancellationToken = default)
         {
-            if (items == null || itemBundleId == Guid.Empty)
-                throw new ArgumentNullException();
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
 
-            foreach(var item in items)
+            if (itemBundleId == Guid.Empty)
+                throw new ArgumentNullException(nameof(itemBundleId));
+
+            foreach (var item in items)
             {
-                await itemBundleMappingRepository.AddItemBundleMappingAsync(item.ItemId, itemBundleId);
+                await itemBundleMappingRepository.AddItemBundleMappingAsync(item.ItemId, itemBundleId, cancellationToken);
             }
         }
 
-        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync()
+        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync(CancellationToken cancellationToken = default)
         {
-            var itemBundles = await itemBundleRepository.ListAsync();
+            var itemBundles = await itemBundleRepository.ListAsync(cancellationToken);
 
             return ItemMapping.ConvertDtoItemBundlesToItemBundles(itemBundles);
         }
 
-        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync(Guid tenantId)
+        public async Task<IEnumerable<ItemBundle>> GetItemBundlesAsync(Guid tenantId, CancellationToken cancellationToken = default)
         {
-            var itemBundles = await itemBundleRepository.ListAsync();
+            var itemBundles = await itemBundleRepository.ListAsync(cancellationToken);
 
-            return ItemMapping.ConvertDtoItemBundlesToItemBundles(itemBundles);
+            return itemBundles.ConvertDtoItemBundlesToItemBundles();
         }
 
-        public async Task<IEnumerable<Item>> GetItemsInBundleAsync()
+        public async Task<IEnumerable<Item>> GetItemsInBundleAsync(CancellationToken cancellationToken = default)
         {
-            var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle();
+            var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle(cancellationToken);
             var dtoItems = await itemRepository.ListAsync(itemIds);
 
-            return ItemMapping.ConvertDtoItemstoItems(dtoItems);
+            return dtoItems.ConvertDtoItemstoItems();
         }
 
-        public async Task<IEnumerable<Item>> GetItemsInBundleAsync(Guid itemBundleId)
+        public async Task<IEnumerable<Item>> GetItemsInBundleAsync(Guid itemBundleId, CancellationToken cancellationToken = default)
         {
             if (itemBundleId == Guid.Empty)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(itemBundleId));
 
-            var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle(itemBundleId);
-            var dtoItems = await itemRepository.ListAsync(itemIds);
+            var itemIds = await itemBundleMappingRepository.GetAllItemIdsInBundle(itemBundleId, cancellationToken);
+            var dtoItems = await itemRepository.ListAsync(itemIds, cancellationToken);
 
-            return ItemMapping.ConvertDtoItemstoItems(dtoItems);
+            return dtoItems.ConvertDtoItemstoItems();
         }
 
-        public async Task<Item> GetItemAsync(Guid itemId)
+        public async Task<Item> GetItemAsync(Guid itemId, CancellationToken cancellationToken = default)
         {
             if (itemId == Guid.Empty)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(itemId));
 
-            var dtoItem = await itemRepository.GetAsync(itemId);
+            var dtoItem = await itemRepository.GetAsync(itemId, cancellationToken);
 
-            return ItemMapping.ConvertDtoItemToItem(dtoItem);
+            return dtoItem.ConvertDtoItemToItem();
         }
 
-        public async Task<IEnumerable<Item>> GetItemsAsync(IEnumerable<Guid> itemIds)
+        public async Task<IEnumerable<Item>> GetItemsAsync(IEnumerable<Guid> itemIds, CancellationToken cancellationToken = default)
         {
             if (itemIds == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(itemIds));
 
-            var dtoItems =  await itemRepository.ListAsync(itemIds);
+            var dtoItems =  await itemRepository.ListAsync(itemIds, cancellationToken);
 
-            return ItemMapping.ConvertDtoItemstoItems(dtoItems);
+            return dtoItems.ConvertDtoItemstoItems();
         }
 
-        public async Task DeleteItemAsync(Guid itemId)
+        public async Task DeleteItemAsync(Guid itemId, CancellationToken cancellationToken = default)
         {
             if (itemId == Guid.Empty)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(itemId));
 
-            var tool = await itemRepository.GetAsync(itemId);
+            var tool = await itemRepository.GetAsync(itemId, cancellationToken);
 
             await itemRepository.DeleteAsync(tool);
         }

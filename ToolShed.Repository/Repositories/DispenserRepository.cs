@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ToolShed.Models.Repository;
@@ -17,36 +18,36 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddAsync(Dispenser dispenser)
+        public async Task<Guid> AddAsync(Dispenser dispenser, CancellationToken cancellationToken = default)
         {
             await toolShedContext.DispenserSet
                 .AddAsync(dispenser);
-            await toolShedContext.SaveChangesAsync();
+            await toolShedContext.SaveChangesAsync(cancellationToken);
 
             return dispenser.DispenserId;
         }
 
-        public async Task<IEnumerable<Dispenser>> ListAsync()
+        public async Task<IEnumerable<Dispenser>> ListAsync(CancellationToken cancellationToken = default)
         {
             return await toolShedContext.DispenserSet
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<Dispenser> GetDispenserByDispenserIdAsync(Guid dispenserId)
+        public async Task<Dispenser> GetDispenserByDispenserIdAsync(Guid dispenserId, CancellationToken cancellationToken = default)
         {
             return await toolShedContext.DispenserSet
-                .FirstOrDefaultAsync(c => c.DispenserId.Equals(dispenserId));
+                .FirstOrDefaultAsync(c => c.DispenserId.Equals(dispenserId), cancellationToken);
         }
 
-        public async Task<Guid> GetDispenserAddressIdAsync(Guid dispenserId)
+        public async Task<Guid> GetDispenserAddressIdAsync(Guid dispenserId, CancellationToken cancellationToken = default)
         {
             return await toolShedContext.DispenserSet
                 .Where(c => c.DispenserId.Equals(dispenserId))
                 .Select(c => c.DispenserAddressId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<string> GetDispenserIotNameAsync(Guid dispenserId)
+        public async Task<string> GetDispenserIotNameAsync(Guid dispenserId, CancellationToken cancellationToken = default)
         {
             if (dispenserId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -54,7 +55,7 @@ namespace ToolShed.Repository.Repositories
             var dispenserIotName = await toolShedContext.DispenserSet
                 .Where(c => c.DispenserId.Equals(dispenserId))
                 .Select(c => c.DispenserIotName)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (string.IsNullOrEmpty(dispenserIotName))
                 throw new NullReferenceException();
@@ -62,11 +63,11 @@ namespace ToolShed.Repository.Repositories
             return dispenserIotName;
         }
 
-        public async Task DeleteAsync(Dispenser dispenser)
+        public async Task DeleteAsync(Dispenser dispenser, CancellationToken cancellationToken = default)
         {
             toolShedContext.DispenserSet
                 .Remove(dispenser);
-            await toolShedContext.SaveChangesAsync();
+            await toolShedContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

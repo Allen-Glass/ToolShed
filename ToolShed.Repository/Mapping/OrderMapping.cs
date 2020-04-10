@@ -7,7 +7,7 @@ namespace ToolShed.Repository.Mapping
 {
     public static class OrderMapping
     {
-        public static Models.Repository.Order CreateDtoOrder(Order order)
+        public static Models.Repository.Order CreateDtoOrder(this Order order)
         {
             return new Models.Repository.Order
             {
@@ -16,7 +16,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<Models.Repository.Order> CreateDtoOrders(IEnumerable<Order> orders)
+        public static IEnumerable<Models.Repository.Order> CreateDtoOrders(this IEnumerable<Order> orders)
         {
             var orderList = new List<Models.Repository.Order>();
             foreach(var order in orders)
@@ -27,14 +27,14 @@ namespace ToolShed.Repository.Mapping
             return orderList;
         }
 
-        public static Models.Repository.OrderDetail CreateDtoOrderDetail(OrderDetail order)
+        public static Models.Repository.OrderDetail CreateDtoOrderDetail(this OrderDetail order)
         {
             return new Models.Repository.OrderDetail
             {
             };
         }
 
-        public static IEnumerable<Models.Repository.OrderDetail> CreateDtoOrderDetails(IEnumerable<OrderDetail> orders)
+        public static IEnumerable<Models.Repository.OrderDetail> CreateDtoOrderDetails(this IEnumerable<OrderDetail> orders)
         {
             var orderList = new List<Models.Repository.OrderDetail>();
             foreach (var order in orders)
@@ -45,7 +45,7 @@ namespace ToolShed.Repository.Mapping
             return orderList;
         }
 
-        public static Models.Repository.OrderRecord CreateDtoRecord(UserOrder userOrder)
+        public static Models.Repository.OrderRecord CreateDtoRecord(this UserOrder userOrder)
         {
             return new Models.Repository.OrderRecord
             {
@@ -53,7 +53,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Order ConvertDtoOrder(Models.Repository.Order order)
+        public static Order ConvertDtoOrder(this Models.Repository.Order order)
         {
             return new Order
             {
@@ -63,7 +63,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<Order> ConvertDtoOrders(IEnumerable<Models.Repository.Order> orders)
+        public static IEnumerable<Order> ConvertDtoOrders(this IEnumerable<Models.Repository.Order> orders)
         {
             var orderList = new List<Order>();
             foreach (var order in orders)
@@ -74,14 +74,14 @@ namespace ToolShed.Repository.Mapping
             return orderList;
         }
 
-        public static OrderDetail ConvertDtoOrderDetail(Models.Repository.OrderDetail order)
+        public static OrderDetail ConvertDtoOrderDetail(this Models.Repository.OrderDetail order)
         {
             return new OrderDetail
             {
             };
         }
 
-        public static IEnumerable<OrderDetail> ConvertDtoOrderDetails(IEnumerable<Models.Repository.OrderDetail> orders)
+        public static IEnumerable<OrderDetail> ConvertDtoOrderDetails(this IEnumerable<Models.Repository.OrderDetail> orders)
         {
             var orderList = new List<OrderDetail>();
             foreach (var order in orders)

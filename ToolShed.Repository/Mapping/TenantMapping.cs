@@ -7,7 +7,7 @@ namespace ToolShed.Repository.Mapping
 {
     public static class TenantMapping
     {
-        public static Models.Repository.Tenant CreateDtoTenant(Tenant tenant, Guid addressId)
+        public static Models.Repository.Tenant CreateDtoTenant(this Tenant tenant, Guid addressId)
         {
             return new Models.Repository.Tenant
             {
@@ -16,7 +16,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Tenant ConvertDtoTenantToTenant(Models.Repository.Tenant tenant)
+        public static Tenant ConvertDtoTenantToTenant(this Models.Repository.Tenant tenant)
         {
             return new Tenant
             {
@@ -25,7 +25,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<Tenant> ConvertDtoTenantsToTenants(IEnumerable<Models.Repository.Tenant> tenants)
+        public static IEnumerable<Tenant> ConvertDtoTenantsToTenants(this IEnumerable<Models.Repository.Tenant> tenants)
         {
             var tenantList = new List<Tenant>();
             foreach (var tenant in tenants)

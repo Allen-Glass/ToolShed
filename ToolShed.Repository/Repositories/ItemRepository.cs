@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ToolShed.Models.Repository;
 using ToolShed.Repository.Context;
@@ -17,22 +18,22 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task<Guid> AddAsync(Item item)
+        public async Task<Guid> AddAsync(Item item, CancellationToken cancellationToken = default)
         {
             await toolShedContext.ItemSet
                 .AddAsync(item);
-            await toolShedContext.SaveChangesAsync();
+            await toolShedContext.SaveChangesAsync(cancellationToken);
 
             return item.ItemId;
         }
 
-        public async Task<Item> GetAsync(Guid itemId)
+        public async Task<Item> GetAsync(Guid itemId, CancellationToken cancellationToken = default)
         {
             return await toolShedContext.ItemSet
-                .FirstOrDefaultAsync(c => c.ItemId.Equals(itemId));
+                .FirstOrDefaultAsync(c => c.ItemId.Equals(itemId), cancellationToken);
         }
 
-        public async Task<IEnumerable<Item>> ListAsync(IEnumerable<Guid> itemIds)
+        public async Task<IEnumerable<Item>> ListAsync(IEnumerable<Guid> itemIds, CancellationToken cancellationToken = default)
         {
             var itemsList = new List<Item>();
             foreach (var id in itemIds)
@@ -44,11 +45,11 @@ namespace ToolShed.Repository.Repositories
             return itemsList;
         }
 
-        public async Task DeleteAsync(Item item)
+        public async Task DeleteAsync(Item item, CancellationToken cancellationToken = default)
         {
             toolShedContext.ItemSet
                 .Remove(item);
-            await toolShedContext.SaveChangesAsync();
+            await toolShedContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

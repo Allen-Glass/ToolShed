@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Toolshed.Models.Enums;
 using ToolShed.Helpers;
 using ToolShed.Models.API;
+using ToolShed.Models.Exceptions;
 using ToolShed.Repository.Interfaces;
 using ToolShed.Repository.Mapping;
 using ToolShed.Repository.Repositories;
@@ -22,29 +22,29 @@ namespace ToolShed.Repository.Services
         private readonly UserRepository userRepository;
 
         public TenantDataService(TenantRepository tenantRepository,
-            TenantUserRepository tenantUserRepository, 
+            TenantUserRepository tenantUserRepository,
             AddressRepository addressRepository,
             UserRepository userRepository)
         {
-            this.tenantRepository = tenantRepository;
-            this.addressRepository = addressRepository;
+            this.tenantRepository = tenantRepository ?? throw new ArgumentNullException(nameof(tenantRepository));
+            this.addressRepository = addressRepository ?? throw new ArgumentNullException(nameof(addressRepository));
             this.tenantUserRepository = tenantUserRepository;
-            this.userRepository = userRepository;
+            this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         /// <summary>
         /// store tenant infomation
         /// </summary>
         /// <param name="tenant">tenant object</param>
-        public async Task StoreTenantAsync(Tenant tenant)
+        public async Task StoreTenantAsync(Tenant tenant, CancellationToken cancellationToken = default)
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenant);
 
-            var addressId = await addressRepository.AddAsync(AddressMapping.CreateDtoAddress(tenant.Address));
-            await tenantRepository.AddAsync(TenantMapping.CreateDtoTenant(tenant, addressId));
+            var addressId = await addressRepository.AddAsync(tenant.Address.CreateDtoAddress());
+            await tenantRepository.AddAsync(tenant.CreateDtoTenant(addressId), cancellationToken);
         }
 
-        public async Task AddUserToTenantAsync(Tenant tenant, User user)
+        public async Task AddUserToTenantAsync(Tenant tenant, User user, CancellationToken cancellationToken = default)
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenant);
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(user);
@@ -52,15 +52,18 @@ namespace ToolShed.Repository.Services
             await tenantUserRepository.AddAsync(tenant.TenantId, user.UserId);
         }
 
-        public async Task<Tenant> GetTenantAsync(Guid tenantId)
+        public async Task<Tenant> GetTenantAsync(Guid tenantId, CancellationToken cancellationToken = default)
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantId);
 
-            var dtoTenant = await tenantRepository.GetAsync(tenantId);
-            var dtoAddress = await addressRepository.GetAsync(dtoTenant.AddressId);
+            var dtoTenant = await tenantRepository.GetAsync(tenantId, cancellationToken);
+            var dtoAddress = await addressRepository.GetAsync(dtoTenant.AddressId, cancellationToken);
 
-            if (dtoTenant == null || dtoAddress == null)
-                throw new NullReferenceException();
+            if (dtoAddress == null)
+                throw new SqlEntityNullReferenceException(nameof(dtoAddress), dtoAddress.AddressId.ToString());
+
+            if (dtoTenant == null)
+                throw new SqlEntityNullReferenceException(nameof(dtoAddress), dtoTenant.TenantId.ToString());
 
             var tenant = TenantMapping.ConvertDtoTenantToTenant(dtoTenant);
             tenant.Address = AddressMapping.ConvertDtoAddressToAddress(dtoAddress);
@@ -68,12 +71,12 @@ namespace ToolShed.Repository.Services
             return tenant;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersInTenantAsync(Guid tenantId)
+        public async Task<IEnumerable<User>> GetAllUsersInTenantAsync(Guid tenantId, CancellationToken cancellationToken = default)
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantId);
 
-            var userIds = await tenantUserRepository.ListAsync(tenantId);
-            var users = await userRepository.GetUsersAsync(userIds);
+            var userIds = await tenantUserRepository.ListAsync(tenantId, cancellationToken);
+            var users = await userRepository.GetUsersAsync(userIds, cancellationToken);
 
             return UserMapping.ConvertDtoUsers(users);
         }
@@ -82,26 +85,26 @@ namespace ToolShed.Repository.Services
         /// Get all tenants
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Tenant>> GetTenantsAsync()
+        public async Task<IEnumerable<Tenant>> GetTenantsAsync(CancellationToken cancellationToken = default)
         {
-            var dtoTenants = await tenantRepository.ListAsync();
+            var dtoTenants = await tenantRepository.ListAsync(cancellationToken);
 
             if (dtoTenants == null)
-                throw new NullReferenceException();
+                throw new SqlEntityNullReferenceException(nameof(dtoTenants), nameof(dtoTenants)); //add argument to this exception for lists
 
             var tenants = await MapAddressesToTenants(dtoTenants);
 
             return tenants;
         }
 
-        public async Task<IEnumerable<Tenant>> GetTenantsAsync(Guid userId)
+        public async Task<IEnumerable<Tenant>> GetTenantsAsync(Guid userId, CancellationToken cancellationToken = default)
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(userId);
 
-            var tenantIds = await tenantUserRepository.GetAllTenantIdsForUserAsync(userId);
-            var dtoTenants = await tenantRepository.ListAsync(tenantIds);
+            var tenantIds = await tenantUserRepository.GetAllTenantIdsForUserAsync(userId, cancellationToken);
+            var dtoTenants = await tenantRepository.ListAsync(tenantIds, cancellationToken);
 
-            return TenantMapping.ConvertDtoTenantsToTenants(dtoTenants);
+            return dtoTenants.ConvertDtoTenantsToTenants();
         }
 
         /// <summary>
@@ -109,7 +112,7 @@ namespace ToolShed.Repository.Services
         /// </summary>
         /// <param name="tenantIds"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Tenant>> GetTenantsAsync(IEnumerable<Guid> tenantIds)
+        public async Task<IEnumerable<Tenant>> GetTenantsAsync(IEnumerable<Guid> tenantIds, CancellationToken cancellationToken = default)
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenantIds);
 
@@ -117,25 +120,25 @@ namespace ToolShed.Repository.Services
             var tenants = await MapAddressesToTenants(dtoTenants);
 
             if (dtoTenants == null)
-                throw new NullReferenceException();
+                throw new SqlEntityNullReferenceException(nameof(dtoTenants), nameof(tenantIds));
 
             return tenants;
         }
 
-        public async Task<bool> IsUserInTenantAsync(Tenant tenant, User user)
+        public async Task<bool> IsUserInTenantAsync(Tenant tenant, User user, CancellationToken cancellationToken = default)
         {
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(tenant.TenantId);
             NullCheckHelpers.EnsureArgumentIsNotNullOrEmpty(user.UserId);
 
-            return await tenantUserRepository.IsUserInTenantAsync(tenant.TenantId, user.UserId);
+            return await tenantUserRepository.IsUserInTenantAsync(tenant.TenantId, user.UserId, cancellationToken);
         }
 
-        public async Task DeleteTenantAsync(Tenant tenant)
+        public async Task DeleteTenantAsync(Tenant tenant, CancellationToken cancellationToken = default)
         {
 
         }
 
-        public async Task DeleteTenantAsync(Guid tenantId)
+        public async Task DeleteTenantAsync(Guid tenantId, CancellationToken cancellationToken = default)
         {
 
         }
@@ -145,15 +148,15 @@ namespace ToolShed.Repository.Services
         /// </summary>
         /// <param name="dtoTenants"></param>
         /// <returns></returns>
-        private async Task<IEnumerable<Tenant>> MapAddressesToTenants(IEnumerable<Models.Repository.Tenant> dtoTenants)
+        private async Task<IEnumerable<Tenant>> MapAddressesToTenants(IEnumerable<Models.Repository.Tenant> dtoTenants, CancellationToken cancellationToken = default)
         {
             var tenants = new List<Tenant>();
 
             foreach (var dtoTenant in dtoTenants)
             {
-                var address = await addressRepository.GetAsync(dtoTenant.AddressId);
-                var tenant = TenantMapping.ConvertDtoTenantToTenant(dtoTenant);
-                tenant.Address = AddressMapping.ConvertDtoAddressToAddress(address);
+                var address = await addressRepository.GetAsync(dtoTenant.AddressId, cancellationToken);
+                var tenant = dtoTenant.ConvertDtoTenantToTenant();
+                tenant.Address = address.ConvertDtoAddressToAddress();
                 tenants.Add(tenant);
             }
 

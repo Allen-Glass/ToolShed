@@ -5,7 +5,7 @@ namespace ToolShed.Repository.Mapping
 {
     public static class ItemMapping
     {
-        public static Models.Repository.Item CreateDtoItem(Item item)
+        public static Models.Repository.Item CreateDtoItem(this Item item)
         {
             return new Models.Repository.Item
             {
@@ -20,7 +20,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<Models.Repository.Item> CreateDtoItems(IEnumerable<Item> items)
+        public static IEnumerable<Models.Repository.Item> CreateDtoItems(this IEnumerable<Item> items)
         {
             var itemList = new List<Models.Repository.Item>();
             foreach (var item in items)
@@ -30,7 +30,7 @@ namespace ToolShed.Repository.Mapping
             return itemList;
         }
 
-        public static Models.Repository.ItemBundle CreateDtoItemBundle(ItemBundle itemBundle)
+        public static Models.Repository.ItemBundle CreateDtoItemBundle(this ItemBundle itemBundle)
         {
             return new Models.Repository.ItemBundle
             {
@@ -39,7 +39,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.ItemRentalDetails CreateItemRentalDetails(ItemRentalDetails itemRentalDetails)
+        public static Models.Repository.ItemRentalDetails CreateItemRentalDetails(this ItemRentalDetails itemRentalDetails)
         {
             return new Models.Repository.ItemRentalDetails
             {
@@ -49,7 +49,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Item ConvertDtoItemToItem(Models.Repository.Item item)
+        public static Item ConvertDtoItemToItem(this Models.Repository.Item item)
         {
             return new Item
             {
@@ -65,7 +65,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<Item> ConvertDtoItemstoItems(IEnumerable<Models.Repository.Item> items)
+        public static IEnumerable<Item> ConvertDtoItemstoItems(this IEnumerable<Models.Repository.Item> items)
         {
             var itemList = new List<Item>();
             foreach (var item in items)
@@ -75,7 +75,7 @@ namespace ToolShed.Repository.Mapping
             return itemList;
         }
 
-        public static ItemBundle ConvertDtoItemBundleToItemBundle(Models.Repository.ItemBundle itemBundle)
+        public static ItemBundle ConvertDtoItemBundleToItemBundle(this Models.Repository.ItemBundle itemBundle)
         {
             return new ItemBundle
             {
@@ -85,7 +85,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static IEnumerable<ItemBundle> ConvertDtoItemBundlesToItemBundles(IEnumerable<Models.Repository.ItemBundle> itemBundles)
+        public static IEnumerable<ItemBundle> ConvertDtoItemBundlesToItemBundles(this IEnumerable<Models.Repository.ItemBundle> itemBundles)
         {
             var itemBundlesList = new List<ItemBundle>();
             foreach (var itemBundle in itemBundles)
@@ -96,7 +96,7 @@ namespace ToolShed.Repository.Mapping
             return itemBundlesList;
         }
 
-        public static ItemRentalDetails ConvertItemRentalDetails(Models.Repository.ItemRentalDetails itemRentalDetails, Models.Repository.Item item)
+        public static ItemRentalDetails ConvertItemRentalDetails(this Models.Repository.ItemRentalDetails itemRentalDetails, Models.Repository.Item item)
         {
             return new ItemRentalDetails
             {

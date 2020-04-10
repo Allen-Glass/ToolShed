@@ -18,17 +18,17 @@ namespace ToolShed.Repository.Repositories
             this.toolShedContext = toolShedContext;
         }
 
-        public async Task AddAsync(OrderDetail orderDetails)
+        public async Task AddAsync(OrderDetail orderDetails, CancellationToken cancellationToken = default)
         {
             if (orderDetails == null)
                 throw new ArgumentNullException();
 
             await toolShedContext.OrderDetailsSet
                 .AddAsync(orderDetails);
-            await toolShedContext.SaveChangesAsync();
+            await toolShedContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<OrderDetail> GetAsync(Guid orderDetailsId)
+        public async Task<OrderDetail> GetAsync(Guid orderDetailsId, CancellationToken cancellationToken = default)
         {
             if (orderDetailsId == Guid.Empty)
                 throw new ArgumentNullException();
@@ -42,7 +42,7 @@ namespace ToolShed.Repository.Repositories
             return orderDetail;
         }
 
-        public async Task<IEnumerable<OrderDetail>> ListAsync(IEnumerable<Guid> orderDetailIds)
+        public async Task<IEnumerable<OrderDetail>> ListAsync(IEnumerable<Guid> orderDetailIds, CancellationToken cancellationToken = default)
         {
             if (orderDetailIds == null)
                 throw new ArgumentNullException();
@@ -50,7 +50,7 @@ namespace ToolShed.Repository.Repositories
             var orderDetails = new List<OrderDetail>();
             foreach (var orderDetailId in orderDetailIds)
             {
-                orderDetails.Add(await GetAsync(orderDetailId));
+                orderDetails.Add(await GetAsync(orderDetailId, cancellationToken));
             }
 
             return orderDetails;

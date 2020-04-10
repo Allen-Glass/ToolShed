@@ -30,7 +30,7 @@ namespace ToolShed.Repository.Services
 
             await orderRepository.AddAsync(OrderMapping.CreateDtoOrder(userOrder.Order));
             await orderDetailsRepository.AddAsync(OrderMapping.CreateDtoOrderDetail(userOrder.OrderDetail));
-            orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
+            await orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
         }
 
         public async Task UpdateOrderStateAsync(UserOrder userOrder, CancellationToken cancellationToken = default)
@@ -39,7 +39,7 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException(nameof(userOrder));
 
             await orderRepository.UpdateAsync(OrderMapping.CreateDtoOrder(userOrder.Order), cancellationToken);
-            orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
+            await orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
         }
 
         public async Task UpdateOrderDetailsAsync(UserOrder userOrder, CancellationToken cancellationToken = default)
@@ -48,7 +48,7 @@ namespace ToolShed.Repository.Services
                 throw new ArgumentNullException(nameof(userOrder));
 
             await orderDetailsRepository.UpdateAsync(OrderMapping.CreateDtoOrderDetail(userOrder.OrderDetail), cancellationToken);
-            orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
+            await orderRecordRepository.AddAsync(OrderMapping.CreateDtoRecord(userOrder), cancellationToken);
         }
     }
 }

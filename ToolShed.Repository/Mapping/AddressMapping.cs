@@ -1,5 +1,4 @@
 ﻿using System;
-using Toolshed.Models.Enums;
 using ToolShed.Models.API;
 
 namespace ToolShed.Repository.Mapping
@@ -7,7 +6,7 @@ namespace ToolShed.Repository.Mapping
     public static class AddressMapping
     {
 
-        public static Models.Repository.UserAddresses CreateUserAddressDTO(Guid userId, Guid addressId)
+        public static Models.Repository.UserAddresses CreateUserAddressDTO(this Guid userId, Guid addressId)
         {
             return new Models.Repository.UserAddresses
             {
@@ -16,7 +15,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.CardAddress CreateCardAddressDTO(Guid cardId, Guid addressId)
+        public static Models.Repository.CardAddress CreateCardAddressDTO(this Guid cardId, Guid addressId)
         {
             return new Models.Repository.CardAddress
             {
@@ -25,7 +24,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Models.Repository.Address CreateDtoAddress(Address address)
+        public static Models.Repository.Address CreateDtoAddress(this Address address)
         {
             return new Models.Repository.Address
             {
@@ -40,7 +39,7 @@ namespace ToolShed.Repository.Mapping
             };
         }
 
-        public static Address ConvertDtoAddressToAddress(Models.Repository.Address address)
+        public static Address ConvertDtoAddressToAddress(this Models.Repository.Address address)
         {
             return new Address
             {

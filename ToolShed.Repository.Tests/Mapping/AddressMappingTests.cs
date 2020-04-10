@@ -25,7 +25,7 @@ namespace ToolShed.Repository.Tests.Mapping
         [Fact]
         public void CreateUserAddressDTO()
         {
-            var userAddress = AddressMapping.CreateUserAddressDTO(user.UserId, dtoAddress.AddressId);
+            var userAddress = user.UserId.CreateUserAddressDTO(dtoAddress.AddressId);
 
             Assert.IsType<UserAddresses>(userAddress);
             Assert.NotNull(userAddress);

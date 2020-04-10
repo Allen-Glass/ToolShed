@@ -5,10 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Queues" Version="12.3.0" />
     <PackageReference Include="Braintree" Version="4.16.0" />
+    <PackageReference Include="FirebaseAdmin" Version="1.10.0" />
     <PackageReference Include="Microsoft.Azure.Devices" Version="1.18.2" />
     <PackageReference Include="Microsoft.Azure.Management.IotHub" Version="2.1.1" />
     <PackageReference Include="Microsoft.Azure.Storage.Queue" Version="11.1.1" />
+    <PackageReference Include="PushSharp.Core" Version="1.0.2" />
     <PackageReference Include="Stripe.net" Version="34.9.0" />
   </ItemGroup>
 

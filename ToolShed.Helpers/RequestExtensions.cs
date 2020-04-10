@@ -13,7 +13,7 @@ namespace ToolShed.Helpers
         /// </summary>
         /// <param name="data">any model of most types</param>
         /// <returns>A nicely packaged string to send requests</returns>
-        public static StringContent PrepareHttpContent(object data)
+        public static StringContent PrepareHttpContent(this object data)
         {
             var json = JsonConvert.SerializeObject(data, SetupJsonFormat());
 
@@ -47,7 +47,7 @@ namespace ToolShed.Helpers
         /// <typeparam name="T">Generic type input</typeparam>
         /// <param name="jsonResponse">the json string being converted into an object</param>
         /// <returns>a generic object of you choice</returns>
-        public static T DeserializeObject<T>(string jsonResponse)
+        public static T DeserializeObject<T>(this string jsonResponse)
         {
             return JsonConvert.DeserializeObject<T>(jsonResponse, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
